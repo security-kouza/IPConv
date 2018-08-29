@@ -1,0 +1,75 @@
+[Dependencies]
+crshG -> $u_0
+crshG -> $v_0
+crshG -> $w1_0
+crshG -> $w2_0
+crshG -> $w3_0
+$dG_0 -> crshG
+$dG_0 -> $dG1_0
+$dG_0 -> $dG2_0
+$dG_0 -> $dV1_0
+$dG_0 -> $dV2_0
+$dG_0 -> $dV3_0
+$dG1_0 -> $u_0
+$dG2_0 -> $v_0
+$dV1_0 -> $w1_0
+$dV2_0 -> $w2_0
+$dV3_0 -> $w3_0
+% pattern 3.2.1 [TYPE_gc,[TYPE_g,[],[],[],lyjpg],[],[],lyjpg]
+% commit group lyjpg
+$u_0,$w1_0 -> $c1_0
+$v_0,$w2_0 -> $c2_0
+lyjpg,crshG,$w3_0 -> $c3_0
+% --------------
+($c1_0,$w1_0)
+($c1_0,$w2_0)
+($c1_0,$w3_0)
+($c1_0,crshG)
+($c2_0,$w1_0)
+($c2_0,$w2_0)
+($c2_0,$w3_0)
+($c2_0,crshG)
+($c3_0,$w1_0)
+($c3_0,$w2_0)
+($c3_0,$w3_0)
+($c3_0,crshG)
+($u_0,$w1_0)
+($u_0,$w2_0)
+($u_0,$w3_0)
+($u_0,crshG)
+($v_0,$w1_0)
+($v_0,$w2_0)
+($v_0,$w3_0)
+($v_0,crshG)
+(crshG,$w1_0)
+(crshG,$w2_0)
+(crshG,$w3_0)
+(crshG,crshG)
+($w1_0,$w1_0)
+($w1_0,$w2_0)
+($w1_0,$w3_0)
+($w2_0,$w2_0)
+($w2_0,$w3_0)
+($w3_0,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(tagTdel,LYGam_1),(tagT1,lyjpg)]
+tagTdel,tagT1 -> $phi1_0
+tagTdel,tagT1 -> $phi2_0
+tagTdel,tagT1 -> $phi3_0
+% commit group LYGam_1
+$u_0,$w1_0 -> $c1_1
+$v_0,$w2_0 -> $c2_1
+LYGam_1,crshG,$w3_0 -> $c3_1
+% --------------
+(tagTdel,$c1_1)
+(tagTdel,$c2_1)
+(tagTdel,$c3_1)
+(tagT1,$c1_0)
+(tagT1,$c2_0)
+(tagT1,$c3_0)
+($phi1_0,$u_0)
+($phi1_0,crshG)
+($phi2_0,$v_0)
+($phi2_0,crshG)
+($phi3_0,$w1_0)
+($phi3_0,$w2_0)
+($phi3_0,$w3_0)

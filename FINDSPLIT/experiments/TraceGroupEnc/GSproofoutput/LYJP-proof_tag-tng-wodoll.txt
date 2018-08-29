@@ -1,0 +1,103 @@
+[Dependencies]
+kilG -> DOLu_0
+kilG -> DOLv_0
+kilG -> DOLw1_0
+kilG -> DOLw2_0
+kilG -> DOLw3_0
+DOLdG_0 -> kilG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLdV1_0
+DOLdG_0 -> DOLdV2_0
+DOLdG_0 -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+kilG -> Upsi
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(tagT2,kilG),(Upsi,LYGam1)]
+tagT2,Upsi -> DOLtgphi1_0
+tagT2,Upsi -> DOLtgphi2_0
+tagT2,Upsi -> DOLtgphi3_0
+% commit group kilG
+DOLu_0,DOLw1_0 -> DOLtgc1_0
+DOLv_0,DOLw2_0 -> DOLtgc2_0
+kilG,kilG,DOLw3_0 -> DOLtgc3_0
+% --------------
+(tagT2,DOLtgc1_0)
+(tagT2,DOLtgc2_0)
+(tagT2,DOLtgc3_0)
+% commit group LYGam1
+DOLu_0,DOLw1_0 -> DOLtgc1_1
+DOLv_0,DOLw2_0 -> DOLtgc2_1
+LYGam1,kilG,DOLw3_0 -> DOLtgc3_1
+% --------------
+(Upsi,DOLtgc1_1)
+(Upsi,DOLtgc2_1)
+(Upsi,DOLtgc3_1)
+(DOLtgphi1_0,DOLu_0)
+(DOLtgphi1_0,kilG)
+(DOLtgphi2_0,DOLv_0)
+(DOLtgphi2_0,kilG)
+(DOLtgphi3_0,DOLw1_0)
+(DOLtgphi3_0,DOLw2_0)
+(DOLtgphi3_0,DOLw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(tagT3,Upsi),(tagT1,LYGam2)]
+tagT3,tagT1 -> DOLtgphi1_1
+tagT3,tagT1 -> DOLtgphi2_1
+tagT3,tagT1 -> DOLtgphi3_1
+% commit group Upsi
+DOLu_0,DOLw1_0 -> DOLtgc1_2
+DOLv_0,DOLw2_0 -> DOLtgc2_2
+Upsi,kilG,DOLw3_0 -> DOLtgc3_2
+% --------------
+(tagT3,DOLtgc1_2)
+(tagT3,DOLtgc2_2)
+(tagT3,DOLtgc3_2)
+% commit group LYGam2
+DOLu_0,DOLw1_0 -> DOLtgc1_3
+DOLv_0,DOLw2_0 -> DOLtgc2_3
+LYGam2,kilG,DOLw3_0 -> DOLtgc3_3
+% --------------
+(tagT1,DOLtgc1_3)
+(tagT1,DOLtgc2_3)
+(tagT1,DOLtgc3_3)
+(DOLtgphi1_1,DOLu_0)
+(DOLtgphi1_1,kilG)
+(DOLtgphi2_1,DOLv_0)
+(DOLtgphi2_1,kilG)
+(DOLtgphi3_1,DOLw1_0)
+(DOLtgphi3_1,DOLw2_0)
+(DOLtgphi3_1,DOLw3_0)
+% pattern 3.2.1 [TYPE_gc,[TYPE_g,[],[],[],kilG],[],[],kilG]
+(DOLtgc1_0,DOLw1_0)
+(DOLtgc1_0,DOLw2_0)
+(DOLtgc1_0,DOLw3_0)
+(DOLtgc1_0,kilG)
+(DOLtgc2_0,DOLw1_0)
+(DOLtgc2_0,DOLw2_0)
+(DOLtgc2_0,DOLw3_0)
+(DOLtgc2_0,kilG)
+(DOLtgc3_0,DOLw1_0)
+(DOLtgc3_0,DOLw2_0)
+(DOLtgc3_0,DOLw3_0)
+(DOLtgc3_0,kilG)
+(DOLu_0,DOLw1_0)
+(DOLu_0,DOLw2_0)
+(DOLu_0,DOLw3_0)
+(DOLu_0,kilG)
+(DOLv_0,DOLw1_0)
+(DOLv_0,DOLw2_0)
+(DOLv_0,DOLw3_0)
+(DOLv_0,kilG)
+(kilG,DOLw1_0)
+(kilG,DOLw2_0)
+(kilG,DOLw3_0)
+(kilG,kilG)
+(DOLw1_0,DOLw1_0)
+(DOLw1_0,DOLw2_0)
+(DOLw1_0,DOLw3_0)
+(DOLw2_0,DOLw2_0)
+(DOLw2_0,DOLw3_0)
+(DOLw3_0,DOLw3_0)

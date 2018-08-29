@@ -1,0 +1,8 @@
+target  e             (group arg1, group       arg2) ;
+crs     GS_setup      (group arg1                  ) ;
+proof   GS_proofwi    (crs   arg1, $identifier arg2) ;
+proof   GS_proofzk    (crs   arg1, $identifier arg2) ;
+integer set_dl_known  (group arg1, group       arg2) ;
+integer set_dl_unknown(group arg1, group       arg2) ;
+integer GS_verify     (proof arg1) ;
+inline "[Dependencies]" ;

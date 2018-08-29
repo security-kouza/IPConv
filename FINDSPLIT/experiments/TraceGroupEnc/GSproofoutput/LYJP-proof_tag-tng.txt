@@ -1,0 +1,103 @@
+[Dependencies]
+kilG -> $u_0
+kilG -> $v_0
+kilG -> $w1_0
+kilG -> $w2_0
+kilG -> $w3_0
+$dG_0 -> kilG
+$dG_0 -> $dG1_0
+$dG_0 -> $dG2_0
+$dG_0 -> $dV1_0
+$dG_0 -> $dV2_0
+$dG_0 -> $dV3_0
+$dG1_0 -> $u_0
+$dG2_0 -> $v_0
+$dV1_0 -> $w1_0
+$dV2_0 -> $w2_0
+$dV3_0 -> $w3_0
+kilG -> Upsi
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(tagT2,kilG),(Upsi,LYGam1)]
+tagT2,Upsi -> $phi1_0
+tagT2,Upsi -> $phi2_0
+tagT2,Upsi -> $phi3_0
+% commit group kilG
+$u_0,$w1_0 -> $c1_0
+$v_0,$w2_0 -> $c2_0
+kilG,kilG,$w3_0 -> $c3_0
+% --------------
+(tagT2,$c1_0)
+(tagT2,$c2_0)
+(tagT2,$c3_0)
+% commit group LYGam1
+$u_0,$w1_0 -> $c1_1
+$v_0,$w2_0 -> $c2_1
+LYGam1,kilG,$w3_0 -> $c3_1
+% --------------
+(Upsi,$c1_1)
+(Upsi,$c2_1)
+(Upsi,$c3_1)
+($phi1_0,$u_0)
+($phi1_0,kilG)
+($phi2_0,$v_0)
+($phi2_0,kilG)
+($phi3_0,$w1_0)
+($phi3_0,$w2_0)
+($phi3_0,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(tagT3,Upsi),(tagT1,LYGam2)]
+tagT3,tagT1 -> $phi1_1
+tagT3,tagT1 -> $phi2_1
+tagT3,tagT1 -> $phi3_1
+% commit group Upsi
+$u_0,$w1_0 -> $c1_2
+$v_0,$w2_0 -> $c2_2
+Upsi,kilG,$w3_0 -> $c3_2
+% --------------
+(tagT3,$c1_2)
+(tagT3,$c2_2)
+(tagT3,$c3_2)
+% commit group LYGam2
+$u_0,$w1_0 -> $c1_3
+$v_0,$w2_0 -> $c2_3
+LYGam2,kilG,$w3_0 -> $c3_3
+% --------------
+(tagT1,$c1_3)
+(tagT1,$c2_3)
+(tagT1,$c3_3)
+($phi1_1,$u_0)
+($phi1_1,kilG)
+($phi2_1,$v_0)
+($phi2_1,kilG)
+($phi3_1,$w1_0)
+($phi3_1,$w2_0)
+($phi3_1,$w3_0)
+% pattern 3.2.1 [TYPE_gc,[TYPE_g,[],[],[],kilG],[],[],kilG]
+($c1_0,$w1_0)
+($c1_0,$w2_0)
+($c1_0,$w3_0)
+($c1_0,kilG)
+($c2_0,$w1_0)
+($c2_0,$w2_0)
+($c2_0,$w3_0)
+($c2_0,kilG)
+($c3_0,$w1_0)
+($c3_0,$w2_0)
+($c3_0,$w3_0)
+($c3_0,kilG)
+($u_0,$w1_0)
+($u_0,$w2_0)
+($u_0,$w3_0)
+($u_0,kilG)
+($v_0,$w1_0)
+($v_0,$w2_0)
+($v_0,$w3_0)
+($v_0,kilG)
+(kilG,$w1_0)
+(kilG,$w2_0)
+(kilG,$w3_0)
+(kilG,kilG)
+($w1_0,$w1_0)
+($w1_0,$w2_0)
+($w1_0,$w3_0)
+($w2_0,$w2_0)
+($w2_0,$w3_0)
+($w3_0,$w3_0)

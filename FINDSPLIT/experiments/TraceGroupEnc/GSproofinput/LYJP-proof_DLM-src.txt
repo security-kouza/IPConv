@@ -1,0 +1,27 @@
+// GS-WIproof for proving correct AHO signature with randomization
+
+// -------------------------------------------------------------------
+target  e(group pairing_g1, group pairing_g2) ;
+crs     GS_setup(group GS_setup_g) ;
+integer GS_proofwi(crs GS_proofwi_crs, integer GS_proofwi_predicate) ;
+inline "[Dependencies]" ;
+// -------------------------------------------------------------------
+
+setup() {
+
+  group   kilG,lyjpM,lyjpg,lyjpA,lyjpB;
+  integer lytau;       
+  crs crs1 = GS_setup(kilG) ;
+
+
+// cheking message relation
+
+
+// proving possession of a correct signature
+  GS_proofwi( crs1,
+    e([lyjpM], lyjpg)== e([lyjpA], lyjpB) &&
+    [lyjpA]^lytau==lyjpA^[lytau] &&
+    1 * [lytau]==1
+  ) ;
+
+}

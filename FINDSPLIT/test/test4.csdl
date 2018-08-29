@@ -1,0 +1,14 @@
+{
+  group g, X, Y ;
+  list pair = GS_setupB(g) ;
+  list dummy ;
+  list T ;
+
+  pair.crs.[X] ;
+  dummy.[X] ;
+  T = dummy ;
+  T = pair.crs.[X] ;
+  T = dummy.[X] ;
+  pair.crs.[Y] ;
+  dummy.[Y] ;
+}

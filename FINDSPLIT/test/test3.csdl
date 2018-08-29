@@ -1,0 +1,29 @@
+
+Proof(list crs){
+  integer a, b, c, d, f;
+  integer x, y, z, w ;
+  group   A, B, C, D, F;
+  group   X, Y, Z, W ;
+  target  T ;
+
+  return GS_proofzk(crs, e([X],A)^c * e([Y],B)^(d+3) * e([Z],C)^(4*a+f) == e(A,B)^(12*d*c) ) ;
+}
+
+
+Verify(list crs, list proof){
+  integer a, b, c, d, f;
+  integer x, y, z, w ;
+  group   A, B, C, D, F;
+  group   X, Y, Z, W ;
+  target  T ;
+
+  return GS_verifyzk(crs, e([X],A)^c * e([Y],B)^(d+3) * e([Z],C)^(4*a+f) == e(A,B)^(12*d*c), proof ) ;
+}
+
+{
+  group g ;
+  list pair = GS_setupB(g) ;
+  list proof = Proof(pair.crs) ;
+  Verify(pair.crs, proof) ;
+  statistics(proof) ;
+}

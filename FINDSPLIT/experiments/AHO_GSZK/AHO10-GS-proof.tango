@@ -1,0 +1,358 @@
+[Dependencies]
+ahoG -> $u_0
+ahoG -> $v_0
+ahoG -> $w1_0
+ahoG -> $w2_0
+ahoG -> $w3_0
+$dG_0 -> ahoG
+$dG_0 -> $dG1_0
+$dG_0 -> $dG2_0
+$dG_0 -> $dV1_0
+$dG_0 -> $dV2_0
+$dG_0 -> $dV3_0
+$dG1_0 -> $u_0
+$dG2_0 -> $v_0
+$dV1_0 -> $w1_0
+$dV2_0 -> $w2_0
+$dV3_0 -> $w3_0
+ahoS -> ahoSdash
+ahoG -> ahoSdash
+ahoT -> ahoTdash
+ahoV -> ahoVdash
+ahoG -> ahoVdash
+ahoW -> ahoWdash
+(ahoA0,ahoA0t)
+(ahoA1,ahoA1t)
+(ahoG1,ahoM1)
+(ahoG2,ahoM2)
+(ahoG3,ahoM3)
+(ahoG4,ahoM4)
+(ahoB0,ahoB0t)
+(ahoB1,ahoB1t)
+(ahoH1,ahoM1)
+(ahoH2,ahoM2)
+(ahoH3,ahoM3)
+(ahoH4,ahoM4)
+% pattern 4.1.3 [TYPE_eggc,[TYPE_t,[],[],[],(ahoH1,ahoM1),(ahoH2,ahoM2),(ahoH3,ahoM3),(ahoH4,ahoM4),(ahoB0,ahoB0t),(ahoB1,ahoB1t)],[],[],(ahoHz,ahoZ),(ahoHu,ahoU),(ahoVdash,ahoWdash)]
+% pattern 3.3.1 [TYPE_ic,[],[],[],$z_0]
+% commit integer $z_0
+$u_0,$w1_0 -> $d1_0
+$v_0,$w2_0 -> $d2_0
+ahoG,$w3_0 -> $d3_0
+$d1_0,$d2_0,$d3_0 -> $z_1
+% --------------
+($d1_0,$w1_0)
+($d1_0,$w2_0)
+($d1_0,$w3_0)
+($d1_0,ahoG)
+($d2_0,$w1_0)
+($d2_0,$w2_0)
+($d2_0,$w3_0)
+($d2_0,ahoG)
+($d3_0,$w1_0)
+($d3_0,$w2_0)
+($d3_0,$w3_0)
+($d3_0,ahoG)
+($u_0,$w1_0)
+($u_0,$w2_0)
+($u_0,$w3_0)
+($u_0,ahoG)
+($v_0,$w1_0)
+($v_0,$w2_0)
+($v_0,$w3_0)
+($v_0,ahoG)
+(ahoG,$w1_0)
+(ahoG,$w2_0)
+(ahoG,$w3_0)
+(ahoG,ahoG)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoM1),(ahoM1,$z_0)]
+ahoG,ahoM1 -> $phi1_0
+ahoG,ahoM1 -> $phi2_0
+ahoG,ahoM1 -> $phi3_0
+% commit group ahoM1
+$u_0,$w1_0 -> $c1_0
+$v_0,$w2_0 -> $c2_0
+ahoM1,ahoG,$w3_0 -> $c3_0
+$c1_0,$c2_0,$c3_0 -> ahoM1
+% --------------
+(ahoG,$c1_0)
+(ahoG,$c2_0)
+(ahoG,$c3_0)
+(ahoM1,$d1_0)
+(ahoM1,$d2_0)
+(ahoM1,$d3_0)
+($phi1_0,$u_0)
+($phi1_0,ahoG)
+($phi2_0,$v_0)
+($phi2_0,ahoG)
+($phi3_0,$w1_0)
+($phi3_0,$w2_0)
+($phi3_0,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoM2),(ahoM2,$z_0)]
+ahoG,ahoM2 -> $phi1_1
+ahoG,ahoM2 -> $phi2_1
+ahoG,ahoM2 -> $phi3_1
+% commit group ahoM2
+$u_0,$w1_0 -> $c1_1
+$v_0,$w2_0 -> $c2_1
+ahoM2,ahoG,$w3_0 -> $c3_1
+$c1_1,$c2_1,$c3_1 -> ahoM2
+% --------------
+(ahoG,$c1_1)
+(ahoG,$c2_1)
+(ahoG,$c3_1)
+(ahoM2,$d1_0)
+(ahoM2,$d2_0)
+(ahoM2,$d3_0)
+($phi1_1,$u_0)
+($phi1_1,ahoG)
+($phi2_1,$v_0)
+($phi2_1,ahoG)
+($phi3_1,$w1_0)
+($phi3_1,$w2_0)
+($phi3_1,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoM3),(ahoM3,$z_0)]
+ahoG,ahoM3 -> $phi1_2
+ahoG,ahoM3 -> $phi2_2
+ahoG,ahoM3 -> $phi3_2
+% commit group ahoM3
+$u_0,$w1_0 -> $c1_2
+$v_0,$w2_0 -> $c2_2
+ahoM3,ahoG,$w3_0 -> $c3_2
+$c1_2,$c2_2,$c3_2 -> ahoM3
+% --------------
+(ahoG,$c1_2)
+(ahoG,$c2_2)
+(ahoG,$c3_2)
+(ahoM3,$d1_0)
+(ahoM3,$d2_0)
+(ahoM3,$d3_0)
+($phi1_2,$u_0)
+($phi1_2,ahoG)
+($phi2_2,$v_0)
+($phi2_2,ahoG)
+($phi3_2,$w1_0)
+($phi3_2,$w2_0)
+($phi3_2,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoM4),(ahoM4,$z_0)]
+ahoG,ahoM4 -> $phi1_3
+ahoG,ahoM4 -> $phi2_3
+ahoG,ahoM4 -> $phi3_3
+% commit group ahoM4
+$u_0,$w1_0 -> $c1_3
+$v_0,$w2_0 -> $c2_3
+ahoM4,ahoG,$w3_0 -> $c3_3
+$c1_3,$c2_3,$c3_3 -> ahoM4
+% --------------
+(ahoG,$c1_3)
+(ahoG,$c2_3)
+(ahoG,$c3_3)
+(ahoM4,$d1_0)
+(ahoM4,$d2_0)
+(ahoM4,$d3_0)
+($phi1_3,$u_0)
+($phi1_3,ahoG)
+($phi2_3,$v_0)
+($phi2_3,ahoG)
+($phi3_3,$w1_0)
+($phi3_3,$w2_0)
+($phi3_3,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoB0t),(ahoB0t,$z_0)]
+ahoG,ahoB0t -> $phi1_4
+ahoG,ahoB0t -> $phi2_4
+ahoG,ahoB0t -> $phi3_4
+% commit group ahoB0t
+$u_0,$w1_0 -> $c1_4
+$v_0,$w2_0 -> $c2_4
+ahoB0t,ahoG,$w3_0 -> $c3_4
+$c1_4,$c2_4,$c3_4 -> ahoB0t
+% --------------
+(ahoG,$c1_4)
+(ahoG,$c2_4)
+(ahoG,$c3_4)
+(ahoB0t,$d1_0)
+(ahoB0t,$d2_0)
+(ahoB0t,$d3_0)
+($phi1_4,$u_0)
+($phi1_4,ahoG)
+($phi2_4,$v_0)
+($phi2_4,ahoG)
+($phi3_4,$w1_0)
+($phi3_4,$w2_0)
+($phi3_4,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoB1t),(ahoB1t,$z_0)]
+ahoG,ahoB1t -> $phi1_5
+ahoG,ahoB1t -> $phi2_5
+ahoG,ahoB1t -> $phi3_5
+% commit group ahoB1t
+$u_0,$w1_0 -> $c1_5
+$v_0,$w2_0 -> $c2_5
+ahoB1t,ahoG,$w3_0 -> $c3_5
+$c1_5,$c2_5,$c3_5 -> ahoB1t
+% --------------
+(ahoG,$c1_5)
+(ahoG,$c2_5)
+(ahoG,$c3_5)
+(ahoB1t,$d1_0)
+(ahoB1t,$d2_0)
+(ahoB1t,$d3_0)
+($phi1_5,$u_0)
+($phi1_5,ahoG)
+($phi2_5,$v_0)
+($phi2_5,ahoG)
+($phi3_5,$w1_0)
+($phi3_5,$w2_0)
+($phi3_5,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoHz,ahoZ),(ahoHu,ahoU),(ahoVdash,ahoWdash),(ahoH1,ahoM1),(ahoH2,ahoM2),(ahoH3,ahoM3),(ahoH4,ahoM4),(ahoB0,ahoB0t),(ahoB1,ahoB1t)]
+ahoHz,ahoHu,ahoVdash,ahoH1,ahoH2,ahoH3,ahoH4,ahoB0,ahoB1 -> $phi1_6
+ahoHz,ahoHu,ahoVdash,ahoH1,ahoH2,ahoH3,ahoH4,ahoB0,ahoB1 -> $phi2_6
+ahoHz,ahoHu,ahoVdash,ahoH1,ahoH2,ahoH3,ahoH4,ahoB0,ahoB1 -> $phi3_6
+% commit group ahoZ
+$u_0,$w1_0 -> $c1_6
+$v_0,$w2_0 -> $c2_6
+ahoZ,ahoG,$w3_0 -> $c3_6
+$c1_6,$c2_6,$c3_6 -> ahoZ
+% --------------
+(ahoHz,$c1_6)
+(ahoHz,$c2_6)
+(ahoHz,$c3_6)
+% commit group ahoU
+$u_0,$w1_0 -> $c1_7
+$v_0,$w2_0 -> $c2_7
+ahoU,ahoG,$w3_0 -> $c3_7
+$c1_7,$c2_7,$c3_7 -> ahoU
+% --------------
+(ahoHu,$c1_7)
+(ahoHu,$c2_7)
+(ahoHu,$c3_7)
+% commit group ahoWdash
+$u_0,$w1_0 -> $c1_8
+$v_0,$w2_0 -> $c2_8
+ahoWdash,ahoG,$w3_0 -> $c3_8
+$c1_8,$c2_8,$c3_8 -> ahoWdash
+% --------------
+(ahoVdash,$c1_8)
+(ahoVdash,$c2_8)
+(ahoVdash,$c3_8)
+(ahoH1,$c1_0)
+(ahoH1,$c2_0)
+(ahoH1,$c3_0)
+(ahoH2,$c1_1)
+(ahoH2,$c2_1)
+(ahoH2,$c3_1)
+(ahoH3,$c1_2)
+(ahoH3,$c2_2)
+(ahoH3,$c3_2)
+(ahoH4,$c1_3)
+(ahoH4,$c2_3)
+(ahoH4,$c3_3)
+(ahoB0,$c1_4)
+(ahoB0,$c2_4)
+(ahoB0,$c3_4)
+(ahoB1,$c1_5)
+(ahoB1,$c2_5)
+(ahoB1,$c3_5)
+($phi1_6,$u_0)
+($phi1_6,ahoG)
+($phi2_6,$v_0)
+($phi2_6,ahoG)
+($phi3_6,$w1_0)
+($phi3_6,$w2_0)
+($phi3_6,$w3_0)
+% pattern 4.1.3 [TYPE_eggc,[TYPE_t,[],[],[],(ahoG1,ahoM1),(ahoG2,ahoM2),(ahoG3,ahoM3),(ahoG4,ahoM4),(ahoA0,ahoA0t),(ahoA1,ahoA1t)],[],[],(ahoGz,ahoZ),(ahoGr,ahoR),(ahoSdash,ahoTdash)]
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoA0t),(ahoA0t,$z_0)]
+ahoG,ahoA0t -> $phi1_7
+ahoG,ahoA0t -> $phi2_7
+ahoG,ahoA0t -> $phi3_7
+% commit group ahoA0t
+$u_0,$w1_0 -> $c1_9
+$v_0,$w2_0 -> $c2_9
+ahoA0t,ahoG,$w3_0 -> $c3_9
+$c1_9,$c2_9,$c3_9 -> ahoA0t
+% --------------
+(ahoG,$c1_9)
+(ahoG,$c2_9)
+(ahoG,$c3_9)
+(ahoA0t,$d1_0)
+(ahoA0t,$d2_0)
+(ahoA0t,$d3_0)
+($phi1_7,$u_0)
+($phi1_7,ahoG)
+($phi2_7,$v_0)
+($phi2_7,ahoG)
+($phi3_7,$w1_0)
+($phi3_7,$w2_0)
+($phi3_7,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoA1t),(ahoA1t,$z_0)]
+ahoG,ahoA1t -> $phi1_8
+ahoG,ahoA1t -> $phi2_8
+ahoG,ahoA1t -> $phi3_8
+% commit group ahoA1t
+$u_0,$w1_0 -> $c1_10
+$v_0,$w2_0 -> $c2_10
+ahoA1t,ahoG,$w3_0 -> $c3_10
+$c1_10,$c2_10,$c3_10 -> ahoA1t
+% --------------
+(ahoG,$c1_10)
+(ahoG,$c2_10)
+(ahoG,$c3_10)
+(ahoA1t,$d1_0)
+(ahoA1t,$d2_0)
+(ahoA1t,$d3_0)
+($phi1_8,$u_0)
+($phi1_8,ahoG)
+($phi2_8,$v_0)
+($phi2_8,ahoG)
+($phi3_8,$w1_0)
+($phi3_8,$w2_0)
+($phi3_8,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoGz,ahoZ),(ahoGr,ahoR),(ahoSdash,ahoTdash),(ahoG1,ahoM1),(ahoG2,ahoM2),(ahoG3,ahoM3),(ahoG4,ahoM4),(ahoA0,ahoA0t),(ahoA1,ahoA1t)]
+ahoGz,ahoGr,ahoSdash,ahoG1,ahoG2,ahoG3,ahoG4,ahoA0,ahoA1 -> $phi1_9
+ahoGz,ahoGr,ahoSdash,ahoG1,ahoG2,ahoG3,ahoG4,ahoA0,ahoA1 -> $phi2_9
+ahoGz,ahoGr,ahoSdash,ahoG1,ahoG2,ahoG3,ahoG4,ahoA0,ahoA1 -> $phi3_9
+(ahoGz,$c1_6)
+(ahoGz,$c2_6)
+(ahoGz,$c3_6)
+% commit group ahoR
+$u_0,$w1_0 -> $c1_11
+$v_0,$w2_0 -> $c2_11
+ahoR,ahoG,$w3_0 -> $c3_11
+$c1_11,$c2_11,$c3_11 -> ahoR
+% --------------
+(ahoGr,$c1_11)
+(ahoGr,$c2_11)
+(ahoGr,$c3_11)
+% commit group ahoTdash
+$u_0,$w1_0 -> $c1_12
+$v_0,$w2_0 -> $c2_12
+ahoTdash,ahoG,$w3_0 -> $c3_12
+$c1_12,$c2_12,$c3_12 -> ahoTdash
+% --------------
+(ahoSdash,$c1_12)
+(ahoSdash,$c2_12)
+(ahoSdash,$c3_12)
+(ahoG1,$c1_0)
+(ahoG1,$c2_0)
+(ahoG1,$c3_0)
+(ahoG2,$c1_1)
+(ahoG2,$c2_1)
+(ahoG2,$c3_1)
+(ahoG3,$c1_2)
+(ahoG3,$c2_2)
+(ahoG3,$c3_2)
+(ahoG4,$c1_3)
+(ahoG4,$c2_3)
+(ahoG4,$c3_3)
+(ahoA0,$c1_9)
+(ahoA0,$c2_9)
+(ahoA0,$c3_9)
+(ahoA1,$c1_10)
+(ahoA1,$c2_10)
+(ahoA1,$c3_10)
+($phi1_9,$u_0)
+($phi1_9,ahoG)
+($phi2_9,$v_0)
+($phi2_9,ahoG)
+($phi3_9,$w1_0)
+($phi3_9,$w2_0)
+($phi3_9,$w3_0)

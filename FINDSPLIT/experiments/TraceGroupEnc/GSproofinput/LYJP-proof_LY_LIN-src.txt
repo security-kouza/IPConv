@@ -1,0 +1,31 @@
+// GS-NIZK proof for proving correct LY encryption
+
+// -------------------------------------------------------------------
+target  e(group pairing_g1, group pairing_g2) ;
+crs     GS_setup(group GS_setup_g) ;
+integer GS_proofwi(crs GS_proofwi_crs, integer GS_proofwi_predicate) ;
+inline "[Dependencies]" ;
+// -------------------------------------------------------------------
+
+setup() {
+
+  group  lyjpgv,lyjpg1v,lyjpg2v,LYC1,LYC2,LYC3;
+  group  lyjpg,lyjpg1,lyjpg2;
+  integer theta1,theta2,LYtau;
+  crs crs1 = GS_setup(lyjpgv) ;
+
+
+// encryption 
+   LYC1 = lyjpg1^theta1;
+   LYC2 = lyjpg2^theta2;
+   LYC3 = lyjpg^theta1 *lyjpg^theta2 ;
+
+// proving possession of a correct signature
+  GS_proofwi( crs1,
+    LYC1^[LYtau]==lyjpg1^[theta1] &&
+    LYC2^[LYtau]==lyjpg2^[theta2] &&
+    LYC3^[LYtau]==lyjpg^[theta1] * lyjpg^[theta2] &&
+    lyjpg^[LYtau]==lyjpg
+  ) ;
+
+}

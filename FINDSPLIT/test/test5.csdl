@@ -1,0 +1,36 @@
+{
+  integer alpha, beta, gamma, delta ;
+  group   f,g,h,X,Y,A,B ;
+
+  list crs, exk ;
+  (crs,exk) = GS_setupB(g) ;
+
+  list proof = GS_proofzk (crs, 
+    alpha * [beta]                   == 1         &&
+    alpha * [beta] + [gamma] * delta == 1         &&
+    [alpha] * [beta]                 == 1         &&
+    [g]^alpha * [h]^beta             == 1         &&
+    g^[alpha] * h^[beta]             == f^[gamma] &&
+    [g]^[alpha] * h^[beta]           == [f]^gamma &&
+    e(A,[X]) * e(B,[Y])              == 1         &&
+    e(A,[X]) * e([B],[Y]) == 1
+  ) ;
+  list T     = GS_verifyzk(crs,
+    alpha * [beta]                   == 1         &&
+    alpha * [beta] + [gamma] * delta == 1         &&
+    [alpha] * [beta]                 == 1         &&
+    [g]^alpha * [h]^beta             == 1         &&
+    g^[alpha] * h^[beta]             == f^[gamma] &&
+    [g]^[alpha] * h^[beta]           == [f]^gamma &&
+    e(A,[X]) * e(B,[Y])              == 1         &&
+    e(A,[X]) * e([B],[Y]) == 1
+  , proof) ;
+  statistics(proof) ;
+  setpriority(1, COM(proof)) ;
+  setpriority(2, PI(proof)) ;
+  statistics((alpha,beta,gamma)) ;
+  exclude((X,Y),(f,h)) ;
+
+  integer i = 2 ;
+  statistics((alpha,beta,gamma).beta) ;
+}

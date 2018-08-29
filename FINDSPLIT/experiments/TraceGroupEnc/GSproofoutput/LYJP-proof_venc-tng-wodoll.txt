@@ -1,0 +1,202 @@
+[Dependencies]
+kilG -> DOLu_0
+kilG -> DOLv_0
+kilG -> DOLw1_0
+kilG -> DOLw2_0
+kilG -> DOLw3_0
+DOLdG_0 -> kilG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLdV1_0
+DOLdG_0 -> DOLdV2_0
+DOLdG_0 -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+vencGam0,kilG -> vencPhi0
+kilY1 -> vencPhi1
+kilY2 -> vencPhi2
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(vencPhi1,kilG),(kilY1,vencW1)]
+vencPhi1,kilY1 -> DOLvencphi1_0
+vencPhi1,kilY1 -> DOLvencphi2_0
+vencPhi1,kilY1 -> DOLvencphi3_0
+% commit group kilG
+DOLu_0,DOLw1_0 -> DOLvencc1_0
+DOLv_0,DOLw2_0 -> DOLvencc2_0
+kilG,kilG,DOLw3_0 -> DOLvencc3_0
+% --------------
+(vencPhi1,DOLvencc1_0)
+(vencPhi1,DOLvencc2_0)
+(vencPhi1,DOLvencc3_0)
+% commit group vencW1
+DOLu_0,DOLw1_0 -> DOLvencc1_1
+DOLv_0,DOLw2_0 -> DOLvencc2_1
+vencW1,kilG,DOLw3_0 -> DOLvencc3_1
+% --------------
+(kilY1,DOLvencc1_1)
+(kilY1,DOLvencc2_1)
+(kilY1,DOLvencc3_1)
+(DOLvencphi1_0,DOLu_0)
+(DOLvencphi1_0,kilG)
+(DOLvencphi2_0,DOLv_0)
+(DOLvencphi2_0,kilG)
+(DOLvencphi3_0,DOLw1_0)
+(DOLvencphi3_0,DOLw2_0)
+(DOLvencphi3_0,DOLw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(vencPhi0,kilG),(LYGam2,LYGam1),(kilG,vencW1),(kilG,vencW2)]
+vencPhi0,LYGam2,kilG,kilG -> DOLvencphi1_1
+vencPhi0,LYGam2,kilG,kilG -> DOLvencphi2_1
+vencPhi0,LYGam2,kilG,kilG -> DOLvencphi3_1
+(vencPhi0,DOLvencc1_0)
+(vencPhi0,DOLvencc2_0)
+(vencPhi0,DOLvencc3_0)
+% commit group LYGam1
+DOLu_0,DOLw1_0 -> DOLvencc1_2
+DOLv_0,DOLw2_0 -> DOLvencc2_2
+LYGam1,kilG,DOLw3_0 -> DOLvencc3_2
+% --------------
+(LYGam2,DOLvencc1_2)
+(LYGam2,DOLvencc2_2)
+(LYGam2,DOLvencc3_2)
+(kilG,DOLvencc1_1)
+(kilG,DOLvencc2_1)
+(kilG,DOLvencc3_1)
+% commit group vencW2
+DOLu_0,DOLw1_0 -> DOLvencc1_3
+DOLv_0,DOLw2_0 -> DOLvencc2_3
+vencW2,kilG,DOLw3_0 -> DOLvencc3_3
+% --------------
+(kilG,DOLvencc1_3)
+(kilG,DOLvencc2_3)
+(kilG,DOLvencc3_3)
+(DOLvencphi1_1,DOLu_0)
+(DOLvencphi1_1,kilG)
+(DOLvencphi2_1,DOLv_0)
+(DOLvencphi2_1,kilG)
+(DOLvencphi3_1,DOLw1_0)
+(DOLvencphi3_1,DOLw2_0)
+(DOLvencphi3_1,DOLw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(vencPhi2,kilG),(kilY1,vencW2)]
+vencPhi2,kilY1 -> DOLvencphi1_2
+vencPhi2,kilY1 -> DOLvencphi2_2
+vencPhi2,kilY1 -> DOLvencphi3_2
+(vencPhi2,DOLvencc1_0)
+(vencPhi2,DOLvencc2_0)
+(vencPhi2,DOLvencc3_0)
+(kilY1,DOLvencc1_3)
+(kilY1,DOLvencc2_3)
+(kilY1,DOLvencc3_3)
+(DOLvencphi1_2,DOLu_0)
+(DOLvencphi1_2,kilG)
+(DOLvencphi2_2,DOLv_0)
+(DOLvencphi2_2,kilG)
+(DOLvencphi3_2,DOLw1_0)
+(DOLvencphi3_2,DOLw2_0)
+(DOLvencphi3_2,DOLw3_0)
+% pattern 3.2.3 [TYPE_gcic,[TYPE_gc,[],[],[],LYGam1],[TYPE_gic,[],[],[],(LYGam1,venctau)],[]]
+DOLu_0,DOLw1_0 -> DOLvencphi11_0
+DOLu_0,DOLw1_0 -> DOLvencphi21_0
+DOLu_0,DOLw1_0 -> DOLvencphi31_0
+DOLv_0,DOLw2_0 -> DOLvencphi12_0
+DOLv_0,DOLw2_0 -> DOLvencphi22_0
+DOLv_0,DOLw2_0 -> DOLvencphi32_0
+kilG,DOLw3_0,LYGam1 -> DOLvencphi13_0
+kilG,DOLw3_0,LYGam1 -> DOLvencphi23_0
+kilG,DOLw3_0,LYGam1 -> DOLvencphi33_0
+(DOLu_0,DOLvencphi11_0)
+(DOLu_0,DOLvencphi12_0)
+(DOLu_0,DOLvencphi13_0)
+(kilG,DOLvencphi11_0)
+(kilG,DOLvencphi12_0)
+(kilG,DOLvencphi13_0)
+(DOLv_0,DOLvencphi21_0)
+(DOLv_0,DOLvencphi22_0)
+(DOLv_0,DOLvencphi23_0)
+(kilG,DOLvencphi21_0)
+(kilG,DOLvencphi22_0)
+(kilG,DOLvencphi23_0)
+(DOLw1_0,DOLvencphi31_0)
+(DOLw2_0,DOLvencphi31_0)
+(DOLw3_0,DOLvencphi31_0)
+(DOLw1_0,DOLvencphi32_0)
+(DOLw2_0,DOLvencphi32_0)
+(DOLw3_0,DOLvencphi32_0)
+(DOLw1_0,DOLvencphi33_0)
+(DOLw2_0,DOLvencphi33_0)
+(DOLw3_0,DOLvencphi33_0)
+% commit integer venctau
+DOLu_0,DOLw1_0 -> DOLvencd1_0
+DOLv_0,DOLw2_0 -> DOLvencd2_0
+kilG,DOLw3_0 -> DOLvencd3_0
+% --------------
+(DOLw1_0,DOLvencd1_0)
+(DOLw1_0,DOLvencd2_0)
+(DOLw1_0,DOLvencd3_0)
+(DOLw2_0,DOLvencd1_0)
+(DOLw2_0,DOLvencd2_0)
+(DOLw2_0,DOLvencd3_0)
+(DOLw3_0,DOLvencd1_0)
+(DOLw3_0,DOLvencd2_0)
+(DOLw3_0,DOLvencd3_0)
+(kilG,DOLvencd1_0)
+(DOLvencd1_0,LYGam1)
+(DOLvencd2_0,LYGam1)
+(DOLvencd3_0,LYGam1)
+% pattern 3.3.1 [TYPE_ic,[TYPE_i,[],[],[]],[],[],venctau]
+(DOLvencd1_0,DOLw1_0)
+(DOLvencd1_0,DOLw2_0)
+(DOLvencd1_0,DOLw3_0)
+(DOLvencd1_0,kilG)
+(DOLvencd2_0,DOLw1_0)
+(DOLvencd2_0,DOLw2_0)
+(DOLvencd2_0,DOLw3_0)
+(DOLvencd2_0,kilG)
+(DOLvencd3_0,DOLw1_0)
+(DOLvencd3_0,DOLw2_0)
+(DOLvencd3_0,DOLw3_0)
+(DOLvencd3_0,kilG)
+(DOLu_0,DOLw1_0)
+(DOLu_0,DOLw2_0)
+(DOLu_0,DOLw3_0)
+(DOLu_0,kilG)
+(DOLv_0,DOLw1_0)
+(DOLv_0,DOLw2_0)
+(DOLv_0,DOLw3_0)
+(DOLv_0,kilG)
+(kilG,DOLw1_0)
+(kilG,DOLw2_0)
+(kilG,DOLw3_0)
+(kilG,kilG)
+% pattern 3.2.1 [TYPE_gc,[TYPE_g,[],[],[],kilG],[],[],kilG]
+(DOLvencc1_0,DOLw1_0)
+(DOLvencc1_0,DOLw2_0)
+(DOLvencc1_0,DOLw3_0)
+(DOLvencc1_0,kilG)
+(DOLvencc2_0,DOLw1_0)
+(DOLvencc2_0,DOLw2_0)
+(DOLvencc2_0,DOLw3_0)
+(DOLvencc2_0,kilG)
+(DOLvencc3_0,DOLw1_0)
+(DOLvencc3_0,DOLw2_0)
+(DOLvencc3_0,DOLw3_0)
+(DOLvencc3_0,kilG)
+(DOLu_0,DOLw1_0)
+(DOLu_0,DOLw2_0)
+(DOLu_0,DOLw3_0)
+(DOLu_0,kilG)
+(DOLv_0,DOLw1_0)
+(DOLv_0,DOLw2_0)
+(DOLv_0,DOLw3_0)
+(DOLv_0,kilG)
+(kilG,DOLw1_0)
+(kilG,DOLw2_0)
+(kilG,DOLw3_0)
+(kilG,kilG)
+(DOLw1_0,DOLw1_0)
+(DOLw1_0,DOLw2_0)
+(DOLw1_0,DOLw3_0)
+(DOLw2_0,DOLw2_0)
+(DOLw2_0,DOLw3_0)
+(DOLw3_0,DOLw3_0)

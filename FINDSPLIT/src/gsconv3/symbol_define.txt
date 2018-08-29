@@ -1,0 +1,9 @@
+//  symbol_stack_push("integer"     ,TYPE    ) ;
+//  symbol_stack_push("list"        ,TYPE    ) ;
+//  symbol_stack_push("group"       ,TYPE    ) ;
+//  symbol_stack_push("target"      ,TYPE    ) ;
+//  symbol_stack_push("string"      ,TYPE    ) ;
+//  symbol_stack_push("proof"       ,TYPE    ) ;
+//  symbol_stack_push("crs"         ,TYPE    ) ;
+//  symbol_stack_push("$identifier" ,TYPE    ) ;
+//  symbol_stack_push("$ellipsis"   ,TYPE    ) ;

@@ -1,0 +1,30 @@
+// 0. 謎の segmentataion fault
+// 0. POW で is_COMMITTED_VARIABLE() の処理
+
+0. 循環参照の抑止
+0. commit の通常変数への代入を抑止する ?
+
+1. operation.cpp:
+   split_GROUP_predicate(GROUP & predicate) にて,
+   pattern 毎に commit を base とした Combination
+   と見なして重複をまとめる.
+
+    pattern          base  coefficient   operation
+   -----------------------------------------------
+   ([x]^[b])^c     [x]^[b]      c            +
+   -----------------------------------------------
+   ([x])^(c+3)       [x]       c+3           +
+   -----------------------------------------------
+   (g^(3*c))^[a]     [a]     g^(3*c)         *
+   -----------------------------------------------
+
+1. 文字列 \n 等の処理.
+2. asm 文.
+3. declaration.cpp: declaration_stack_push():
+   同じ関数の宣言はフレーム内で何回行なっても良い. ?
+4. macro キーワード → storage_class_specifier.
+5. 乗法単位元の 1 を GROUP, TARGET に導入する.
+6. commit の処理.
+7. process_X() の出力を全て char * true_name に置き換える.
+8. *x で object_id → 変数名, &x で 変数名 → object_id ？
+9. 代入グラフを導入して代入解析を行う

@@ -1,0 +1,2500 @@
+% LYJP14 with GS-WI proof of correct signature with randomization
+% Groth's one-time signature is replaced with simpler PedersenOTS.
+
+% Syntax valid on Sept. 21, 2015.
+
+
+[Dependencies]
+
+%---------------------------------------------------------------------
+%[[Setup for init]]
+%---------------------------------------------------------------------
+lyjpg; %$g$
+
+%--------CRS generation---Consequently, it means \vec{g}_1, \vec{g}_2, \vec{f} ---
+lyjpg -> DOLdG1_0
+lyjpg -> DOLdG2_0
+lyjpg -> DOLdV1_0
+lyjpg -> DOLdV2_0
+lyjpg -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+
+lyjpg1; %$g_1$
+lyjpg2; %$g_2$
+
+DOLdG1_0->lyjpg1
+DOLdG2_0->lyjpg2
+
+%-----------h_i generation
+lyjph31i; %$h_{31i}$
+lyjph32i; %$h_{32i}$
+lyjph33i; %$h_{33i}$
+%
+lyjpg1 -> lyjph31i
+lyjpg2 -> lyjph32i
+lyjpg -> lyjph33i
+
+%----------Lambda generation
+lyjpLamda0;%$\mit\Lambda_0$
+lyjpLamda1;%$\mit\Lambda_1$
+
+lyjpg -> lyjpLamda0
+lyjpg -> lyjpLamda1
+
+%---------------------------------------------------------------------
+%[[Set up for GM]]
+%---------------------------------------------------------------------
+
+%% ----- AHO Key Generation ----
+ahoG; %$AHO.G$
+ahoHu; %$AHO.H_u$
+%
+ahoG1; %$AHO.G_1$
+ahoH1; %$AHO.H_1$
+ahoG2; %$AHO.G_2$
+ahoH2; %$AHO.H_2$
+ahoG3; %$AHO.G_3$
+ahoH3; %$AHO.H_3$
+ahoG4; %$AHO.G_4$
+ahoH4; %$AHO.H_4$
+%
+ahoGz; %$AHO.G_z$
+ahoHz; %$AHO.H_z$
+ahoA0; %$AHO.A_0$
+ahoA0t; %$AHO.\tilde{A}_0$
+ahoA1; %$AHO.A_1$
+ahoA1t; %$AHO.\tilde{A}_1$
+ahoB0; %$AHO.B_0$
+ahoB0t; %$AHO.\tilde{B}_0$
+ahoB1; %$AHO.B_1$
+ahoB1t; %$AHO.\tilde{B}_1$
+
+lyjpg->ahoG
+
+%--------------------------------------------------------------------
+%[[Setup for OA]]
+%---------------------------------------------------------------------
+
+%%-------------Kiltz's encryption Key Generation -----------
+kilG; %$Kil.G$
+kilY1; %$Kil.Y_1$
+kilY2; %$Kil.Y_2$
+kilY3; %$Kil.Y_3$
+kilY4; %$Kil.Y_4$
+
+lyjpg->kilG
+
+
+%--------------------------------------------------------------------
+%[[JOIN]]
+%---------------------------------------------------------------------
+%-----
+%1. User's key set up, using LY scheme
+%%--------------LY encryption Key Generation---------
+
+LYG; %$LY.G$
+LYX1; %$LY.X_1$
+LYX2; %$LY.X_2$
+LYGam1; %$LY.\Gamma_1$
+LYGam2; %$LY.\Gamma_2$
+
+%-----
+%2. Claim tag is encrypted.
+%%-------------- Verifiable enc for Gam0 ------------
+
+vencGam0; %$Venc.\Gamma_0$
+vencW1; %$Venc.W_1$
+vencW2; %$Venc.W_2$
+vencPhi0; %$Venc.\Phi_0$
+vencPhi1; %$Venc.\Phi_1$
+vencPhi2; %$Venc.\Phi_2$
+
+bbsM;%$M_{bbs}$
+
+kilG->vencGam0
+kilG->vencW1
+kilG->vencW2
+
+vencGam0->bbsM
+
+kilG->vencPhi0
+vencGam0->vencPhi0
+kilY1->vencPhi1
+kilY2->vencPhi2
+
+%---GS NIZK proof for W1, W2 - venc- begin --
+kilG -> DOLu_0
+kilG -> DOLv_0
+kilG -> DOLw1_0
+kilG -> DOLw2_0
+kilG -> DOLw3_0
+DOLdG_0 -> kilG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLdV1_0
+DOLdG_0 -> DOLdV2_0
+DOLdG_0 -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+vencGam0,kilG -> vencPhi0
+kilY1 -> vencPhi1
+kilY2 -> vencPhi2
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(vencPhi1,kilG),(kilY1,vencW1)]
+vencPhi1,kilY1 -> DOLvencphi1_0
+vencPhi1,kilY1 -> DOLvencphi2_0
+vencPhi1,kilY1 -> DOLvencphi3_0
+% commit group kilG
+DOLu_0,DOLw1_0 -> DOLvencc1_0
+DOLv_0,DOLw2_0 -> DOLvencc2_0
+kilG,kilG,DOLw3_0 -> DOLvencc3_0
+% --------------
+(vencPhi1,DOLvencc1_0)
+(vencPhi1,DOLvencc2_0)
+(vencPhi1,DOLvencc3_0)
+% commit group vencW1
+DOLu_0,DOLw1_0 -> DOLvencc1_1
+DOLv_0,DOLw2_0 -> DOLvencc2_1
+vencW1,kilG,DOLw3_0 -> DOLvencc3_1
+% --------------
+(kilY1,DOLvencc1_1)
+(kilY1,DOLvencc2_1)
+(kilY1,DOLvencc3_1)
+(DOLvencphi1_0,DOLu_0)
+(DOLvencphi1_0,kilG)
+(DOLvencphi2_0,DOLv_0)
+(DOLvencphi2_0,kilG)
+(DOLvencphi3_0,DOLw1_0)
+(DOLvencphi3_0,DOLw2_0)
+(DOLvencphi3_0,DOLw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(vencPhi0,kilG),(LYGam2,LYGam1),(kilG,vencW1),(kilG,vencW2)]
+vencPhi0,LYGam2,kilG,kilG -> DOLvencphi1_1
+vencPhi0,LYGam2,kilG,kilG -> DOLvencphi2_1
+vencPhi0,LYGam2,kilG,kilG -> DOLvencphi3_1
+(vencPhi0,DOLvencc1_0)
+(vencPhi0,DOLvencc2_0)
+(vencPhi0,DOLvencc3_0)
+% commit group LYGam1
+DOLu_0,DOLw1_0 -> DOLvencc1_2
+DOLv_0,DOLw2_0 -> DOLvencc2_2
+LYGam1,kilG,DOLw3_0 -> DOLvencc3_2
+% --------------
+(LYGam2,DOLvencc1_2)
+(LYGam2,DOLvencc2_2)
+(LYGam2,DOLvencc3_2)
+(kilG,DOLvencc1_1)
+(kilG,DOLvencc2_1)
+(kilG,DOLvencc3_1)
+% commit group vencW2
+DOLu_0,DOLw1_0 -> DOLvencc1_3
+DOLv_0,DOLw2_0 -> DOLvencc2_3
+vencW2,kilG,DOLw3_0 -> DOLvencc3_3
+% --------------
+(kilG,DOLvencc1_3)
+(kilG,DOLvencc2_3)
+(kilG,DOLvencc3_3)
+(DOLvencphi1_1,DOLu_0)
+(DOLvencphi1_1,kilG)
+(DOLvencphi2_1,DOLv_0)
+(DOLvencphi2_1,kilG)
+(DOLvencphi3_1,DOLw1_0)
+(DOLvencphi3_1,DOLw2_0)
+(DOLvencphi3_1,DOLw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(vencPhi2,kilG),(kilY1,vencW2)]
+vencPhi2,kilY1 -> DOLvencphi1_2
+vencPhi2,kilY1 -> DOLvencphi2_2
+vencPhi2,kilY1 -> DOLvencphi3_2
+(vencPhi2,DOLvencc1_0)
+(vencPhi2,DOLvencc2_0)
+(vencPhi2,DOLvencc3_0)
+(kilY1,DOLvencc1_3)
+(kilY1,DOLvencc2_3)
+(kilY1,DOLvencc3_3)
+(DOLvencphi1_2,DOLu_0)
+(DOLvencphi1_2,kilG)
+(DOLvencphi2_2,DOLv_0)
+(DOLvencphi2_2,kilG)
+(DOLvencphi3_2,DOLw1_0)
+(DOLvencphi3_2,DOLw2_0)
+(DOLvencphi3_2,DOLw3_0)
+% pattern 3.2.3 [TYPE_gcic,[TYPE_gc,[],[],[],LYGam1],[TYPE_gic,[],[],[],(LYGam1,venctau)],[]]
+DOLu_0,DOLw1_0 -> DOLvencphi11_0
+DOLu_0,DOLw1_0 -> DOLvencphi21_0
+DOLu_0,DOLw1_0 -> DOLvencphi31_0
+DOLv_0,DOLw2_0 -> DOLvencphi12_0
+DOLv_0,DOLw2_0 -> DOLvencphi22_0
+DOLv_0,DOLw2_0 -> DOLvencphi32_0
+kilG,DOLw3_0,LYGam1 -> DOLvencphi13_0
+kilG,DOLw3_0,LYGam1 -> DOLvencphi23_0
+kilG,DOLw3_0,LYGam1 -> DOLvencphi33_0
+(DOLu_0,DOLvencphi11_0)
+(DOLu_0,DOLvencphi12_0)
+(DOLu_0,DOLvencphi13_0)
+(kilG,DOLvencphi11_0)
+(kilG,DOLvencphi12_0)
+(kilG,DOLvencphi13_0)
+(DOLv_0,DOLvencphi21_0)
+(DOLv_0,DOLvencphi22_0)
+(DOLv_0,DOLvencphi23_0)
+(kilG,DOLvencphi21_0)
+(kilG,DOLvencphi22_0)
+(kilG,DOLvencphi23_0)
+(DOLw1_0,DOLvencphi31_0)
+(DOLw2_0,DOLvencphi31_0)
+(DOLw3_0,DOLvencphi31_0)
+(DOLw1_0,DOLvencphi32_0)
+(DOLw2_0,DOLvencphi32_0)
+(DOLw3_0,DOLvencphi32_0)
+(DOLw1_0,DOLvencphi33_0)
+(DOLw2_0,DOLvencphi33_0)
+(DOLw3_0,DOLvencphi33_0)
+% commit integer venctau
+DOLu_0,DOLw1_0 -> DOLvencd1_0
+DOLv_0,DOLw2_0 -> DOLvencd2_0
+kilG,DOLw3_0 -> DOLvencd3_0
+% --------------
+(DOLw1_0,DOLvencd1_0)
+(DOLw1_0,DOLvencd2_0)
+(DOLw1_0,DOLvencd3_0)
+(DOLw2_0,DOLvencd1_0)
+(DOLw2_0,DOLvencd2_0)
+(DOLw2_0,DOLvencd3_0)
+(DOLw3_0,DOLvencd1_0)
+(DOLw3_0,DOLvencd2_0)
+(DOLw3_0,DOLvencd3_0)
+(kilG,DOLvencd1_0)
+(DOLvencd1_0,LYGam1)
+(DOLvencd2_0,LYGam1)
+(DOLvencd3_0,LYGam1)
+% pattern 3.3.1 [TYPE_ic,[TYPE_i,[],[],[]],[],[],venctau]
+(DOLvencd1_0,DOLw1_0)
+(DOLvencd1_0,DOLw2_0)
+(DOLvencd1_0,DOLw3_0)
+(DOLvencd1_0,kilG)
+(DOLvencd2_0,DOLw1_0)
+(DOLvencd2_0,DOLw2_0)
+(DOLvencd2_0,DOLw3_0)
+(DOLvencd2_0,kilG)
+(DOLvencd3_0,DOLw1_0)
+(DOLvencd3_0,DOLw2_0)
+(DOLvencd3_0,DOLw3_0)
+(DOLvencd3_0,kilG)
+(DOLu_0,DOLw1_0)
+(DOLu_0,DOLw2_0)
+(DOLu_0,DOLw3_0)
+(DOLu_0,kilG)
+(DOLv_0,DOLw1_0)
+(DOLv_0,DOLw2_0)
+(DOLv_0,DOLw3_0)
+(DOLv_0,kilG)
+(kilG,DOLw1_0)
+(kilG,DOLw2_0)
+(kilG,DOLw3_0)
+(kilG,kilG)
+% pattern 3.2.1 [TYPE_gc,[TYPE_g,[],[],[],kilG],[],[],kilG]
+(DOLvencc1_0,DOLw1_0)
+(DOLvencc1_0,DOLw2_0)
+(DOLvencc1_0,DOLw3_0)
+(DOLvencc1_0,kilG)
+(DOLvencc2_0,DOLw1_0)
+(DOLvencc2_0,DOLw2_0)
+(DOLvencc2_0,DOLw3_0)
+(DOLvencc2_0,kilG)
+(DOLvencc3_0,DOLw1_0)
+(DOLvencc3_0,DOLw2_0)
+(DOLvencc3_0,DOLw3_0)
+(DOLvencc3_0,kilG)
+(DOLu_0,DOLw1_0)
+(DOLu_0,DOLw2_0)
+(DOLu_0,DOLw3_0)
+(DOLu_0,kilG)
+(DOLv_0,DOLw1_0)
+(DOLv_0,DOLw2_0)
+(DOLv_0,DOLw3_0)
+(DOLv_0,kilG)
+(kilG,DOLw1_0)
+(kilG,DOLw2_0)
+(kilG,DOLw3_0)
+(kilG,kilG)
+(DOLw1_0,DOLw1_0)
+(DOLw1_0,DOLw2_0)
+(DOLw1_0,DOLw3_0)
+(DOLw2_0,DOLw2_0)
+(DOLw2_0,DOLw3_0)
+(DOLw3_0,DOLw3_0)
+
+
+%---GS NIZK proof for W1, W2 - venc - end --
+
+
+%-----
+%3. Make transcript
+%--------------Certification by AHO -----------------
+
+%% ----- AHO Signing ----
+ahoZ; %$AHO.Z$
+ahoR; %$AHO.R$
+ahoS; %$AHO.S$
+ahoT; %$AHO.T$
+ahoU; %$AHO.U$
+ahoV; %$AHO.V$
+ahoW; %$AHO.W$
+ahoM1; %$AHO.M1$
+ahoM2; %$AHO.M2$
+ahoM3; %$AHO.M3$
+ahoM4; %$AHO.M4$
+
+LYX1 ->ahoM1
+LYX2 ->ahoM2
+LYGam1 ->ahoM3
+LYGam2 ->ahoM4
+
+
+%---------------------------------------------------------------------
+%[[ENC]]
+%---------------------------------------------------------------------
+
+%----
+%1.Generate One-time Key 
+%---------Pederson based OTS ------
+
+Pedg;%$g_{pedots}$
+
+Pedg1;%$g_{1,pedots}$
+Pedg2;%$g_{2,pedots}$
+Pedy;%$y_{pedots}$
+
+
+%-----
+%2. Traceable tag generation
+%---------- Traceable tag generation------------------
+
+tagT1;%$tag.T_1$
+tagT2;%$tag.T_2$
+tagT3;%$tag.T_3$
+tagT4;%$tag.T_4$
+
+lyjpg->tagT1
+LYGam1->tagT2
+LYGam2->tagT3
+lyjpg->tagT4
+
+%-----
+%3. Encryption of messages
+%------------------- LY encryption -------------------
+% (a)
+%-----
+LYC0;%$LY.C_0$
+LYC1;%$LY.C_1$
+LYC2;%$LY.C_2$
+LYC3;%$LY.C_3$
+lyjpM;%$M$
+
+%-----
+% (b)
+%-----
+% Generate CRS for LY enc
+
+lyjpgv; %$g_{crsv}$
+%lyjpg1v; %$g_{1,crsv}$
+%lyjpg2v; %$g_{2,crsv}$
+
+lyjpg->lyjpgv
+%lyjpg1->lyjpg1v;
+%lyjpg2->lyjpg2v;
+
+%---GS NIZK proof for theta1, theta2 - begin --
+
+lyjpgv -> DOLlinu_0
+lyjpgv -> DOLlinv_0
+lyjpgv -> DOLlinw1_0
+lyjpgv -> DOLlinw2_0
+lyjpgv -> DOLlinw3_0
+DOLlindG_0 -> lyjpgv
+DOLlindG_0 -> DOLlindG1_0
+DOLlindG_0 -> DOLlindG2_0
+DOLlindG_0 -> DOLlindV1_0
+DOLlindG_0 -> DOLlindV2_0
+DOLlindG_0 -> DOLlindV3_0
+DOLlindG1_0 -> DOLlinu_0
+DOLlindG2_0 -> DOLlinv_0
+DOLlindV1_0 -> DOLlinw1_0
+DOLlindV2_0 -> DOLlinw2_0
+DOLlindV3_0 -> DOLlinw3_0
+lyjpg1 -> LYC1
+lyjpg2 -> LYC2
+lyjpg -> LYC3
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC2,LYtau),(lyjpg2,theta2)]
+LYC2,lyjpg2 -> DOLlinphi1_0
+LYC2,lyjpg2 -> DOLlinphi2_0
+% commit integer LYtau
+DOLlinu_0,DOLlinw1_0 -> DOLlind1_0
+DOLlinv_0,DOLlinw2_0 -> DOLlind2_0
+lyjpgv,DOLlinw3_0 -> DOLlind3_0
+% --------------
+(DOLlind1_0,LYC2)
+(DOLlind2_0,LYC2)
+(DOLlind3_0,LYC2)
+% commit integer theta2
+DOLlinu_0,DOLlinw1_0 -> DOLlind1_1
+DOLlinv_0,DOLlinw2_0 -> DOLlind2_1
+lyjpgv,DOLlinw3_0 -> DOLlind3_1
+% --------------
+(DOLlind1_1,lyjpg2)
+(DOLlind2_1,lyjpg2)
+(DOLlind3_1,lyjpg2)
+(DOLlinu_0,DOLlinphi1_0)
+(lyjpgv,DOLlinphi1_0)
+(DOLlinv_0,DOLlinphi2_0)
+(lyjpgv,DOLlinphi2_0)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC1,LYtau),(lyjpg1,theta1)]
+LYC1,lyjpg1 -> DOLlinphi1_1
+LYC1,lyjpg1 -> DOLlinphi2_1
+(DOLlind1_0,LYC1)
+(DOLlind2_0,LYC1)
+(DOLlind3_0,LYC1)
+% commit integer theta1
+DOLlinu_0,DOLlinw1_0 -> DOLlind1_2
+DOLlinv_0,DOLlinw2_0 -> DOLlind2_2
+lyjpgv,DOLlinw3_0 -> DOLlind3_2
+% --------------
+(DOLlind1_2,lyjpg1)
+(DOLlind2_2,lyjpg1)
+(DOLlind3_2,lyjpg1)
+(DOLlinu_0,DOLlinphi1_1)
+(lyjpgv,DOLlinphi1_1)
+(DOLlinv_0,DOLlinphi2_1)
+(lyjpgv,DOLlinphi2_1)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC3,LYtau),(lyjpg,theta1),(lyjpg,theta2)]
+LYC3,lyjpg,lyjpg -> DOLlinphi1_2
+LYC3,lyjpg,lyjpg -> DOLlinphi2_2
+(DOLlind1_0,LYC3)
+(DOLlind2_0,LYC3)
+(DOLlind3_0,LYC3)
+(DOLlind1_2,lyjpg)
+(DOLlind2_2,lyjpg)
+(DOLlind3_2,lyjpg)
+(DOLlind1_1,lyjpg)
+(DOLlind2_1,lyjpg)
+(DOLlind3_1,lyjpg)
+(DOLlinu_0,DOLlinphi1_2)
+(lyjpgv,DOLlinphi1_2)
+(DOLlinv_0,DOLlinphi2_2)
+(lyjpgv,DOLlinphi2_2)
+% pattern 3.2.2 [TYPE_gic,[TYPE_g,[],[],[],lyjpg],[],[],(lyjpg,LYtau)]
+lyjpg -> DOLlinphi1_3
+lyjpg -> DOLlinphi2_3
+(DOLlind1_0,lyjpg)
+(DOLlind2_0,lyjpg)
+(DOLlind3_0,lyjpg)
+(DOLlinu_0,DOLlinphi1_3)
+(lyjpgv,DOLlinphi1_3)
+(DOLlinv_0,DOLlinphi2_3)
+(lyjpgv,DOLlinphi2_3)
+
+%---GS NIZK proof for theta1, theta2 - end --
+
+
+%-----
+%4. Encryption of user's pk
+%------------------- Kiltz's encryption -------------------
+
+kilV01;%$Kil.V_{01}$
+kilV11;%$Kil.V_{11}$
+kilV21;%$Kil.V_{21}$
+kilV31;%$Kil.V_{31}$
+kilV41;%$Kil.V_{41}$
+
+kilV02;%$Kil.V_{02}$
+kilV12;%$Kil.V_{12}$
+kilV22;%$Kil.V_{22}$
+kilV32;%$Kil.V_{32}$
+kilV42;%$Kil.V_{42}$
+
+kilM1;%$M_{kil1}$
+kilM2;%$M_{kil2}$
+
+%\LYGam1 enc
+LYGam1->kilM1
+
+%LYGam2 enc
+LYGam2->kilM2
+
+%-----
+%5. One-time signature generation
+%------------------- Jens's one-time signature -------------------
+
+%commitment of theta1, theta2
+DOLlind1_1;%$C_{1,theta1}$
+DOLlind2_1;%$C_{2,theta1}$
+DOLlind3_1;%$C_{3,theta1}$
+DOLlind1_2;%$C_{1,theta2}$
+DOLlind2_2;%$C_{2,theta2}$
+DOLlind3_2;%$C_{3,theta2}$
+
+%one-time signature
+jensMi;%$M_{i,jens}$
+jensig;%$Jen.\sigma_{ot}$
+
+LYC0->jensMi
+LYC1->jensMi
+LYC2->jensMi
+LYC3->jensMi
+
+
+tagT1->jensMi
+tagT2->jensMi
+tagT3->jensMi
+tagT4->jensMi
+
+kilV01->jensMi
+kilV02->jensMi
+kilV11->jensMi
+kilV12->jensMi
+kilV21->jensMi
+kilV22->jensMi
+kilV31->jensMi
+kilV32->jensMi
+kilV41->jensMi
+kilV42->jensMi
+
+DOLd1_1->jensMi
+DOLd2_1->jensMi
+DOLd3_1->jensMi
+DOLd1_2->jensMi
+DOLd2_2->jensMi
+DOLd3_2->jensMi
+
+jensMi->jensig
+
+
+%---------------------------------------------------------------------
+%[[Prover's processes]]
+%---------------------------------------------------------------------
+
+%-----
+%1., 3. WI proof for certification
+%-----------------Certification generated AHO ----------------------
+
+%% ----- AHO Signature Verificcation ----
+% the constant part, which may be done at key generation
+
+
+%------GS WI proof of AHO sig Z', R' U' -begin -------
+
+kilG -> DOLu_0
+kilG -> DOLv_0
+kilG -> DOLw1_0
+kilG -> DOLw2_0
+kilG -> DOLw3_0
+DOLdG_0 -> kilG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLdV1_0
+DOLdG_0 -> DOLdV2_0
+DOLdG_0 -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+ahoR,ahoS -> ahoRdash
+ahoS -> ahoSdash
+ahoT,ahoGr -> ahoTdash
+ahoU,ahoV -> ahoUdash
+ahoV -> ahoVdash
+ahoW,ahoHu -> ahoWdash
+(ahoB1,ahoB1t)
+(ahoB0,ahoB0t)
+(ahoVdash,ahoWdash)
+(ahoA1,ahoA1t)
+(ahoA0,ahoA0t)
+(ahoSdash,ahoTdash)
+% pattern 3.1.1 [TYPE_eggc,[TYPE_t,[],[],[],(ahoVdash,ahoWdash),(ahoB0,ahoB0t),(ahoB1,ahoB1t)],[],[],(ahoHz,ahoZ),(ahoHu,ahoUdash),(ahoH1,ahoM1),(ahoH2,ahoM2),(ahoH3,ahoM3),(ahoH4,ahoM4)]
+ahoHz,ahoHu,ahoH1,ahoH2,ahoH3,ahoH4 -> DOLcertph1_0
+ahoHz,ahoHu,ahoH1,ahoH2,ahoH3,ahoH4 -> DOLcertph2_0
+ahoHz,ahoHu,ahoH1,ahoH2,ahoH3,ahoH4 -> DOLcertph3_0
+% commit group ahoZ
+DOLu_0,DOLw1_0 -> DOLcertc1_0
+DOLv_0,DOLw2_0 -> DOLcertc2_0
+ahoZ,kilG,DOLw3_0 -> DOLcertc3_0
+% --------------
+(ahoHz,DOLcertc1_0)
+(ahoHz,DOLcertc2_0)
+(ahoHz,DOLcertc3_0)
+% commit group ahoUdash
+DOLu_0,DOLw1_0 -> DOLcertc1_1
+DOLv_0,DOLw2_0 -> DOLcertc2_1
+ahoUdash,kilG,DOLw3_0 -> DOLcertc3_1
+% --------------
+(ahoHu,DOLcertc1_1)
+(ahoHu,DOLcertc2_1)
+(ahoHu,DOLcertc3_1)
+% commit group ahoM1
+DOLu_0,DOLw1_0 -> DOLcertc1_2
+DOLv_0,DOLw2_0 -> DOLcertc2_2
+ahoM1,kilG,DOLw3_0 -> DOLcertc3_2
+% --------------
+(ahoH1,DOLcertc1_2)
+(ahoH1,DOLcertc2_2)
+(ahoH1,DOLcertc3_2)
+% commit group ahoM2
+DOLu_0,DOLw1_0 -> DOLcertc1_3
+DOLv_0,DOLw2_0 -> DOLcertc2_3
+ahoM2,kilG,DOLw3_0 -> DOLcertc3_3
+% --------------
+(ahoH2,DOLcertc1_3)
+(ahoH2,DOLcertc2_3)
+(ahoH2,DOLcertc3_3)
+% commit group ahoM3
+DOLu_0,DOLw1_0 -> DOLcertc1_4
+DOLv_0,DOLw2_0 -> DOLcertc2_4
+ahoM3,kilG,DOLw3_0 -> DOLcertc3_4
+% --------------
+(ahoH3,DOLcertc1_4)
+(ahoH3,DOLcertc2_4)
+(ahoH3,DOLcertc3_4)
+% commit group ahoM4
+DOLu_0,DOLw1_0 -> DOLcertc1_5
+DOLv_0,DOLw2_0 -> DOLcertc2_5
+ahoM4,kilG,DOLw3_0 -> DOLcertc3_5
+% --------------
+(ahoH4,DOLcertc1_5)
+(ahoH4,DOLcertc2_5)
+(ahoH4,DOLcertc3_5)
+(DOLcertph1_0,DOLu_0)
+(DOLcertph1_0,kilG)
+(DOLcertph2_0,DOLv_0)
+(DOLcertph2_0,kilG)
+(DOLcertph3_0,DOLw1_0)
+(DOLcertph3_0,DOLw2_0)
+(DOLcertph3_0,DOLw3_0)
+% pattern 3.1.1 [TYPE_eggc,[TYPE_t,[],[],[],(ahoSdash,ahoTdash),(ahoA0,ahoA0t),(ahoA1,ahoA1t)],[],[],(ahoGz,ahoZ),(ahoGr,ahoRdash),(ahoG1,ahoM1),(ahoG2,ahoM2),(ahoG3,ahoM3),(ahoG4,ahoM4)]
+ahoGz,ahoGr,ahoG1,ahoG2,ahoG3,ahoG4 -> DOLcertph1_1
+ahoGz,ahoGr,ahoG1,ahoG2,ahoG3,ahoG4 -> DOLcertph2_1
+ahoGz,ahoGr,ahoG1,ahoG2,ahoG3,ahoG4 -> DOLcertph3_1
+(ahoGz,DOLcertc1_0)
+(ahoGz,DOLcertc2_0)
+(ahoGz,DOLcertc3_0)
+% commit group ahoRdash
+DOLu_0,DOLw1_0 -> DOLcertc1_6
+DOLv_0,DOLw2_0 -> DOLcertc2_6
+ahoRdash,kilG,DOLw3_0 -> DOLcertc3_6
+% --------------
+(ahoGr,DOLcertc1_6)
+(ahoGr,DOLcertc2_6)
+(ahoGr,DOLcertc3_6)
+(ahoG1,DOLcertc1_2)
+(ahoG1,DOLcertc2_2)
+(ahoG1,DOLcertc3_2)
+(ahoG2,DOLcertc1_3)
+(ahoG2,DOLcertc2_3)
+(ahoG2,DOLcertc3_3)
+(ahoG3,DOLcertc1_4)
+(ahoG3,DOLcertc2_4)
+(ahoG3,DOLcertc3_4)
+(ahoG4,DOLcertc1_5)
+(ahoG4,DOLcertc2_5)
+(ahoG4,DOLcertc3_5)
+(DOLcertph1_1,DOLu_0)
+(DOLcertph1_1,kilG)
+(DOLcertph2_1,DOLv_0)
+(DOLcertph2_1,kilG)
+(DOLcertph3_1,DOLw1_0)
+(DOLcertph3_1,DOLw2_0)
+(DOLcertph3_1,DOLw3_0)
+
+%------GS WI proof of AHO sig Z', R', U' - end --------
+
+
+%-----
+%2., 4. NIZK proof for the relation between tag and user's pk
+%----------------- \mit Upsilon related to tags----------------------
+
+Upsi; %$\mit\Upsilon$
+lyjpg->Upsi;
+
+%------GS NIZK proof of \mit\Upsilon  -begin -------
+
+kilG -> DOLu_0
+kilG -> DOLv_0
+kilG -> DOLw1_0
+kilG -> DOLw2_0
+kilG -> DOLw3_0
+DOLdG_0 -> kilG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLdV1_0
+DOLdG_0 -> DOLdV2_0
+DOLdG_0 -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+kilG -> Upsi
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(tagT2,kilG),(Upsi,LYGam1)]
+tagT2,Upsi -> DOLtgphi1_0
+tagT2,Upsi -> DOLtgphi2_0
+tagT2,Upsi -> DOLtgphi3_0
+% commit group kilG
+DOLu_0,DOLw1_0 -> DOLtgc1_0
+DOLv_0,DOLw2_0 -> DOLtgc2_0
+kilG,kilG,DOLw3_0 -> DOLtgc3_0
+% --------------
+(tagT2,DOLtgc1_0)
+(tagT2,DOLtgc2_0)
+(tagT2,DOLtgc3_0)
+% commit group LYGam1
+DOLu_0,DOLw1_0 -> DOLtgc1_1
+DOLv_0,DOLw2_0 -> DOLtgc2_1
+LYGam1,kilG,DOLw3_0 -> DOLtgc3_1
+% --------------
+(Upsi,DOLtgc1_1)
+(Upsi,DOLtgc2_1)
+(Upsi,DOLtgc3_1)
+(DOLtgphi1_0,DOLu_0)
+(DOLtgphi1_0,kilG)
+(DOLtgphi2_0,DOLv_0)
+(DOLtgphi2_0,kilG)
+(DOLtgphi3_0,DOLw1_0)
+(DOLtgphi3_0,DOLw2_0)
+(DOLtgphi3_0,DOLw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(tagT3,Upsi),(tagT1,LYGam2)]
+tagT3,tagT1 -> DOLtgphi1_1
+tagT3,tagT1 -> DOLtgphi2_1
+tagT3,tagT1 -> DOLtgphi3_1
+% commit group Upsi
+DOLu_0,DOLw1_0 -> DOLtgc1_2
+DOLv_0,DOLw2_0 -> DOLtgc2_2
+Upsi,kilG,DOLw3_0 -> DOLtgc3_2
+% --------------
+(tagT3,DOLtgc1_2)
+(tagT3,DOLtgc2_2)
+(tagT3,DOLtgc3_2)
+% commit group LYGam2
+DOLu_0,DOLw1_0 -> DOLtgc1_3
+DOLv_0,DOLw2_0 -> DOLtgc2_3
+LYGam2,kilG,DOLw3_0 -> DOLtgc3_3
+% --------------
+(tagT1,DOLtgc1_3)
+(tagT1,DOLtgc2_3)
+(tagT1,DOLtgc3_3)
+(DOLtgphi1_1,DOLu_0)
+(DOLtgphi1_1,kilG)
+(DOLtgphi2_1,DOLv_0)
+(DOLtgphi2_1,kilG)
+(DOLtgphi3_1,DOLw1_0)
+(DOLtgphi3_1,DOLw2_0)
+(DOLtgphi3_1,DOLw3_0)
+% pattern 3.2.1 [TYPE_gc,[TYPE_g,[],[],[],kilG],[],[],kilG]
+(DOLtgc1_0,DOLw1_0)
+(DOLtgc1_0,DOLw2_0)
+(DOLtgc1_0,DOLw3_0)
+(DOLtgc1_0,kilG)
+(DOLtgc2_0,DOLw1_0)
+(DOLtgc2_0,DOLw2_0)
+(DOLtgc2_0,DOLw3_0)
+(DOLtgc2_0,kilG)
+(DOLtgc3_0,DOLw1_0)
+(DOLtgc3_0,DOLw2_0)
+(DOLtgc3_0,DOLw3_0)
+(DOLtgc3_0,kilG)
+(DOLu_0,DOLw1_0)
+(DOLu_0,DOLw2_0)
+(DOLu_0,DOLw3_0)
+(DOLu_0,kilG)
+(DOLv_0,DOLw1_0)
+(DOLv_0,DOLw2_0)
+(DOLv_0,DOLw3_0)
+(DOLv_0,kilG)
+(kilG,DOLw1_0)
+(kilG,DOLw2_0)
+(kilG,DOLw3_0)
+(kilG,kilG)
+(DOLw1_0,DOLw1_0)
+(DOLw1_0,DOLw2_0)
+(DOLw1_0,DOLw3_0)
+(DOLw2_0,DOLw2_0)
+(DOLw2_0,DOLw3_0)
+(DOLw3_0,DOLw3_0)
+
+%------GS NIZK proof of \mit\Upsilon  - end --------
+
+
+
+%-----
+%5. NIZK proof for encrypted user's key
+%----------------- Kiltz's encryption ----------------------
+lyjpg_1;%$g^{-1}$
+lyjpg1_1;%$g_1^{-1}$
+lyjpg2_1;%$g_2^{-1}$
+
+lyjpg->lyjpg_1
+lyjpg1->lyjpg1_1
+lyjpg2->lyjpg2_1
+
+
+
+%--- depend GS proof CRS description -begin--
+DOLw1_0_1;%$f_{31}^{-1}$
+DOLw2_0_1;%$f_{32}^{-1}$
+DOLw3_0_1;%$f_{33}^{-1}$
+
+DOLdlmc1_0->DOLdlmc1_0_1
+DOLdlmc2_0->DOLdlmc2_0_1
+DOLdlmc3_0->DOLdlmc3_0_1
+%--- depend GS proof CRS description -end--
+
+%------GS NIZK proof of z_1,i, z_2i, rho1,i, rho2,i, rho3,i -kiltz- begin -------
+
+kilG -> DOLu_0
+kilG -> DOLv_0
+kilG -> DOLw1_0
+kilG -> DOLw2_0
+kilG -> DOLw3_0
+DOLdG_0 -> kilG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLdV1_0
+DOLdG_0 -> DOLdV2_0
+DOLdG_0 -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+kilG -> Upsi
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV21,eqkeytau),(DOLcertc2_4,eqkeytau),(kilY2,eqkeyz21),(lyjpg2_1,eqkeyrho21),(DOLw2_0_1,eqkeyrho31)]
+kilV21,DOLcertc2_4,kilY2,lyjpg2_1,DOLw2_0_1 -> DOLeqkeyphi1_0
+kilV21,DOLcertc2_4,kilY2,lyjpg2_1,DOLw2_0_1 -> DOLeqkeyphi2_0
+% commit integer eqkeytau
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_0
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_0
+kilG,DOLw3_0 -> DOLeqkeyd3_0
+% --------------
+(DOLeqkeyd1_0,kilV21)
+(DOLeqkeyd2_0,kilV21)
+(DOLeqkeyd3_0,kilV21)
+(DOLeqkeyd1_0,DOLcertc2_4)
+(DOLeqkeyd2_0,DOLcertc2_4)
+(DOLeqkeyd3_0,DOLcertc2_4)
+% commit integer eqkeyz21
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_1
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_1
+kilG,DOLw3_0 -> DOLeqkeyd3_1
+% --------------
+(DOLeqkeyd1_1,kilY2)
+(DOLeqkeyd2_1,kilY2)
+(DOLeqkeyd3_1,kilY2)
+% commit integer eqkeyrho21
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_2
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_2
+kilG,DOLw3_0 -> DOLeqkeyd3_2
+% --------------
+(DOLeqkeyd1_2,lyjpg2_1)
+(DOLeqkeyd2_2,lyjpg2_1)
+(DOLeqkeyd3_2,lyjpg2_1)
+% commit integer eqkeyrho31
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_3
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_3
+kilG,DOLw3_0 -> DOLeqkeyd3_3
+% --------------
+(DOLeqkeyd1_3,DOLw2_0_1)
+(DOLeqkeyd2_3,DOLw2_0_1)
+(DOLeqkeyd3_3,DOLw2_0_1)
+(DOLu_0,DOLeqkeyphi1_0)
+(kilG,DOLeqkeyphi1_0)
+(DOLv_0,DOLeqkeyphi2_0)
+(kilG,DOLeqkeyphi2_0)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV11,eqkeytau),(DOLcertc1_4,eqkeytau),(kilY1,eqkeyz11),(lyjpg1_1,eqkeyrho11),(DOLw1_0_1,eqkeyrho31)]
+kilV11,DOLcertc1_4,kilY1,lyjpg1_1,DOLw1_0_1 -> DOLeqkeyphi1_1
+kilV11,DOLcertc1_4,kilY1,lyjpg1_1,DOLw1_0_1 -> DOLeqkeyphi2_1
+(DOLeqkeyd1_0,kilV11)
+(DOLeqkeyd2_0,kilV11)
+(DOLeqkeyd3_0,kilV11)
+(DOLeqkeyd1_0,DOLcertc1_4)
+(DOLeqkeyd2_0,DOLcertc1_4)
+(DOLeqkeyd3_0,DOLcertc1_4)
+% commit integer eqkeyz11
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_4
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_4
+kilG,DOLw3_0 -> DOLeqkeyd3_4
+% --------------
+(DOLeqkeyd1_4,kilY1)
+(DOLeqkeyd2_4,kilY1)
+(DOLeqkeyd3_4,kilY1)
+% commit integer eqkeyrho11
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_5
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_5
+kilG,DOLw3_0 -> DOLeqkeyd3_5
+% --------------
+(DOLeqkeyd1_5,lyjpg1_1)
+(DOLeqkeyd2_5,lyjpg1_1)
+(DOLeqkeyd3_5,lyjpg1_1)
+(DOLeqkeyd1_3,DOLw1_0_1)
+(DOLeqkeyd2_3,DOLw1_0_1)
+(DOLeqkeyd3_3,DOLw1_0_1)
+(DOLu_0,DOLeqkeyphi1_1)
+(kilG,DOLeqkeyphi1_1)
+(DOLv_0,DOLeqkeyphi2_1)
+(kilG,DOLeqkeyphi2_1)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV01,eqkeytau),(DOLcertc3_4,eqkeytau),(lyjpg,eqkeyz11),(lyjpg,eqkeyz21),(lyjpg_1,eqkeyrho11),(lyjpg_1,eqkeyrho21),(DOLw3_0_1,eqkeyrho31)]
+kilV01,DOLcertc3_4,lyjpg,lyjpg,lyjpg_1,lyjpg_1,DOLw3_0_1 -> DOLeqkeyphi1_2
+kilV01,DOLcertc3_4,lyjpg,lyjpg,lyjpg_1,lyjpg_1,DOLw3_0_1 -> DOLeqkeyphi2_2
+(DOLeqkeyd1_0,kilV01)
+(DOLeqkeyd2_0,kilV01)
+(DOLeqkeyd3_0,kilV01)
+(DOLeqkeyd1_0,DOLcertc3_4)
+(DOLeqkeyd2_0,DOLcertc3_4)
+(DOLeqkeyd3_0,DOLcertc3_4)
+(DOLeqkeyd1_4,lyjpg)
+(DOLeqkeyd2_4,lyjpg)
+(DOLeqkeyd3_4,lyjpg)
+(DOLeqkeyd1_1,lyjpg)
+(DOLeqkeyd2_1,lyjpg)
+(DOLeqkeyd3_1,lyjpg)
+(DOLeqkeyd1_5,lyjpg_1)
+(DOLeqkeyd2_5,lyjpg_1)
+(DOLeqkeyd3_5,lyjpg_1)
+(DOLeqkeyd1_2,lyjpg_1)
+(DOLeqkeyd2_2,lyjpg_1)
+(DOLeqkeyd3_2,lyjpg_1)
+(DOLeqkeyd1_3,DOLw3_0_1)
+(DOLeqkeyd2_3,DOLw3_0_1)
+(DOLeqkeyd3_3,DOLw3_0_1)
+(DOLu_0,DOLeqkeyphi1_2)
+(kilG,DOLeqkeyphi1_2)
+(DOLv_0,DOLeqkeyphi2_2)
+(kilG,DOLeqkeyphi2_2)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV12,eqkeytau),(DOLcertc1_5,eqkeytau),(kilY1,eqkeyz12),(lyjpg1_1,eqkeyrho12),(DOLw1_0_1,eqkeyrho32)]
+kilV12,DOLcertc1_5,kilY1,lyjpg1_1,DOLw1_0_1 -> DOLeqkeyphi1_3
+kilV12,DOLcertc1_5,kilY1,lyjpg1_1,DOLw1_0_1 -> DOLeqkeyphi2_3
+(DOLeqkeyd1_0,kilV12)
+(DOLeqkeyd2_0,kilV12)
+(DOLeqkeyd3_0,kilV12)
+(DOLeqkeyd1_0,DOLcertc1_5)
+(DOLeqkeyd2_0,DOLcertc1_5)
+(DOLeqkeyd3_0,DOLcertc1_5)
+% commit integer eqkeyz12
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_6
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_6
+kilG,DOLw3_0 -> DOLeqkeyd3_6
+% --------------
+(DOLeqkeyd1_6,kilY1)
+(DOLeqkeyd2_6,kilY1)
+(DOLeqkeyd3_6,kilY1)
+% commit integer eqkeyrho12
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_7
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_7
+kilG,DOLw3_0 -> DOLeqkeyd3_7
+% --------------
+(DOLeqkeyd1_7,lyjpg1_1)
+(DOLeqkeyd2_7,lyjpg1_1)
+(DOLeqkeyd3_7,lyjpg1_1)
+% commit integer eqkeyrho32
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_8
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_8
+kilG,DOLw3_0 -> DOLeqkeyd3_8
+% --------------
+(DOLeqkeyd1_8,DOLw1_0_1)
+(DOLeqkeyd2_8,DOLw1_0_1)
+(DOLeqkeyd3_8,DOLw1_0_1)
+(DOLu_0,DOLeqkeyphi1_3)
+(kilG,DOLeqkeyphi1_3)
+(DOLv_0,DOLeqkeyphi2_3)
+(kilG,DOLeqkeyphi2_3)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV22,eqkeytau),(DOLcertc2_5,eqkeytau),(kilY2,eqkeyz22),(lyjpg2_1,eqkeyrho22),(DOLw2_0_1,eqkeyrho32)]
+kilV22,DOLcertc2_5,kilY2,lyjpg2_1,DOLw2_0_1 -> DOLeqkeyphi1_4
+kilV22,DOLcertc2_5,kilY2,lyjpg2_1,DOLw2_0_1 -> DOLeqkeyphi2_4
+(DOLeqkeyd1_0,kilV22)
+(DOLeqkeyd2_0,kilV22)
+(DOLeqkeyd3_0,kilV22)
+(DOLeqkeyd1_0,DOLcertc2_5)
+(DOLeqkeyd2_0,DOLcertc2_5)
+(DOLeqkeyd3_0,DOLcertc2_5)
+% commit integer eqkeyz22
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_9
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_9
+kilG,DOLw3_0 -> DOLeqkeyd3_9
+% --------------
+(DOLeqkeyd1_9,kilY2)
+(DOLeqkeyd2_9,kilY2)
+(DOLeqkeyd3_9,kilY2)
+% commit integer eqkeyrho22
+DOLu_0,DOLw1_0 -> DOLeqkeyd1_10
+DOLv_0,DOLw2_0 -> DOLeqkeyd2_10
+kilG,DOLw3_0 -> DOLeqkeyd3_10
+% --------------
+(DOLeqkeyd1_10,lyjpg2_1)
+(DOLeqkeyd2_10,lyjpg2_1)
+(DOLeqkeyd3_10,lyjpg2_1)
+(DOLeqkeyd1_8,DOLw2_0_1)
+(DOLeqkeyd2_8,DOLw2_0_1)
+(DOLeqkeyd3_8,DOLw2_0_1)
+(DOLu_0,DOLeqkeyphi1_4)
+(kilG,DOLeqkeyphi1_4)
+(DOLv_0,DOLeqkeyphi2_4)
+(kilG,DOLeqkeyphi2_4)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV02,eqkeytau),(DOLcertc3_5,eqkeytau),(lyjpg,eqkeyz12),(lyjpg,eqkeyz22),(lyjpg_1,eqkeyrho12),(lyjpg_1,eqkeyrho22),(DOLw3_0_1,eqkeyrho32)]
+kilV02,DOLcertc3_5,lyjpg,lyjpg,lyjpg_1,lyjpg_1,DOLw3_0_1 -> DOLeqkeyphi1_5
+kilV02,DOLcertc3_5,lyjpg,lyjpg,lyjpg_1,lyjpg_1,DOLw3_0_1 -> DOLeqkeyphi2_5
+(DOLeqkeyd1_0,kilV02)
+(DOLeqkeyd2_0,kilV02)
+(DOLeqkeyd3_0,kilV02)
+(DOLeqkeyd1_0,DOLcertc3_5)
+(DOLeqkeyd2_0,DOLcertc3_5)
+(DOLeqkeyd3_0,DOLcertc3_5)
+(DOLeqkeyd1_6,lyjpg)
+(DOLeqkeyd2_6,lyjpg)
+(DOLeqkeyd3_6,lyjpg)
+(DOLeqkeyd1_9,lyjpg)
+(DOLeqkeyd2_9,lyjpg)
+(DOLeqkeyd3_9,lyjpg)
+(DOLeqkeyd1_7,lyjpg_1)
+(DOLeqkeyd2_7,lyjpg_1)
+(DOLeqkeyd3_7,lyjpg_1)
+(DOLeqkeyd1_10,lyjpg_1)
+(DOLeqkeyd2_10,lyjpg_1)
+(DOLeqkeyd3_10,lyjpg_1)
+(DOLeqkeyd1_8,DOLw3_0_1)
+(DOLeqkeyd2_8,DOLw3_0_1)
+(DOLeqkeyd3_8,DOLw3_0_1)
+(DOLu_0,DOLeqkeyphi1_5)
+(kilG,DOLeqkeyphi1_5)
+(DOLv_0,DOLeqkeyphi2_5)
+(kilG,DOLeqkeyphi2_5)
+% pattern 3.3.1 [TYPE_ic,[TYPE_i,[],[],[]],[],[],eqkeytau]
+(DOLeqkeyd1_0,DOLw1_0)
+(DOLeqkeyd1_0,DOLw2_0)
+(DOLeqkeyd1_0,DOLw3_0)
+(DOLeqkeyd1_0,kilG)
+(DOLeqkeyd2_0,DOLw1_0)
+(DOLeqkeyd2_0,DOLw2_0)
+(DOLeqkeyd2_0,DOLw3_0)
+(DOLeqkeyd2_0,kilG)
+(DOLeqkeyd3_0,DOLw1_0)
+(DOLeqkeyd3_0,DOLw2_0)
+(DOLeqkeyd3_0,DOLw3_0)
+(DOLeqkeyd3_0,kilG)
+(DOLu_0,DOLw1_0)
+(DOLu_0,DOLw2_0)
+(DOLu_0,DOLw3_0)
+(DOLu_0,kilG)
+(DOLv_0,DOLw1_0)
+(DOLv_0,DOLw2_0)
+(DOLv_0,DOLw3_0)
+(DOLv_0,kilG)
+(kilG,DOLw1_0)
+(kilG,DOLw2_0)
+(kilG,DOLw3_0)
+(kilG,kilG)
+
+%------GS NIZK proof of z_1,i, z_2i, rho1,i, rho2,i, rho3,i - kiltz- end -------
+
+
+%-----
+%6. NIZK proof for LY enc, and DL message
+%----------------- LY encryption - and DL M --------------------
+% DLM
+lyjpA;%$A$
+lyjpB;%$B$
+
+lyjpg->lyjpA
+lyjpg->lyjpB
+
+%--- depend GS proof CRS description -begin--
+DOLdlmc1_0;%$C_{1,m}$
+DOLdlmc2_0;%$C_{2,m}$
+DOLdlmc3_0;%$C_{3,m}$
+DOLdlmc1_0_1;%$C_{1,m}^{-1}$
+DOLdlmc2_0_1;%$C_{2,m}^{-1}$
+DOLdlmc3_0_1;%$C_{3,m}^{-1}$
+
+DOLdlmc1_0->DOLdlmc1_0_1
+DOLdlmc2_0->DOLdlmc2_0_1
+DOLdlmc3_0->DOLdlmc3_0_1
+%--- depend GS proof CRS description -end--
+
+
+%---GS NIZK proof of M - begin ---
+
+kilG -> DOLu_0
+kilG -> DOLv_0
+kilG -> DOLw1_0
+kilG -> DOLw2_0
+kilG -> DOLw3_0
+DOLdG_0 -> kilG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLdV1_0
+DOLdG_0 -> DOLdV2_0
+DOLdG_0 -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+% pattern 3.2.3 [TYPE_gcic,[TYPE_gc,[],[],[],lyjpA],[TYPE_gic,[],[],[],(lyjpA,lytau)],[]]
+DOLu_0,DOLw1_0 -> DOLdlmphi11_0
+DOLu_0,DOLw1_0 -> DOLdlmphi21_0
+DOLu_0,DOLw1_0 -> DOLdlmphi31_0
+DOLv_0,DOLw2_0 -> DOLdlmphi12_0
+DOLv_0,DOLw2_0 -> DOLdlmphi22_0
+DOLv_0,DOLw2_0 -> DOLdlmphi32_0
+kilG,DOLw3_0,lyjpA -> DOLdlmphi13_0
+kilG,DOLw3_0,lyjpA -> DOLdlmphi23_0
+kilG,DOLw3_0,lyjpA -> DOLdlmphi33_0
+(DOLu_0,DOLdlmphi11_0)
+(DOLu_0,DOLdlmphi12_0)
+(DOLu_0,DOLdlmphi13_0)
+(kilG,DOLdlmphi11_0)
+(kilG,DOLdlmphi12_0)
+(kilG,DOLdlmphi13_0)
+(DOLv_0,DOLdlmphi21_0)
+(DOLv_0,DOLdlmphi22_0)
+(DOLv_0,DOLdlmphi23_0)
+(kilG,DOLdlmphi21_0)
+(kilG,DOLdlmphi22_0)
+(kilG,DOLdlmphi23_0)
+(DOLw1_0,DOLdlmphi31_0)
+(DOLw2_0,DOLdlmphi31_0)
+(DOLw3_0,DOLdlmphi31_0)
+(DOLw1_0,DOLdlmphi32_0)
+(DOLw2_0,DOLdlmphi32_0)
+(DOLw3_0,DOLdlmphi32_0)
+(DOLw1_0,DOLdlmphi33_0)
+(DOLw2_0,DOLdlmphi33_0)
+(DOLw3_0,DOLdlmphi33_0)
+% commit integer lytau
+DOLu_0,DOLw1_0 -> DOLdlmd1_0
+DOLv_0,DOLw2_0 -> DOLdlmd2_0
+kilG,DOLw3_0 -> DOLdlmd3_0
+% --------------
+(DOLw1_0,DOLdlmd1_0)
+(DOLw1_0,DOLdlmd2_0)
+(DOLw1_0,DOLdlmd3_0)
+(DOLw2_0,DOLdlmd1_0)
+(DOLw2_0,DOLdlmd2_0)
+(DOLw2_0,DOLdlmd3_0)
+(DOLw3_0,DOLdlmd1_0)
+(DOLw3_0,DOLdlmd2_0)
+(DOLw3_0,DOLdlmd3_0)
+(kilG,DOLdlmd1_0)
+(DOLdlmd1_0,lyjpA)
+(DOLdlmd2_0,lyjpA)
+(DOLdlmd3_0,lyjpA)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(lyjpg,lyjpM),(lyjpB,lyjpA)]
+lyjpg,lyjpB -> DOLdlmphi1_0
+lyjpg,lyjpB -> DOLdlmphi2_0
+lyjpg,lyjpB -> DOLdlmphi3_0
+% commit group lyjpM
+DOLu_0,DOLw1_0 -> DOLdlmc1_0
+DOLv_0,DOLw2_0 -> DOLdlmc2_0
+lyjpM,kilG,DOLw3_0 -> DOLdlmc3_0
+% --------------
+(lyjpg,DOLdlmc1_0)
+(lyjpg,DOLdlmc2_0)
+(lyjpg,DOLdlmc3_0)
+% commit group lyjpA
+DOLu_0,DOLw1_0 -> DOLdlmc1_1
+DOLv_0,DOLw2_0 -> DOLdlmc2_1
+lyjpA,kilG,DOLw3_0 -> DOLdlmc3_1
+% --------------
+(lyjpB,DOLdlmc1_1)
+(lyjpB,DOLdlmc2_1)
+(lyjpB,DOLdlmc3_1)
+(DOLdlmphi1_0,DOLu_0)
+(DOLdlmphi1_0,kilG)
+(DOLdlmphi2_0,DOLv_0)
+(DOLdlmphi2_0,kilG)
+(DOLdlmphi3_0,DOLw1_0)
+(DOLdlmphi3_0,DOLw2_0)
+(DOLdlmphi3_0,DOLw3_0)
+% pattern 3.3.1 [TYPE_ic,[TYPE_i,[],[],[]],[],[],lytau]
+(DOLdlmd1_0,DOLw1_0)
+(DOLdlmd1_0,DOLw2_0)
+(DOLdlmd1_0,DOLw3_0)
+(DOLdlmd1_0,kilG)
+(DOLdlmd2_0,DOLw1_0)
+(DOLdlmd2_0,DOLw2_0)
+(DOLdlmd2_0,DOLw3_0)
+(DOLdlmd2_0,kilG)
+(DOLdlmd3_0,DOLw1_0)
+(DOLdlmd3_0,DOLw2_0)
+(DOLdlmd3_0,DOLw3_0)
+(DOLdlmd3_0,kilG)
+(DOLu_0,DOLw1_0)
+(DOLu_0,DOLw2_0)
+(DOLu_0,DOLw3_0)
+(DOLu_0,kilG)
+(DOLv_0,DOLw1_0)
+(DOLv_0,DOLw2_0)
+(DOLv_0,DOLw3_0)
+(DOLv_0,kilG)
+(kilG,DOLw1_0)
+(kilG,DOLw2_0)
+(kilG,DOLw3_0)
+(kilG,kilG)
+
+%---GS NIZK proof of M - end ---
+
+
+
+%---GS NIZK proof of theta1,theta2,rho1,rho2, rho3 between comM and C - begin ---
+
+kilG -> DOLu_0
+kilG -> DOLv_0
+kilG -> DOLw1_0
+kilG -> DOLw2_0
+kilG -> DOLw3_0
+DOLdG_0 -> kilG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLdV1_0
+DOLdG_0 -> DOLdV2_0
+DOLdG_0 -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC2,lyreltau),(lyjpg2,lyreltheta2)]
+LYC2,lyjpg2 -> DOLlyrelphi1_0
+LYC2,lyjpg2 -> DOLlyrelphi2_0
+% commit integer lyreltau
+DOLu_0,DOLw1_0 -> DOLlyreld1_0
+DOLv_0,DOLw2_0 -> DOLlyreld2_0
+kilG,DOLw3_0 -> DOLlyreld3_0
+% --------------
+(DOLlyreld1_0,LYC2)
+(DOLlyreld2_0,LYC2)
+(DOLlyreld3_0,LYC2)
+% commit integer lyreltheta2
+DOLu_0,DOLw1_0 -> DOLlyreld1_1
+DOLv_0,DOLw2_0 -> DOLlyreld2_1
+kilG,DOLw3_0 -> DOLlyreld3_1
+% --------------
+(DOLlyreld1_1,lyjpg2)
+(DOLlyreld2_1,lyjpg2)
+(DOLlyreld3_1,lyjpg2)
+(DOLu_0,DOLlyrelphi1_0)
+(kilG,DOLlyrelphi1_0)
+(DOLv_0,DOLlyrelphi2_0)
+(kilG,DOLlyrelphi2_0)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC1,lyreltau),(lyjpg1,lyreltheta1)]
+LYC1,lyjpg1 -> DOLlyrelphi1_1
+LYC1,lyjpg1 -> DOLlyrelphi2_1
+(DOLlyreld1_0,LYC1)
+(DOLlyreld2_0,LYC1)
+(DOLlyreld3_0,LYC1)
+% commit integer lyreltheta1
+DOLu_0,DOLw1_0 -> DOLlyreld1_2
+DOLv_0,DOLw2_0 -> DOLlyreld2_2
+kilG,DOLw3_0 -> DOLlyreld3_2
+% --------------
+(DOLlyreld1_2,lyjpg1)
+(DOLlyreld2_2,lyjpg1)
+(DOLlyreld3_2,lyjpg1)
+(DOLu_0,DOLlyrelphi1_1)
+(kilG,DOLlyrelphi1_1)
+(DOLv_0,DOLlyrelphi2_1)
+(kilG,DOLlyrelphi2_1)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC1,lyreltau),(DOLdlmc1_0_1,lyreltau),(lyjpg1,lyreltheta1),(lyjpg1_1,lyrelrho1),(DOLw1_0_1,lyrelrho3)]
+LYC1,DOLdlmc1_0_1,lyjpg1,lyjpg1_1,DOLw1_0_1 -> DOLlyrelphi1_2
+LYC1,DOLdlmc1_0_1,lyjpg1,lyjpg1_1,DOLw1_0_1 -> DOLlyrelphi2_2
+(DOLlyreld1_0,LYC1)
+(DOLlyreld2_0,LYC1)
+(DOLlyreld3_0,LYC1)
+(DOLlyreld1_0,DOLdlmc1_0_1)
+(DOLlyreld2_0,DOLdlmc1_0_1)
+(DOLlyreld3_0,DOLdlmc1_0_1)
+(DOLlyreld1_2,lyjpg1)
+(DOLlyreld2_2,lyjpg1)
+(DOLlyreld3_2,lyjpg1)
+% commit integer lyrelrho1
+DOLu_0,DOLw1_0 -> DOLlyreld1_3
+DOLv_0,DOLw2_0 -> DOLlyreld2_3
+kilG,DOLw3_0 -> DOLlyreld3_3
+% --------------
+(DOLlyreld1_3,lyjpg1_1)
+(DOLlyreld2_3,lyjpg1_1)
+(DOLlyreld3_3,lyjpg1_1)
+% commit integer lyrelrho3
+DOLu_0,DOLw1_0 -> DOLlyreld1_4
+DOLv_0,DOLw2_0 -> DOLlyreld2_4
+kilG,DOLw3_0 -> DOLlyreld3_4
+% --------------
+(DOLlyreld1_4,DOLw1_0_1)
+(DOLlyreld2_4,DOLw1_0_1)
+(DOLlyreld3_4,DOLw1_0_1)
+(DOLu_0,DOLlyrelphi1_2)
+(kilG,DOLlyrelphi1_2)
+(DOLv_0,DOLlyrelphi2_2)
+(kilG,DOLlyrelphi2_2)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC2,lyreltau),(DOLdlmc2_0_1,lyreltau),(lyjpg2,lyreltheta2),(lyjpg2_1,lyrelrho2),(DOLw2_0_1,lyrelrho3)]
+LYC2,DOLdlmc2_0_1,lyjpg2,lyjpg2_1,DOLw2_0_1 -> DOLlyrelphi1_3
+LYC2,DOLdlmc2_0_1,lyjpg2,lyjpg2_1,DOLw2_0_1 -> DOLlyrelphi2_3
+(DOLlyreld1_0,LYC2)
+(DOLlyreld2_0,LYC2)
+(DOLlyreld3_0,LYC2)
+(DOLlyreld1_0,DOLdlmc2_0_1)
+(DOLlyreld2_0,DOLdlmc2_0_1)
+(DOLlyreld3_0,DOLdlmc2_0_1)
+(DOLlyreld1_1,lyjpg2)
+(DOLlyreld2_1,lyjpg2)
+(DOLlyreld3_1,lyjpg2)
+% commit integer lyrelrho2
+DOLu_0,DOLw1_0 -> DOLlyreld1_5
+DOLv_0,DOLw2_0 -> DOLlyreld2_5
+kilG,DOLw3_0 -> DOLlyreld3_5
+% --------------
+(DOLlyreld1_5,lyjpg2_1)
+(DOLlyreld2_5,lyjpg2_1)
+(DOLlyreld3_5,lyjpg2_1)
+(DOLlyreld1_4,DOLw2_0_1)
+(DOLlyreld2_4,DOLw2_0_1)
+(DOLlyreld3_4,DOLw2_0_1)
+(DOLu_0,DOLlyrelphi1_3)
+(kilG,DOLlyrelphi1_3)
+(DOLv_0,DOLlyrelphi2_3)
+(kilG,DOLlyrelphi2_3)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC0,lyreltau),(DOLdlmc3_0_1,lyreltau),(lyjpg_1,lyrelrho1),(lyjpg_1,lyrelrho2),(DOLw3_0_1,lyrelrho3),(LYX1,lyreltheta1),(LYX2,lyreltheta2)]
+LYC0,DOLdlmc3_0_1,lyjpg_1,lyjpg_1,DOLw3_0_1,LYX1,LYX2 -> DOLlyrelphi1_4
+LYC0,DOLdlmc3_0_1,lyjpg_1,lyjpg_1,DOLw3_0_1,LYX1,LYX2 -> DOLlyrelphi2_4
+(DOLlyreld1_0,LYC0)
+(DOLlyreld2_0,LYC0)
+(DOLlyreld3_0,LYC0)
+(DOLlyreld1_0,DOLdlmc3_0_1)
+(DOLlyreld2_0,DOLdlmc3_0_1)
+(DOLlyreld3_0,DOLdlmc3_0_1)
+(DOLlyreld1_3,lyjpg_1)
+(DOLlyreld2_3,lyjpg_1)
+(DOLlyreld3_3,lyjpg_1)
+(DOLlyreld1_5,lyjpg_1)
+(DOLlyreld2_5,lyjpg_1)
+(DOLlyreld3_5,lyjpg_1)
+(DOLlyreld1_4,DOLw3_0_1)
+(DOLlyreld2_4,DOLw3_0_1)
+(DOLlyreld3_4,DOLw3_0_1)
+(DOLlyreld1_2,LYX1)
+(DOLlyreld2_2,LYX1)
+(DOLlyreld3_2,LYX1)
+(DOLlyreld1_1,LYX2)
+(DOLlyreld2_1,LYX2)
+(DOLlyreld3_1,LYX2)
+(DOLu_0,DOLlyrelphi1_4)
+(kilG,DOLlyrelphi1_4)
+(DOLv_0,DOLlyrelphi2_4)
+(kilG,DOLlyrelphi2_4)
+% pattern 3.3.1 [TYPE_ic,[TYPE_i,[],[],[]],[],[],lyreltau]
+(DOLlyreld1_0,DOLw1_0)
+(DOLlyreld1_0,DOLw2_0)
+(DOLlyreld1_0,DOLw3_0)
+(DOLlyreld1_0,kilG)
+(DOLlyreld2_0,DOLw1_0)
+(DOLlyreld2_0,DOLw2_0)
+(DOLlyreld2_0,DOLw3_0)
+(DOLlyreld2_0,kilG)
+(DOLlyreld3_0,DOLw1_0)
+(DOLlyreld3_0,DOLw2_0)
+(DOLlyreld3_0,DOLw3_0)
+(DOLlyreld3_0,kilG)
+(DOLu_0,DOLw1_0)
+(DOLu_0,DOLw2_0)
+(DOLu_0,DOLw3_0)
+(DOLu_0,kilG)
+(DOLv_0,DOLw1_0)
+(DOLv_0,DOLw2_0)
+(DOLv_0,DOLw3_0)
+(DOLv_0,kilG)
+(kilG,DOLw1_0)
+(kilG,DOLw2_0)
+(kilG,DOLw3_0)
+(kilG,kilG)
+
+%---GS NIZK proof of theta1,theta2,rho1,rho2, rho3 between comM and C - end ---
+
+
+%-----------------------------------------------------------------------
+%[[Verification]]
+%-----------------------------------------------------------------------
+% The verification checking is already included in the GS proof descriptions.
+
+%---
+% checking \mitLambda_i
+%--------------------------------------
+(tagT1,lyjpLamda0)
+(tagT1,lyjpLamda1)
+(lyjpg,tagT4)
+
+
+%-----------------------------------------------------------------------
+%[[Decryption]]
+%-----------------------------------------------------------------------
+%LY encryption's decryption
+
+
+%-----------------------------------------------------------------------
+%[[Reveal]]
+%-----------------------------------------------------------------------
+%BBS's encryption scheme decryption
+
+
+%-----------------------------------------------------------------------
+%[[Trace]]
+%-----------------------------------------------------------------------
+
+(tagT1,vencGam0)
+(tagT2,tagT3)
+
+
+%-----------------------------------------------------------------------
+%[[Open]]
+%-----------------------------------------------------------------------
+
+kilV11->kilV31
+kilV21->kilV41
+
+kilV12->kilV32
+kilV22->kilV42
+
+kilV01->kilM1
+kilV11->kilM1
+kilV21->kilM1
+
+kilV02->kilM2
+kilV12->kilM2
+kilV22->kilM2
+
+
+%-----------------------------------------------------------------------
+%[[Claim / Disclaim]]
+%-----------------------------------------------------------------------
+
+(tagT1,lyjpLamda0)
+(tagT1,lyjpLamda1)
+(lyjpg,tagT4)
+
+tagTdel;%$T_{\delta,1}$
+
+tagT1->tagTdel
+LYGam1->tagTdel
+
+LYGam_1;%$\Gamma_{-1}$
+
+lyjpg->LYGam_1
+
+crshG;%$g_{hv}$
+DOLhw1_0;%$h_{1,v}$
+DOLhw2_0;%$h_{2,v}$
+DOLhw3_0;%$h_{3,v}$
+%DOLhu_0;%$g1_{hv}$
+%DOLhv_0;%$g2_{hv}$
+
+lyjpg->crshG
+lyjph31i->DOLhw1_0
+lyjph32i->DOLhw2_0
+lyjph33i->DOLhw3_0
+%DOLu_0->DOLhu_0
+%DOLv_0->DOLhv_0
+
+
+%---GS NIZK proof of LYGam_1 -claim-- begin -----
+
+crshG -> DOLu_0
+crshG -> DOLv_0
+crshG -> DOLhw1_0
+crshG -> DOLhw2_0
+crshG -> DOLhw3_0
+DOLdG_0 -> crshG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLhdV1_0
+DOLdG_0 -> DOLhdV2_0
+DOLdG_0 -> DOLhdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLhdV1_0 -> DOLhw1_0
+DOLhdV2_0 -> DOLhw2_0
+DOLhdV3_0 -> DOLhw3_0
+% pattern 3.2.1 [TYPE_gc,[TYPE_g,[],[],[],lyjpg],[],[],lyjpg]
+% commit group lyjpg
+DOLu_0,DOLhw1_0 -> DOLclmc1_0
+DOLv_0,DOLhw2_0 -> DOLclmc2_0
+lyjpg,crshG,DOLhw3_0 -> DOLclmc3_0
+% --------------
+(DOLclmc1_0,DOLhw1_0)
+(DOLclmc1_0,DOLhw2_0)
+(DOLclmc1_0,DOLhw3_0)
+(DOLclmc1_0,crshG)
+(DOLclmc2_0,DOLhw1_0)
+(DOLclmc2_0,DOLhw2_0)
+(DOLclmc2_0,DOLhw3_0)
+(DOLclmc2_0,crshG)
+(DOLclmc3_0,DOLhw1_0)
+(DOLclmc3_0,DOLhw2_0)
+(DOLclmc3_0,DOLhw3_0)
+(DOLclmc3_0,crshG)
+(DOLu_0,DOLhw1_0)
+(DOLu_0,DOLhw2_0)
+(DOLu_0,DOLhw3_0)
+(DOLu_0,crshG)
+(DOLv_0,DOLhw1_0)
+(DOLv_0,DOLhw2_0)
+(DOLv_0,DOLhw3_0)
+(DOLv_0,crshG)
+(crshG,DOLhw1_0)
+(crshG,DOLhw2_0)
+(crshG,DOLhw3_0)
+(crshG,crshG)
+(DOLhw1_0,DOLhw1_0)
+(DOLhw1_0,DOLhw2_0)
+(DOLhw1_0,DOLhw3_0)
+(DOLhw2_0,DOLhw2_0)
+(DOLhw2_0,DOLhw3_0)
+(DOLhw3_0,DOLhw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(tagTdel,LYGam_1),(tagT1,lyjpg)]
+tagTdel,tagT1 -> DOLclmphi1_0
+tagTdel,tagT1 -> DOLclmphi2_0
+tagTdel,tagT1 -> DOLclmphi3_0
+% commit group LYGam_1
+DOLu_0,DOLhw1_0 -> DOLclmc1_1
+DOLv_0,DOLhw2_0 -> DOLclmc2_1
+LYGam_1,crshG,DOLhw3_0 -> DOLclmc3_1
+% --------------
+(tagTdel,DOLclmc1_1)
+(tagTdel,DOLclmc2_1)
+(tagTdel,DOLclmc3_1)
+(tagT1,DOLclmc1_0)
+(tagT1,DOLclmc2_0)
+(tagT1,DOLclmc3_0)
+(DOLclmphi1_0,DOLu_0)
+(DOLclmphi1_0,crshG)
+(DOLclmphi2_0,DOLv_0)
+(DOLclmphi2_0,crshG)
+(DOLclmphi3_0,DOLhw1_0)
+(DOLclmphi3_0,DOLhw2_0)
+(DOLclmphi3_0,DOLhw3_0)
+
+%---GS NIZK proof of LYGam_1 -Claim-- end -----
+
+
+%-----------------------------------------------------------------------
+%[[Claim / Disclaim Verify]]
+%-----------------------------------------------------------------------
+
+(tagTdel,LYGam2)
+(tagT2,tagT3)
+(tagT1,LYGam1)
+(lyjpg,tagTdel)
+
+
+%----------------------------------------------------------------------security proof---
+%---------------------------------------------------------------------
+%[[Prover's processes]]
+%---------------------------------------------------------------------
+%%Message privacy-----------
+
+%Game5
+% Kiltz's tag encryption to DLIN
+%Game6
+% LY encryption to DLIN
+
+
+%%Anonymity----------------
+
+%Game 4
+% GS proof to DLIN
+%Game6
+%GS proof to DLIN
+%Game8
+% LY encryption to DLIN
+%Game9
+% tag's relation to 3DLIN (Lemma1)
+%Game 11
+% LY encryption to DLIN
+
+
+%%Soundness and Claiming-Soundness----------------
+% Theorem3
+% AHO to e-SFP
+
+%Theorem4
+%Game1, Game4========================
+% Instance generation
+G_dlinh;%$G_{dlin,h}$
+G1_dlinh;%$G_{1,dlin,h}$
+G2_dlinh;%$G_{2,dlin,h}$
+G1u_dlinh;%$G_{1u,dlin,h}$
+G2v_dlinh;%$G_{2v,dlin,h}$
+Gch_dlinh;%$G_{ch,dlin,h}$
+
+%-----------------------------------
+% for simulation
+G_dlinh->lyjpg
+G1_dlinh->lyjpg1
+G2_dlinh->lyjpg2
+
+G1u_dlinh -> lyjph31i
+G2v_dlinh -> lyjph32i
+Gch_dlinh -> lyjph33i
+
+%Game5================================
+% Instance generation
+G_cdhlam;%$G_{cdh,lam}$
+Ga_cdhlam;%$G_{a,cdh,lam}$
+
+%------------------------------------
+% for simulation
+
+G_cdhlam->lyjpg
+
+Ga_cdhlam -> lyjpLamda0
+Ga_cdhlam -> lyjpLamda1
+Ga_cdhlam -> LYGam1
+
+
+%===============================================
+% Building Blocks Reductions
+%===============================================
+
+%--------------------------------------------
+% Kiltz's tag encryption to DLIN
+%--------------------------------------------
+
+%--------------------------------------------
+% LY encryption to DLIN
+%--------------------------------------------
+
+%-------------------------------------------------
+% AHO to q-SFP
+%-------------------------------------------------
+
+%--------------------------------------------
+% tag's relation to 3DLIN (Lemma 1) 
+%--------------------------------------------
+% Instance generation
+G_d3dh;%$G_{d3dhl}$
+Ga_d3dh;%$G_{a,d3dh}$
+Gb_d3dh;%$G_{b,d3dh}$
+Gc_d3dh;%$G_{c.d3dh}$
+Gch_d3dh;%$G_{ch,d3dh}$
+
+%--------------------------
+% for simulation
+
+Ga_d3dh -> lyjpLamda0
+Ga_d3dh -> lyjpLamda1
+
+Ga_d3dh -> LYGam1
+Gb_d3dh -> LYGam2
+
+Gc_d3dh -> tagT1
+Gch_d3dh -> tagT2
+G_d3dh -> tagT3
+Gc_d3dh -> tagT4
+
+
+
+%--------------------------------------------
+% For GS proof extractor
+%--------------------------------------------
+% commit group kilG
+DOLvencc1_0->kilG
+DOLvencc2_0->kilG
+DOLvencc3_0->kilG
+
+% commit group vencW1
+DOLvencc1_1->vencW1
+DOLvencc2_1->vencW1
+DOLvencc3_1->vencW1
+
+% commit group LYGam1
+DOLvencc1_2->LYGam1
+DOLvencc2_2->LYGam1
+DOLvencc3_2->LYGam1
+
+% commit group vencW2
+DOLvencc1_3->vencW2
+DOLvencc2_3->vencW2
+DOLvencc3_3->vencW2
+
+% commit integer venctau
+DOLvencwitd_0;%$W_{vencs_0}$
+DOLvencd1_0->DOLvencwitd_0
+DOLvencd2_0->DOLvencwitd_0
+DOLvencd3_0->DOLvencwitd_0
+
+% commit integer LYtau
+DOLlindwitd_0;%$W_{lins_0}$
+DOLlind1_0 -> DOLlindwitd_0
+DOLlind2_0 -> DOLlindwitd_0
+DOLlind3_0 -> DOLlindwitd_0
+
+% commit integer theta2
+DOLlindwitd_1;%$W_{lins_1}$
+DOLlind1_1 -> DOLlindwitd_1
+DOLlind2_1 -> DOLlindwitd_1
+DOLlind3_1 -> DOLlindwitd_1
+
+% commit integer theta1
+DOLlindwitd_2;%$W_{lins_1}$
+DOLlind1_2 -> DOLlindwitd_2
+DOLlind2_2 -> DOLlindwitd_2
+DOLlind3_2 -> DOLlindwitd_2
+
+% commit group ahoZ
+DOLcertc1_0 -> ahoZ
+DOLcertc2_0 -> ahoZ
+DOLcertc3_0 -> ahoZ
+
+% commit group ahoUdash
+DOLcertc1_1 -> ahoUdash
+DOLcertc2_1 -> ahoUdash
+DOLcertc3_1 -> ahoUdash
+
+% commit group ahoM1
+DOLcertc1_2 -> ahoM1
+DOLcertc2_2 -> ahoM1
+DOLcertc3_2 -> ahoM1
+
+% commit group ahoM2
+DOLcertc1_3 -> ahoM2
+DOLcertc2_3 -> ahoM2
+DOLcertc3_3 -> ahoM2
+
+% commit group ahoM3
+DOLcertc1_4 -> ahoM3
+DOLcertc2_4 -> ahoM3
+DOLcertc3_4 -> ahoM3
+
+% commit group ahoM4
+DOLcertc1_5 -> ahoM4
+DOLcertc2_5 -> ahoM4
+DOLcertc3_5 -> ahoM4
+
+% commit group ahoRdash
+DOLcertc1_6 -> ahoRdash
+DOLcertc2_6 -> ahoRdash
+DOLcertc3_6 -> ahoRdash
+
+% commit group kilG
+DOLtgc1_0->kilG
+DOLtgc2_0->kilG
+DOLtgc3_0->kilG
+
+% commit group LYGam1
+DOLtgc1_1->LYGam1
+DOLtgc2_1->LYGam1
+DOLtgc3_1->LYGam1
+
+% commit group Upsi
+DOLtgc1_2->Upsi
+DOLtgc2_2->Upsi
+DOLtgc3_2->Upsi
+
+% commit group LYGam2
+DOLtgc1_3->LYGam2
+DOLtgc2_3->LYGam2
+DOLtgc3_3->LYGam2
+
+% commit integer eqkeytau
+DOLeqkeywitd_0;%$W_{eqkeys_0}$
+DOLeqkeyd1_0 -> DOLeqkeywitd_0
+DOLeqkeyd2_0 -> DOLeqkeywitd_0
+DOLeqkeyd3_0 -> DOLeqkeywitd_0
+
+% commit integer eqkeyz21
+DOLeqkeywitd_1;%$W_{eqkeys_1}$
+DOLeqkeyd1_1 -> DOLeqkeywitd_1
+DOLeqkeyd2_1 -> DOLeqkeywitd_1
+DOLeqkeyd3_1 -> DOLeqkeywitd_1
+
+% commit integer eqkeyrho21
+DOLeqkeywitd_2;%$W_{eqkeys_2}$
+DOLeqkeyd1_2 -> DOLeqkeywitd_2
+DOLeqkeyd2_2 -> DOLeqkeywitd_2
+DOLeqkeyd3_2 -> DOLeqkeywitd_2
+
+% commit integer eqkeyrho31
+DOLeqkeywitd_3;%$W_{eqkeys_3}$
+DOLeqkeyd1_3 -> DOLeqkeywitd_3
+DOLeqkeyd2_3 -> DOLeqkeywitd_3
+DOLeqkeyd3_3 -> DOLeqkeywitd_3
+
+% commit integer eqkeyz11
+DOLeqkeywitd_4;%$W_{eqkeys_4}$
+DOLeqkeyd1_4 -> DOLeqkeywitd_4
+DOLeqkeyd2_4 -> DOLeqkeywitd_4
+DOLeqkeyd3_4 -> DOLeqkeywitd_4
+
+% commit integer eqkeyrho11
+DOLeqkeywitd_5;%$W_{eqkeys_5}$
+DOLeqkeyd1_5 -> DOLeqkeywitd_5
+DOLeqkeyd2_5 -> DOLeqkeywitd_5
+DOLeqkeyd3_5 -> DOLeqkeywitd_5
+
+% commit integer eqkeyz12
+DOLeqkeywitd_6;%$W_{eqkeys_6}$
+DOLeqkeyd1_6 -> DOLeqkeywitd_6
+DOLeqkeyd2_6 -> DOLeqkeywitd_6
+DOLeqkeyd3_6 -> DOLeqkeywitd_6
+
+% commit integer eqkeyrho12
+DOLeqkeywitd_7;%$W_{eqkeys_7}$
+DOLeqkeyd1_7 -> DOLeqkeywitd_7
+DOLeqkeyd2_7 -> DOLeqkeywitd_7
+DOLeqkeyd3_7 -> DOLeqkeywitd_7
+
+% commit integer eqkeyrho32
+DOLeqkeywitd_8;%$W_{eqkeys_8}$
+DOLeqkeyd1_8 -> DOLeqkeywitd_8
+DOLeqkeyd2_8 -> DOLeqkeywitd_8
+DOLeqkeyd3_8 -> DOLeqkeywitd_8
+
+% commit integer eqkeyz22
+DOLeqkeywitd_9;%$W_{eqkeys_9}$
+DOLeqkeyd1_9 -> DOLeqkeywitd_9
+DOLeqkeyd2_9 -> DOLeqkeywitd_9
+DOLeqkeyd3_9 -> DOLeqkeywitd_9
+
+% commit integer eqkeyrho22
+DOLeqkeywitd_10;%$W_{eqkeys_10}$
+DOLeqkeyd1_10 -> DOLeqkeywitd_10
+DOLeqkeyd2_10 -> DOLeqkeywitd_10
+DOLeqkeyd3_10 -> DOLeqkeywitd_10
+
+% commit integer lytau
+DOLdlmwitd_0;%$W_{dlms_0}$
+DOLdlmd1_0->DOLdlmwitd_0
+DOLdlmd2_0->DOLdlmwitd_0
+DOLdlmd3_0->DOLdlmwitd_0
+
+% commit group lyjpM
+DOLdlmc1_0->lyjpM
+DOLdlmc2_0->lyjpM
+DOLdlmc3_0->lyjpM
+
+% commit group lyjpA
+DOLdlmc1_1->lyjpA
+DOLdlmc2_1->lyjpA
+DOLdlmc3_1->lyjpA
+
+% commit integer lyreltau
+DOLlyrelwitd_0;%$W_{lyrels_0}$
+DOLlyreld1_0->DOLlyrelwitd_0
+DOLlyreld2_0->DOLlyrelwitd_0
+DOLlyreld3_0->DOLlyrelwitd_0
+
+% commit integer lyreltheta2
+DOLlyrelwitd_1;%$W_{lyrels_1}$
+DOLlyreld1_1->DOLlyrelwitd_1
+DOLlyreld2_1->DOLlyrelwitd_1
+DOLlyreld3_1->DOLlyrelwitd_1
+
+% commit integer lyreltheta1
+DOLlyrelwitd_2;%$W_{lyrels_2}$
+DOLlyreld1_2->DOLlyrelwitd_2
+DOLlyreld2_2->DOLlyrelwitd_2
+DOLlyreld3_2->DOLlyrelwitd_2
+
+% commit integer lyrelrho1
+DOLlyrelwitd_3;%$W_{lyrels_3}$
+DOLlyreld1_3->DOLlyrelwitd_3
+DOLlyreld2_3->DOLlyrelwitd_3
+DOLlyreld3_3->DOLlyrelwitd_3
+
+% commit integer lyrelrho3
+DOLlyrelwitd_4;%$W_{lyrels_4}$
+DOLlyreld1_4->DOLlyrelwitd_4
+DOLlyreld2_4->DOLlyrelwitd_4
+DOLlyreld3_4->DOLlyrelwitd_4
+
+% commit integer lyrelrho2
+DOLlyrelwitd_5;%$W_{lyrels_5}$
+DOLlyreld1_5->DOLlyrelwitd_5
+DOLlyreld2_5->DOLlyrelwitd_5
+DOLlyreld3_5->DOLlyrelwitd_5
+
+% commit group lyjpg
+DOLclmc1_0->lyjpg
+DOLclmc2_0->lyjpg
+DOLclmc3_0->lyjpg
+
+% commit group LYGam_1
+DOLclmc1_1->LYGam_1
+DOLclmc2_1->LYGam_1
+DOLclmc3_1->LYGam_1
+
+
+
+%====================================================================
+% Building blockes
+%====================================================================
+%---------------------------------------------------------------------
+%AHO signature
+%---------------------------------------------------------------------
+%% ----- AHO Key Generation ----
+ahoG; %$AHO.G$
+ahoHu; %$AHO.H_u$
+%
+ahoG1; %$AHO.G_1$
+ahoH1; %$AHO.H_1$
+ahoG2; %$AHO.G_2$
+ahoH2; %$AHO.H_2$
+ahoG3; %$AHO.G_3$
+ahoH3; %$AHO.H_3$
+ahoG4; %$AHO.G_4$
+ahoH4; %$AHO.H_4$
+%
+ahoGz; %$AHO.G_z$
+ahoHz; %$AHO.H_z$
+ahoA0; %$AHO.A_0$
+ahoA0t; %$AHO.\tilde{A}_0$
+ahoA1; %$AHO.A_1$
+ahoA1t; %$AHO.\tilde{A}_1$
+ahoB0; %$AHO.B_0$
+ahoB0t; %$AHO.\tilde{B}_0$
+ahoB1; %$AHO.B_1$
+ahoB1t; %$AHO.\tilde{B}_1$
+
+lyjpg->ahoG
+
+ahoG->ahoHu
+ahoG->ahoG1
+ahoG->ahoG2
+ahoG->ahoG3
+ahoG->ahoG4
+ahoG->ahoH1
+ahoG->ahoH2
+ahoG->ahoH3
+ahoG->ahoH4
+ahoG->ahoGz
+ahoHu->ahoHz
+ahoG->ahoA0
+ahoG->ahoA0t
+ahoG->ahoA1
+ahoG->ahoA1t
+ahoG->ahoB0
+ahoG->ahoB0t
+ahoG->ahoB1
+ahoG->ahoB1t
+
+%% ----- AHO Signing ----
+ahoZ; %$AHO.Z$
+ahoR; %$AHO.R$
+ahoS; %$AHO.S$
+ahoT; %$AHO.T$
+ahoU; %$AHO.U$
+ahoV; %$AHO.V$
+ahoW; %$AHO.W$
+ahoM1; %$AHO.M1$
+ahoM2; %$AHO.M2$
+ahoM3; %$AHO.M3$
+ahoM4; %$AHO.M4$
+
+LYX1 ->ahoM1
+LYX2 ->ahoM2
+LYGam1 ->ahoM3
+LYGam2 ->ahoM4
+
+ahoG->ahoZ
+ahoG->ahoR
+ahoM1->ahoR
+ahoM2->ahoR
+ahoM3->ahoR
+ahoM4->ahoR
+ahoG->ahoS
+ahoG->ahoT
+ahoG->ahoU
+ahoM1->ahoU
+ahoM2->ahoU
+ahoM3->ahoU
+ahoM4->ahoU
+ahoHu->ahoV
+ahoG->ahoW
+
+%% ----- AHO Signature Verificcation ----
+% the constant part, which may be done at key generation
+(ahoA0,ahoA0t)
+(ahoA1,ahoA1t)
+(ahoB0,ahoB0t)
+(ahoB1,ahoB1t)
+
+(ahoGz,ahoZ)
+(ahoG,ahoR)
+(ahoS,ahoT)
+(ahoG1,ahoM1)
+(ahoG2,ahoM2)
+(ahoG3,ahoM3)
+(ahoG4,ahoM4)
+(ahoHz,ahoZ)
+(ahoHu,ahoU)
+(ahoV,ahoW)
+(ahoH1,ahoM1)
+(ahoH2,ahoM2)
+(ahoH3,ahoM3)
+(ahoH4,ahoM4)
+
+%-------------------------------------------------
+% AHO to q-SFP
+%-------------------------------------------------
+% Instance generation
+%% ----- q-SFP assumption ----
+% Key part
+ahoqsG; %$qSFP.G$
+ahoqsA; %$qSFP.A$
+ahoqsAt; %$qSFP.\tilde{A}$
+ahoqsB; %$qSFP.B$
+ahoqsBt; %$qSFP.\tilde{B}$
+ahoqsGz; %$qSFP.G_z$
+ahoqsHz; %$qSFP.H_z$
+ahoqsHu; %$qSFP.H_u$
+
+ahoqsG->ahoqsA
+ahoqsG->ahoqsAt
+ahoqsG->ahoqsB
+ahoqsG->ahoqsBt
+ahoqsG->ahoqsGz
+ahoqsG->ahoqsHz
+ahoqsG->ahoqsHu
+
+% Instance
+ahoqsZj; %$qsFP.Z_j$
+ahoqsRj; %$qSFP.R_j$
+ahoqsUj; %$qSFP.U_j$
+ahoqsSj; %$qSFP.S_j$
+ahoqsTj; %$qSFP.T_j$
+ahoqsVj; %$qSFP.V_j$
+ahoqsWj; %$qSFP.W_j$
+
+ahoqsG->ahoqsZj
+ahoqsG->ahoqsRj
+ahoqsG->ahoqsUj
+ahoqsG->ahoqsSj
+ahoqsG->ahoqsTj
+ahoqsG->ahoqsVj
+ahoqsG->ahoqsWj
+
+%% ----- Reduction AHO->q-SFP ----
+%% -- simulating key generation --
+ahoqsG->ahoG
+ahoqsGz->ahoGz
+ahoqsHz->ahoHz
+ahoqsHu->ahoHu
+ahoGz->ahoG1
+ahoGz->ahoG2
+ahoGz->ahoG3
+ahoGz->ahoG4
+ahoG->ahoG1
+ahoG->ahoG2
+ahoG->ahoG3
+ahoG->ahoG4
+ahoHz->ahoH1
+ahoHz->ahoH2
+ahoHz->ahoH3
+ahoHz->ahoH4
+ahoHu->ahoH1
+ahoHu->ahoH2
+ahoHu->ahoH3
+ahoHu->ahoH4
+
+%%- RandSeq subroutine #1
+%% e(X1,Y1) e(X2,Y2)
+
+ahors1G; %$rs1G$
+ahors1X1dash; %$rs1.X1d$
+ahors1Y1dash; %$rs1.Y1d$
+ahors1X2dash; %$rs1.X2d$
+ahors1Y2dash; %$rs1.Y2d$
+
+ahors1G->ahors1Y1dash
+ahors1G->ahors1X2dash
+ahors1X1, ahors1X2 -> ahors1X1dash
+ahors1Y2, ahors1Y1 -> ahors1Y2dash
+ahors1X2->ahors1X2dash
+ahors1Y1->ahors1Y1dash
+
+%% connect the input/output to RandSeq
+%input
+ahoqsG->ahors1G
+ahoqsGz,ahoqsG->ahors1X1
+ahoqsG->ahors1Y1
+ahoqsA->ahors1X2
+ahoqsAt->ahors1Y2
+%output
+ahors1X1dash->ahoA0
+ahors1Y1dash->ahoA0t
+ahors1X2dash->ahoA1
+ahors1Y2dash->ahoA1t
+
+
+%%- RandSeq subroutine #2
+%% e(X1,Y1) e(X2,Y2)
+
+ahors2G; %$ahors2G$
+ahors2X1dash; %$rs2.X1d$
+ahors2Y1dash; %$rs2.Y1d$
+ahors2X2dash; %$rs2.X2d$
+ahors2Y2dash; %$rs2.Y2d$
+
+ahors2G->ahors2Y1dash
+ahors2G->ahors2X2dash
+ahors2X1, ahors2X2 -> ahors2X1dash
+ahors2Y2, ahors2Y1 -> ahors2Y2dash
+ahors2X2->ahors2X2dash
+ahors2Y1->ahors2Y1dash
+
+%% connect the input/output to RandSeq
+%input
+ahoqsG->ahors2G
+ahoqsHz,ahoqsHu->ahors2X1
+ahoqsG->ahors2Y1
+ahoqsB->ahors2X2
+ahoqsBt->ahors2Y2
+%output
+ahors2X1dash->ahoB0
+ahors2Y1dash->ahoB0t
+ahors2X2dash->ahoB1
+ahors2Y2dash->ahoB1t
+
+%% -- simulating signature generation --
+ahoqsZj,ahoqsG,ahoM1,ahoM2,ahoM3,ahoM4->ahoZ
+ahoqsRj,ahoqsG,ahoM1,ahoM2,ahoM3,ahoM4->ahoR
+ahoqsSj->ahoS
+ahoqsTj->ahoT
+ahoqsUj,ahoqsG,ahoM1,ahoM2,ahoM3,ahoM4->ahoU
+ahoqsVj->ahoV
+ahoqsWj->ahoW
+
+%% -- computing answer to q-SFP --
+%% as it is assumed that the adversary outputs a valid AHO signature,
+%% we can re-use variables defined as an AHO signature for the forgery.
+
+ahoZ,ahoG,ahoM1,ahoM2,ahoM3,ahoM4->ahoqsZj
+ahoR,ahoG,ahoM1,ahoM2,ahoM3,ahoM4->ahoqsRj
+ahoU,ahoG,ahoM1,ahoM2,ahoM3,ahoM4->ahoqsUj
+ahoS->ahoqsSj
+ahoT->ahoqsTj
+ahoV->ahoqsVj
+ahoW->ahoqsWj
+
+%[Pairings]
+% For q-SFP assumption
+(ahoqsA,ahoqsAt)
+(ahoqsGz,ahoqsZj)
+(ahoqsG,ahoqsRj)
+(ahoqsSj,ahoqsTj)
+(ahoqsB,ahoqsBt)
+(ahoqsHz,ahoqsZj)
+(ahoqsHu,ahoqsUj)
+(ahoqsVj,ahoqsWj)
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+% LY encryption scheme
+%--------------------------------------------------------------------
+%%--------------LY encryption Key Generation---------
+
+LYG; %$LY.G$
+LYX1; %$LY.X_1$
+LYX2; %$LY.X_2$
+LYGam1; %$LY.\Gamma_1$
+LYGam2; %$LY.\Gamma_2$
+
+lyjpg->LYG
+LYG->LYX1
+LYG->LYX2
+LYG->LYGam1
+LYG->LYGam2
+
+%------------------- LY encryption -------------------
+LYC0;%$LY.C_0$
+LYC1;%$LY.C_1$
+LYC2;%$LY.C_2$
+LYC3;%$LY.C_3$
+lyjpM;%$M$
+
+lyjpM->LYC0
+lyjpg1->LYC1
+lyjpg2->LYC2
+lyjpg->LYC3
+
+%-------------------LY decryption --------------------
+LYC0->lyjpM
+LYC1->lyjpM
+LYC2->lyjpM
+LYC3->lyjpM
+
+%--------------------------------------------
+% LY encryption to DLIN
+%--------------------------------------------
+% Instance generation
+G_dlinLY;%$G_{dlin,LY}$
+G1_dlinLY;%$G_{1,dlin,LY}$
+G2_dlinLY;%$G_{2,dlin,LY}$
+G1u_dlinLY;%$G_{1u,dlin,LY}$
+G2v_dlinLY;%$G_{2v,dlin,LY}$
+Gch_dlinLY;%$G_{ch,dlin,LY}$
+
+G_dlinLY->G1_dlinLY
+G_dlinLY->G2_dlinLY
+
+G1_dlinLY->G1u_dlinLY
+G2_dlinLY->G1v_dlinLY
+
+G_dlinLY->Gch_dlinLY
+
+%-------------------------
+% for simulation
+G1_dlinLY -> DOLlinu_0
+G2_dlinLY -> DOLlinv_0
+G1u_dlinLY -> DOLlinw1_0
+G2v_dlinLY -> DOLlinw2_0
+Gch_dlinLY -> DOLlinw3_0
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+%Kilt's encryption scheme
+%--------------------------------------------------------------------
+%%-------------Kiltz's encryption Key Generation -----------
+kilG; %$Kil.G$
+kilY1; %$Kil.Y_1$
+kilY2; %$Kil.Y_2$
+kilY3; %$Kil.Y_3$
+kilY4; %$Kil.Y_4$
+
+lyjpg->kilG
+
+kilG->kilY1
+kilG->kilY2
+kilG->kilY3
+kilG->kilY4
+
+%------------------- Kiltz's encryption -------------------
+
+kilV01;%$Kil.V_{01}$
+kilV11;%$Kil.V_{11}$
+kilV21;%$Kil.V_{21}$
+kilV31;%$Kil.V_{31}$
+kilV41;%$Kil.V_{41}$
+
+kilV02;%$Kil.V_{02}$
+kilV12;%$Kil.V_{12}$
+kilV22;%$Kil.V_{22}$
+kilV32;%$Kil.V_{32}$
+kilV42;%$Kil.V_{42}$
+
+kilM1;%$M_{kil1}$
+kilM2;%$M_{kil2}$
+
+%LYGam1 enc
+kilM1->kilV01
+kilG->kilV01
+kilY1->kilV11
+kilY2->kilV21
+kilY3->kilV31
+kilG->kilV31
+kilY4->kilV41
+kilG->kilV41
+
+%LYGam2 enc
+kilM2->kilV02
+kilG->kilV02
+kilY1->kilV12
+kilY2->kilV22
+kilY3->kilV32
+kilG->kilV32
+kilY4->kilV42
+kilG->kilV42
+
+%-----------------Kiltz's decryption-------------------------------------
+kilV11->kilV31
+kilV21->kilV41
+
+kilV12->kilV32
+kilV22->kilV42
+
+kilV01->LYGam1
+kilV11->LYGam1
+kilV21->LYGam1
+
+kilV02->LYGam2
+kilV12->LYGam2
+kilV22->LYGam2
+
+%-----------------Kiltz's public verifiability-------------------------------------
+kilY1->kilY3
+kilY2->kilY4
+
+kilV11->kilV31
+kilV21->kilV41
+
+kilV12->kilV32
+kilV22->kilV42
+%--------------------------------------------
+% Kiltz's tag encryption to DLIN
+%--------------------------------------------
+% Instance generation
+G_dlinkil;%$G_{dlin,kil}$
+G1_dlinkil;%$G_{1,dlin,kil}$
+G2_dlinkil;%$G_{2,dlin,kil}$
+G1u_dlinkil;%$G_{1u,dlin,kil}$
+G2v_dlinkil;%$G_{2v,dlin,kil}$
+Gch_dlinkil;%$G_{ch,dlin,kil}$
+
+G_dlinkil->G1_dlinkil
+G_dlinkil->G2_dlinkil
+
+G1_dlinkil->G1u_dlinkil
+G2_dlinkil->G1v_dlinkil
+
+G_dlinkil->Gch_dlinkil
+
+%-------------------------
+% for simulation
+
+G_dlinkil->kilG
+G1_dlinkil->kilY1
+G2_dlinkil->kilY2
+
+G1u_dlinkil->kilV11
+G2v_dlinkil->kilV21
+
+G1u_dlinkil->kilV12
+G2v_dlinkil->kilV22
+
+Gch_dlinkil->kilV01
+Gch_dlinkil->kilV02
+
+Gch_dlinkil -> kilV0
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+%Pedersen one-time signature
+%--------------------------------------------------------------------
+%%------------- Pedersen one-time signature Key Generation -----------
+% variable declaration already done in the [ENC] section (why separated?)
+
+Pedg->Pedg1
+Pedg->Pedg2
+Pedg->Pedy
+
+% What is the following?
+Pedg->lyjpg
+
+%------------------- Pedersen one-time signature -------------------
+% The message space is Zp. Is the following really necessary?
+%pedM;%$M_{i,pedots}$
+
+
+%-------------------- Pedersen one-time signature verification --------
+pedg, pedg1, pedg2->pedy
+
+
+%--------------------------------------------
+% Pederson OTS unforgeability reduction
+%--------------------------------------------
+% DLP Instance generation
+peddlg; %$g_{peddl}$
+peddlY; %$Y_{peddl}$
+peddlg -> peddlY;
+
+% Reduction case b=0
+peddlg->pedg
+peddlg->pedg1
+peddlY->pedg1
+peddlg->pedg2
+peddlg->pedy
+pedg1->pedy
+% adversary's output is verified normally. thus suppressed.
+
+
+% Reduction case b=1
+peddlg->pedg
+peddlg->peddlg1
+peddlY->pedg2
+peddlg->pedg2
+peddlg->pedy
+pedg2->pedy
+
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+%BBS (Boneh-Boyen-Sacham) scheme, group signature??
+%--------------------------------------------------------------------
+%Included in GS proof
+%----------------BBS key generation = Kilt's Key generation -----------------
+kilG; %$Kil.G$
+kilY1; %$Kil.Y_1$
+kilY2; %$Kil.Y_2$
+kilY3; %$Kil.Y_3$
+kilY4; %$Kil.Y_4$
+
+lyjpg->kilG
+
+kilG->kilY1
+kilG->kilY2
+
+%---------------- BBS encryption -------------------------------------
+bbsM; %$M_{bbs}$
+
+kilG->bbsM
+
+kilG->vencPhi0
+bbsM->vencPhi0
+kilY1->vencPhi1
+kilY2->vencPhi2
+
+%-----------------BBS decryption -------------------------------------
+vencPhi0->bbsM
+vencPhi1->bbsM
+vencPhi2->bbsM
+
+%--------------------------------------------
+% BBS encryption to DLIN
+%--------------------------------------------
+% Same with that of Kiltz's encryption scheme
+% Instance generation
+G_dlinkil;%$G_{dlin,kil}$
+G1_dlinkil;%$G_{1,dlin,kil}$
+G2_dlinkil;%$G_{2,dlin,kil}$
+G1u_dlinkil;%$G_{1u,dlin,kil}$
+G2v_dlinkil;%$G_{2v,dlin,kil}$
+Gch_dlinkil;%$G_{ch,dlin,kil}$
+
+G_dlinkil->G1_dlinkil
+G_dlinkil->G2_dlinkil
+
+G1_dlinkil->G1u_dlinkil
+G2_dlinkil->G1v_dlinkil
+
+G_dlinLY->Gch_dlinkil
+
+%-------------------------
+% for simulation
+
+G_dlinkil->kilG
+G1_dlinkil->kilY1
+G2_dlinkil->kilY2
+
+G1u_dlinkil->vencPhi1
+G2v_dlinkil->vencPhi2
+
+%=================================Building Block end==========
+
+[Prohibits]
+
+
+[Weight]
+
+

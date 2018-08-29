@@ -1,0 +1,75 @@
+[Dependencies]
+crshG -> DOLu_0
+crshG -> DOLv_0
+crshG -> DOLhw1_0
+crshG -> DOLhw2_0
+crshG -> DOLhw3_0
+DOLdG_0 -> crshG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLhdV1_0
+DOLdG_0 -> DOLhdV2_0
+DOLdG_0 -> DOLhdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLhdV1_0 -> DOLhw1_0
+DOLhdV2_0 -> DOLhw2_0
+DOLhdV3_0 -> DOLhw3_0
+% pattern 3.2.1 [TYPE_gc,[TYPE_g,[],[],[],lyjpg],[],[],lyjpg]
+% commit group lyjpg
+DOLu_0,DOLhw1_0 -> DOLclmc1_0
+DOLv_0,DOLhw2_0 -> DOLclmc2_0
+lyjpg,crshG,DOLhw3_0 -> DOLclmc3_0
+% --------------
+(DOLclmc1_0,DOLhw1_0)
+(DOLclmc1_0,DOLhw2_0)
+(DOLclmc1_0,DOLhw3_0)
+(DOLclmc1_0,crshG)
+(DOLclmc2_0,DOLhw1_0)
+(DOLclmc2_0,DOLhw2_0)
+(DOLclmc2_0,DOLhw3_0)
+(DOLclmc2_0,crshG)
+(DOLclmc3_0,DOLhw1_0)
+(DOLclmc3_0,DOLhw2_0)
+(DOLclmc3_0,DOLhw3_0)
+(DOLclmc3_0,crshG)
+(DOLu_0,DOLhw1_0)
+(DOLu_0,DOLhw2_0)
+(DOLu_0,DOLhw3_0)
+(DOLu_0,crshG)
+(DOLv_0,DOLhw1_0)
+(DOLv_0,DOLhw2_0)
+(DOLv_0,DOLhw3_0)
+(DOLv_0,crshG)
+(crshG,DOLhw1_0)
+(crshG,DOLhw2_0)
+(crshG,DOLhw3_0)
+(crshG,crshG)
+(DOLhw1_0,DOLhw1_0)
+(DOLhw1_0,DOLhw2_0)
+(DOLhw1_0,DOLhw3_0)
+(DOLhw2_0,DOLhw2_0)
+(DOLhw2_0,DOLhw3_0)
+(DOLhw3_0,DOLhw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(tagTdel,LYGam_1),(tagT1,lyjpg)]
+tagTdel,tagT1 -> DOLclmphi1_0
+tagTdel,tagT1 -> DOLclmphi2_0
+tagTdel,tagT1 -> DOLclmphi3_0
+% commit group LYGam_1
+DOLu_0,DOLhw1_0 -> DOLclmc1_1
+DOLv_0,DOLhw2_0 -> DOLclmc2_1
+LYGam_1,crshG,DOLhw3_0 -> DOLclmc3_1
+% --------------
+(tagTdel,DOLclmc1_1)
+(tagTdel,DOLclmc2_1)
+(tagTdel,DOLclmc3_1)
+(tagT1,DOLclmc1_0)
+(tagT1,DOLclmc2_0)
+(tagT1,DOLclmc3_0)
+(DOLclmphi1_0,DOLu_0)
+(DOLclmphi1_0,crshG)
+(DOLclmphi2_0,DOLv_0)
+(DOLclmphi2_0,crshG)
+(DOLclmphi3_0,DOLhw1_0)
+(DOLclmphi3_0,DOLhw2_0)
+(DOLclmphi3_0,DOLhw3_0)

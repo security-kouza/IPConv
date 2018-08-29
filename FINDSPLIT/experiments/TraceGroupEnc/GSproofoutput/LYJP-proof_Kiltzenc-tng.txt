@@ -1,0 +1,242 @@
+[Dependencies]
+kilG -> $u_0
+kilG -> $v_0
+kilG -> $w1_0
+kilG -> $w2_0
+kilG -> $w3_0
+$dG_0 -> kilG
+$dG_0 -> $dG1_0
+$dG_0 -> $dG2_0
+$dG_0 -> $dV1_0
+$dG_0 -> $dV2_0
+$dG_0 -> $dV3_0
+$dG1_0 -> $u_0
+$dG2_0 -> $v_0
+$dV1_0 -> $w1_0
+$dV2_0 -> $w2_0
+$dV3_0 -> $w3_0
+kilG -> Upsi
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV21,eqkeytau),(DOLcertc2_4,eqkeytau),(kilY2,eqkeyz21),(lyjpg2_1,eqkeyrho21),(DOLw2_0_1,eqkeyrho31)]
+kilV21,DOLcertc2_4,kilY2,lyjpg2_1,DOLw2_0_1 -> $phi1_0
+kilV21,DOLcertc2_4,kilY2,lyjpg2_1,DOLw2_0_1 -> $phi2_0
+% commit integer eqkeytau
+$u_0,$w1_0 -> $d1_0
+$v_0,$w2_0 -> $d2_0
+kilG,$w3_0 -> $d3_0
+% --------------
+($d1_0,kilV21)
+($d2_0,kilV21)
+($d3_0,kilV21)
+($d1_0,DOLcertc2_4)
+($d2_0,DOLcertc2_4)
+($d3_0,DOLcertc2_4)
+% commit integer eqkeyz21
+$u_0,$w1_0 -> $d1_1
+$v_0,$w2_0 -> $d2_1
+kilG,$w3_0 -> $d3_1
+% --------------
+($d1_1,kilY2)
+($d2_1,kilY2)
+($d3_1,kilY2)
+% commit integer eqkeyrho21
+$u_0,$w1_0 -> $d1_2
+$v_0,$w2_0 -> $d2_2
+kilG,$w3_0 -> $d3_2
+% --------------
+($d1_2,lyjpg2_1)
+($d2_2,lyjpg2_1)
+($d3_2,lyjpg2_1)
+% commit integer eqkeyrho31
+$u_0,$w1_0 -> $d1_3
+$v_0,$w2_0 -> $d2_3
+kilG,$w3_0 -> $d3_3
+% --------------
+($d1_3,DOLw2_0_1)
+($d2_3,DOLw2_0_1)
+($d3_3,DOLw2_0_1)
+($u_0,$phi1_0)
+(kilG,$phi1_0)
+($v_0,$phi2_0)
+(kilG,$phi2_0)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV11,eqkeytau),(DOLcertc1_4,eqkeytau),(kilY1,eqkeyz11),(lyjpg1_1,eqkeyrho11),(DOLw1_0_1,eqkeyrho31)]
+kilV11,DOLcertc1_4,kilY1,lyjpg1_1,DOLw1_0_1 -> $phi1_1
+kilV11,DOLcertc1_4,kilY1,lyjpg1_1,DOLw1_0_1 -> $phi2_1
+($d1_0,kilV11)
+($d2_0,kilV11)
+($d3_0,kilV11)
+($d1_0,DOLcertc1_4)
+($d2_0,DOLcertc1_4)
+($d3_0,DOLcertc1_4)
+% commit integer eqkeyz11
+$u_0,$w1_0 -> $d1_4
+$v_0,$w2_0 -> $d2_4
+kilG,$w3_0 -> $d3_4
+% --------------
+($d1_4,kilY1)
+($d2_4,kilY1)
+($d3_4,kilY1)
+% commit integer eqkeyrho11
+$u_0,$w1_0 -> $d1_5
+$v_0,$w2_0 -> $d2_5
+kilG,$w3_0 -> $d3_5
+% --------------
+($d1_5,lyjpg1_1)
+($d2_5,lyjpg1_1)
+($d3_5,lyjpg1_1)
+($d1_3,DOLw1_0_1)
+($d2_3,DOLw1_0_1)
+($d3_3,DOLw1_0_1)
+($u_0,$phi1_1)
+(kilG,$phi1_1)
+($v_0,$phi2_1)
+(kilG,$phi2_1)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV01,eqkeytau),(DOLcertc3_4,eqkeytau),(lyjpg,eqkeyz11),(lyjpg,eqkeyz21),(lyjpg_1,eqkeyrho11),(lyjpg_1,eqkeyrho21),(DOLw3_0_1,eqkeyrho31)]
+kilV01,DOLcertc3_4,lyjpg,lyjpg,lyjpg_1,lyjpg_1,DOLw3_0_1 -> $phi1_2
+kilV01,DOLcertc3_4,lyjpg,lyjpg,lyjpg_1,lyjpg_1,DOLw3_0_1 -> $phi2_2
+($d1_0,kilV01)
+($d2_0,kilV01)
+($d3_0,kilV01)
+($d1_0,DOLcertc3_4)
+($d2_0,DOLcertc3_4)
+($d3_0,DOLcertc3_4)
+($d1_4,lyjpg)
+($d2_4,lyjpg)
+($d3_4,lyjpg)
+($d1_1,lyjpg)
+($d2_1,lyjpg)
+($d3_1,lyjpg)
+($d1_5,lyjpg_1)
+($d2_5,lyjpg_1)
+($d3_5,lyjpg_1)
+($d1_2,lyjpg_1)
+($d2_2,lyjpg_1)
+($d3_2,lyjpg_1)
+($d1_3,DOLw3_0_1)
+($d2_3,DOLw3_0_1)
+($d3_3,DOLw3_0_1)
+($u_0,$phi1_2)
+(kilG,$phi1_2)
+($v_0,$phi2_2)
+(kilG,$phi2_2)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV12,eqkeytau),(DOLcertc1_5,eqkeytau),(kilY1,eqkeyz12),(lyjpg1_1,eqkeyrho12),(DOLw1_0_1,eqkeyrho32)]
+kilV12,DOLcertc1_5,kilY1,lyjpg1_1,DOLw1_0_1 -> $phi1_3
+kilV12,DOLcertc1_5,kilY1,lyjpg1_1,DOLw1_0_1 -> $phi2_3
+($d1_0,kilV12)
+($d2_0,kilV12)
+($d3_0,kilV12)
+($d1_0,DOLcertc1_5)
+($d2_0,DOLcertc1_5)
+($d3_0,DOLcertc1_5)
+% commit integer eqkeyz12
+$u_0,$w1_0 -> $d1_6
+$v_0,$w2_0 -> $d2_6
+kilG,$w3_0 -> $d3_6
+% --------------
+($d1_6,kilY1)
+($d2_6,kilY1)
+($d3_6,kilY1)
+% commit integer eqkeyrho12
+$u_0,$w1_0 -> $d1_7
+$v_0,$w2_0 -> $d2_7
+kilG,$w3_0 -> $d3_7
+% --------------
+($d1_7,lyjpg1_1)
+($d2_7,lyjpg1_1)
+($d3_7,lyjpg1_1)
+% commit integer eqkeyrho32
+$u_0,$w1_0 -> $d1_8
+$v_0,$w2_0 -> $d2_8
+kilG,$w3_0 -> $d3_8
+% --------------
+($d1_8,DOLw1_0_1)
+($d2_8,DOLw1_0_1)
+($d3_8,DOLw1_0_1)
+($u_0,$phi1_3)
+(kilG,$phi1_3)
+($v_0,$phi2_3)
+(kilG,$phi2_3)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV22,eqkeytau),(DOLcertc2_5,eqkeytau),(kilY2,eqkeyz22),(lyjpg2_1,eqkeyrho22),(DOLw2_0_1,eqkeyrho32)]
+kilV22,DOLcertc2_5,kilY2,lyjpg2_1,DOLw2_0_1 -> $phi1_4
+kilV22,DOLcertc2_5,kilY2,lyjpg2_1,DOLw2_0_1 -> $phi2_4
+($d1_0,kilV22)
+($d2_0,kilV22)
+($d3_0,kilV22)
+($d1_0,DOLcertc2_5)
+($d2_0,DOLcertc2_5)
+($d3_0,DOLcertc2_5)
+% commit integer eqkeyz22
+$u_0,$w1_0 -> $d1_9
+$v_0,$w2_0 -> $d2_9
+kilG,$w3_0 -> $d3_9
+% --------------
+($d1_9,kilY2)
+($d2_9,kilY2)
+($d3_9,kilY2)
+% commit integer eqkeyrho22
+$u_0,$w1_0 -> $d1_10
+$v_0,$w2_0 -> $d2_10
+kilG,$w3_0 -> $d3_10
+% --------------
+($d1_10,lyjpg2_1)
+($d2_10,lyjpg2_1)
+($d3_10,lyjpg2_1)
+($d1_8,DOLw2_0_1)
+($d2_8,DOLw2_0_1)
+($d3_8,DOLw2_0_1)
+($u_0,$phi1_4)
+(kilG,$phi1_4)
+($v_0,$phi2_4)
+(kilG,$phi2_4)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(kilV02,eqkeytau),(DOLcertc3_5,eqkeytau),(lyjpg,eqkeyz12),(lyjpg,eqkeyz22),(lyjpg_1,eqkeyrho12),(lyjpg_1,eqkeyrho22),(DOLw3_0_1,eqkeyrho32)]
+kilV02,DOLcertc3_5,lyjpg,lyjpg,lyjpg_1,lyjpg_1,DOLw3_0_1 -> $phi1_5
+kilV02,DOLcertc3_5,lyjpg,lyjpg,lyjpg_1,lyjpg_1,DOLw3_0_1 -> $phi2_5
+($d1_0,kilV02)
+($d2_0,kilV02)
+($d3_0,kilV02)
+($d1_0,DOLcertc3_5)
+($d2_0,DOLcertc3_5)
+($d3_0,DOLcertc3_5)
+($d1_6,lyjpg)
+($d2_6,lyjpg)
+($d3_6,lyjpg)
+($d1_9,lyjpg)
+($d2_9,lyjpg)
+($d3_9,lyjpg)
+($d1_7,lyjpg_1)
+($d2_7,lyjpg_1)
+($d3_7,lyjpg_1)
+($d1_10,lyjpg_1)
+($d2_10,lyjpg_1)
+($d3_10,lyjpg_1)
+($d1_8,DOLw3_0_1)
+($d2_8,DOLw3_0_1)
+($d3_8,DOLw3_0_1)
+($u_0,$phi1_5)
+(kilG,$phi1_5)
+($v_0,$phi2_5)
+(kilG,$phi2_5)
+% pattern 3.3.1 [TYPE_ic,[TYPE_i,[],[],[]],[],[],eqkeytau]
+($d1_0,$w1_0)
+($d1_0,$w2_0)
+($d1_0,$w3_0)
+($d1_0,kilG)
+($d2_0,$w1_0)
+($d2_0,$w2_0)
+($d2_0,$w3_0)
+($d2_0,kilG)
+($d3_0,$w1_0)
+($d3_0,$w2_0)
+($d3_0,$w3_0)
+($d3_0,kilG)
+($u_0,$w1_0)
+($u_0,$w2_0)
+($u_0,$w3_0)
+($u_0,kilG)
+($v_0,$w1_0)
+($v_0,$w2_0)
+($v_0,$w3_0)
+($v_0,kilG)
+(kilG,$w1_0)
+(kilG,$w2_0)
+(kilG,$w3_0)
+(kilG,kilG)

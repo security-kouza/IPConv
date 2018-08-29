@@ -1,0 +1,29 @@
+  push_symbol("integer"     ,TYPE    ,TYPE_i          ) ;
+  push_symbol("string"      ,TYPE    ,TYPE_i          ) ;
+  push_symbol("proof"       ,TYPE    ,TYPE_i          ) ;
+
+  push_symbol("group"       ,TYPE    ,TYPE_g          ) ;
+  push_symbol("target"      ,TYPE    ,TYPE_tc         ) ;
+  push_symbol("crs"         ,TYPE    ,TYPE_crs        ) ;
+  push_symbol("$identifier" ,TYPE    ,TYPE_IDENTIFIER ) ;
+  push_symbol("$ellipsis"   ,TYPE    ,TYPE_ELLIPSIS   ) ;
+/*
+  push_symbol("integer" ,TYPE    ,"integer") ;
+  push_symbol("element" ,TYPE    ,"element") ;
+  push_symbol("target"  ,TYPE    ,"target" ) ;
+  push_symbol("bit"     ,TYPE    ,"bit"    ) ;
+  push_symbol("string"  ,TYPE    ,"string" ) ;
+
+  push_symbol("group"      ,TYPE    ,"group"     ) ;
+  push_symbol("group1"     ,TYPE    ,"group1"    ) ;
+  push_symbol("group2"     ,TYPE    ,"group2"    ) ;
+  push_symbol("prohibited" ,TYPE    ,"prohibited") ;
+  push_symbol("pairing"    ,TYPE    ,"pairing"   ) ;
+
+  push_symbol("crs"        ,TYPE    ,"crs"       ) ;
+  push_symbol("commit_g"   ,TYPE    ,"commit_g"  ) ;
+  push_symbol("commit_i"   ,TYPE    ,"commit_i"  ) ;
+  push_symbol("proofwi"    ,TYPE    ,"proofwi"   ) ;
+  push_symbol("proofzk"    ,TYPE    ,"proofzk"   ) ;
+  push_symbol("predicate"  ,TYPE    ,"predicate" ) ;
+*/

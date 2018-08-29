@@ -1,0 +1,31 @@
+// GS-ZKproof for proving correct AHO signature with randomization
+// Message size is explicitly given as 4 elements
+
+setup() {
+
+  group   ahoG,ahoA0,ahoA0t,ahoA1,ahoA1t,ahoB0,ahoB0t,ahoB1,ahoB1t,ahoGz,ahoGr;
+  group   ahoHz,ahoHu,ahoZ,ahoR,ahoS,ahoT,ahoU,ahoV,ahoW;
+  group   ahoG1,ahoH1,ahoM1,ahoG2,ahoH2,ahoM2,ahoG3,ahoH3,ahoM3,ahoG4,ahoH4,ahoM4;
+  group   ahoSdash,ahoTdash,ahoVdash,ahoWdash;              
+  crs crs1 = GS_setup(ahoG) ;
+
+
+// dependencies for inner-randoization (S, T) (and (V, W)) in signature randomization 
+// If S=1 then set T'=1 and chose S' randomly. This causes dependency G->S'.
+  ahoSdash = ahoS;
+  ahoSdash = ahoG;
+  ahoTdash = ahoT;
+
+// inner-randomization of (V,W)
+  ahoVdash = ahoV;
+  ahoVdash = ahoG;
+  ahoWdash = ahoW;
+
+
+// proving possession of a correct signature
+  GS_proofzk( crs1,
+    e(ahoA0,ahoA0t) * e(ahoA1,ahoA1t)== e(ahoGz,[ahoZ]) * e(ahoGr,[ahoR]) * e(ahoSdash, [ahoTdash]) * e(ahoG1,ahoM1) * e(ahoG2,ahoM2) * e(ahoG3,ahoM3) * e(ahoG4,ahoM4) &&
+    e(ahoB0,ahoB0t) * e(ahoB1,ahoB1t)== e(ahoHz,[ahoZ]) * e(ahoHu,[ahoU]) * e(ahoVdash, [ahoWdash]) * e(ahoH1,ahoM1) * e(ahoH2,ahoM2) * e(ahoH3,ahoM3) * e(ahoH4,ahoM4)
+  ) ;
+
+}

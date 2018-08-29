@@ -1,0 +1,34 @@
+// GS-WIproof for proving correct AHO signature with randomization
+
+// -------------------------------------------------------------------
+target  e(group pairing_g1, group pairing_g2) ;
+crs     GS_setup(group GS_setup_g) ;
+integer GS_proofwi(crs GS_proofwi_crs, integer GS_proofwi_predicate) ;
+inline "[Dependencies]" ;
+// -------------------------------------------------------------------
+
+setup() {
+
+  group   kilG,LYC1,LYC2,LYC0,lyjpg,lyjpg1,lyjpg2,lyjpg_1,lyjpg1_1,lyjpg2_1;
+  group   DOLdlmc1_0,DOLdlmc2_0,DOLdlmc3_0,DOLdlmc1_0_1,DOLdlmc2_0_1,DOLdlmc3_0_1;
+  group   DOLw1_0_1,DOLw2_0_1,DOLw3_0_1;
+  group   LYX1,LYX2;
+  integer lyreltheta1,lyreltheta2,lyrelrho1,lyrelrho2,lyrelrho3;
+  integer lyreltau;       
+  crs crs1 = GS_setup(kilG) ;
+
+
+// cheking message relation
+
+
+// proving possession of a correct signature
+  GS_proofwi( crs1,
+    LYC1^[lyreltau]==lyjpg1^[lyreltheta1] &&
+    LYC2^[lyreltau]==lyjpg2^[lyreltheta2] &&
+    LYC1^[lyreltau]==DOLdlmc1_0_1^[lyreltau] * lyjpg1^[lyreltheta1] * lyjpg1_1^[lyrelrho1] * DOLw1_0_1^[lyrelrho3] &&
+    LYC2^[lyreltau]==DOLdlmc2_0_1^[lyreltau] * lyjpg2^[lyreltheta2] * lyjpg2_1^[lyrelrho2] * DOLw2_0_1^[lyrelrho3] &&
+    LYC0^[lyreltau]==DOLdlmc3_0_1^[lyreltau] * lyjpg_1^[lyrelrho1] * lyjpg_1^[lyrelrho2] * DOLw3_0_1^[lyrelrho3] * LYX1^[lyreltheta1] * LYX2^[lyreltheta2] &&
+    1 * [lyreltau]==1
+  ) ;
+
+}

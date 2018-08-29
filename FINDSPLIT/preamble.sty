@@ -1,0 +1,292 @@
+% \documentclass{beamer}
+% \documentclass[cjk,hyperref={unicode}]{beamer}
+\usepackage{luatexja}
+\usepackage{etex}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{bxdpx-beamer}
+\usepackage{ifthen,type1cm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xkeyval}
+\usepackage{pifont}
+\usepackage{bibentry}
+\usepackage{ulem}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{MnSymbol}
+\usepackage{udline}
+
+\nobibliography*
+
+% \usepackage{multirow}
+% \usepackage[all]{xy}
+% \usepackage{listings,jlisting}
+% \usepackage{listings}
+% \usepackage{graphics}
+% \usepackage{graphicx}
+%\usepackage{url}
+%\usepackage{llncsj}
+% % \usepackage{multirow}
+% \usepackage{amsmath}
+% \usepackage{amsfonts}
+% \usepackage{amssymb}
+% % \usepackage{listings,jlisting}
+% % \usepackage{listings}
+% %\usepackage{graphics}
+% \usepackage[dvipdfmx]{graphicx}
+% %\usepackage{graphicx}
+% \usepackage[dvipdfmx]{color}
+% %\usepackage{color}
+% \usepackage{url}
+% %\usepackage{llncsj}
+% \usepackage[x11names, rgb]{xcolor}
+% \usepackage[utf8]{inputenc}
+% \usepackage[active,tightpage]{preview}
+% \PreviewEnvironment{tikzpicture}
+% \setlength\PreviewBorder{0pt}%
+%\usepackage[dvipdfmx,colorlinks=true,linkcolor=red,citecolor=blue,urlcolor=magenta]{hyperref}
+%\hypersetup{pdfpagemode=FullScreen}
+%\usepackage{pxjahyper}
+% \usepackage[backend=bibtex, style=authoryear-comp]{biblatex}
+% \addbibresource{mybibliography.bib}
+
+\usepackage{tikz}
+\usepackage[framemethod=TikZ]{mdframed}
+
+\usetikzlibrary{snakes,arrows,shapes}
+\usetikzlibrary{intersections}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{fadings}
+\usetikzlibrary{graphs, graphdrawing}
+\usegdlibrary{trees, layered}
+
+\tikzstyle{n}=[draw,shape=circle,minimum size=2.6em,inner sep=0pt]
+\tikzstyle{nd}=[draw,shape=circle,minimum size=2.6em,inner sep=0pt]
+\tikzstyle{a}=[draw,shape=circle,minimum size=2.6em,inner sep=0pt,fill=red!20]
+\tikzstyle{ad}=[draw,shape=circle,double,minimum size=2.6em,inner sep=0pt,fill=red!20]
+\tikzstyle{p}=[draw,shape=rectangle,rounded corners,minimum size=2.6em, inner sep=0pt,
+%fill=gray!10
+]%
+
+\usetikzlibrary{plotmarks}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\pgfdvdeclarestylesheet{cross marks}
+{
+  default style/.style={mark=x,every mark/.append style=thin,mark size=2pt},
+  1/.style={mark=x,every mark/.append style=thin,mark size=2pt},
+  2/.style={mark=+,every mark/.append style=thin,mark size=2pt, mark options={color=blue}},
+  3/.style={mark=Mercedes star,every mark/.append style=thin,mark size=2pt, mark options={color=red}},
+  4/.style={mark=Mercedes star flipped,every mark/.append style=thin,mark size=2pt, mark options={color=green}},
+  5/.style={mark=star,every mark/.append style=thin,mark size=2pt, mark options={color=magenta}},
+  6/.style={mark=10-pointed star,every mark/.append style={line width=.3pt,mark size=1.8pt}}
+}
+
+% =======================================================
+%
+% =======================================================
+
+\newcommand{\average}[1]{\ensuremath{\langle#1\rangle} }
+\newcommand{\jump}[1]{\ensuremath{[\![#1]\!]} }
+
+\def\colordef#1#2{
+\definecolor{#1}{rgb}{#2}
+\expandafter\def\csname #1\endcsname##1{\textcolor{#1}{##1}}
+}
+\colordef{red}{1,0,0}
+\colordef{green}{0,0.5,0}
+\colordef{blue}{0,0,0.5}
+%\colordef{gray}{0.7,0.7,0.7}
+\colordef{gray}{0.5,0.5,0.5}
+\colordef{black}{0,0,0}
+\colordef{white}{1,1,1}
+\colordef{yellow}{1,1,0}
+
+% \def\red#1{{#1}}
+% \def\blue#1{{#1}}
+
+\newcommand{\commentout}[1]{}
+\def\commentoutnow{\commentout}%
+
+\newenvironment{enum}{\begin{list}{}{}
+  \setlength{\itemsep}{0cm}%
+  \setlength{\parsep}{0cm}%
+  \setlength{\topsep}{0cm}%
+  \setlength{\parskip}{0cm}%
+  \setlength{\partopsep}{0cm}%
+}{\end{list}}%
+
+% ====================================================
+% \ttdef, \bbdef, ...
+% ====================================================
+
+\def\ttdef#1{\expandafter\def\csname #1\endcsname{\texttt{{#1}}}}
+\def\itdef#1{\expandafter\def\csname #1\endcsname{\textit{{#1}}}}
+% \def\rmdef#1{\expandafter\def\csname #1\endcsname{\textrm{{#1}}}}
+\def\rmdef#1{\expandafter\def\csname #1\endcsname{\mathrm{{#1}}}}
+\def\bbdef#1{\expandafter\def\csname #1\endcsname{\mathbb{#1}}}
+\def\sfdef#1{\expandafter\def\csname #1\endcsname{\mathsf{#1}}}
+\def\bfdef#1{\expandafter\def\csname #1\endcsname{\boldsymbol{#1}}}
+\def\caldef#1{\expandafter\def\csname #1\endcsname{{\cal{#1}}}}
+%\def\csdef#1#2{\expandafter\def\csname #1#2\endcsname{{\cal{#1}}_{\mathtt{#2}}}}
+
+\def\leftarrowcoin{\stackrel{\$}{\leftarrow}}
+\def\leftarrowcup{\stackrel{\cup}{\leftarrow}}
+\def\rightarrowcoin{\stackrel{\$}{\rightarrow}}
+\def\mapstocoin{\stackrel{\$}{\mapsto}}
+
+\def\eqq{\stackrel{?}{=}}
+\def\leftarrowplus{\stackrel{\texttt{+}}{\leftarrow}}
+\def\leftarrowminus{\stackrel{\texttt{-}}{\leftarrow}}
+\def\leftarrowtimes{\stackrel{\times}{\leftarrow}}
+\def\leftarrowdiv{\stackrel{\div}{\leftarrow}}
+
+\def\leftarrowR{\stackrel{\mathsf R}{\leftarrow}}
+\def\leftarrowU{\stackrel{\mathsf U}{\leftarrow}}
+
+\rmdef{GF}
+
+\bbdef{N}
+\bbdef{Z}
+\bbdef{R}
+\bbdef{F}
+\bbdef{G}
+
+\def\calG{{\cal{G}}}
+
+
+% ====================================================
+% Beamer
+% ====================================================
+
+\setbeamertemplate{navigation symbols}{} %% 右下のアイコンを消す
+%\usetheme{CambridgeUS}                  %% theme の選択
+%\usetheme{Boadilla}                     %% Beamer のディレクトリの中の
+%\usetheme{Madrid}                       %% beamerthemeCambridgeUS.sty を指定
+%\usetheme{Antibes}                      %% 色々と試してみるといいだろう
+%\usetheme{Montpellier}                  %% サンプルが beamer\doc に色々とある。
+%\usetheme{Berkeley}
+%\usetheme{Goettingen}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+%\usecolortheme{rose}                    %% colortheme を選ぶと色使いが変わる
+%\usecolortheme{albatross}
+%\useoutertheme{shadow}                  %% 箱に影をつける
+%\usecolortheme{whale}
+\usefonttheme{structurebold}
+\usefonttheme{professionalfonts}         %% 数式の文字を通常の LaTeX と同じにする
+%\setbeamercovered{transparent}          %% 消えている文字をうっすらと表示する
+
+% \setbeamertemplate{theorems}[numbered]   %% 定理に番号をつける
+% \newtheorem{thm}{Theorem}[section]
+% \newtheorem{proposition}[thm]{Proposition}
+% \theoremstyle{example}
+% \newtheorem{exam}[thm]{Example}
+% \newtheorem{remark}[thm]{Remark}
+% \newtheorem{question}[thm]{Question}
+% \newtheorem{prob}[thm]{Problem}
+
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+
+\def\mybeamernewblock{%
+  \usebeamercolor[fg]{bibliography entry author}%
+  \usebeamerfont{bibliography entry author}%
+  \usebeamertemplate{bibliography entry author}%
+  \def\newblock{%
+    \usebeamercolor[fg]{bibliography entry title}%
+    \usebeamerfont{bibliography entry title}%
+    \usebeamertemplate{bibliography entry title}%
+    \def\newblock{%
+      \usebeamercolor[fg]{bibliography entry location}%
+      \usebeamerfont{bibliography entry location}%
+      \usebeamertemplate{bibliography entry location}%
+      \def\newblock{%
+        \usebeamercolor[fg]{bibliography entry note}%
+        \usebeamerfont{bibliography entry note}%
+        \usebeamertemplate{bibliography entry note}}}}%
+  \leavevmode
+}
+
+%=============================================================
+% \usetheme{Goettingen}
+% \useinnertheme{circles}
+% \beamertemplatenavigationsymbolsempty
+
+%\addtobeamertemplate{navigation symbols}{}{%
+%    \usebeamerfont{footline}%
+%    \usebeamercolor[fg]{footline}%
+%    \hspace{1em}%
+%    \insertframenumber/\inserttotalframenumber
+%}
+
+\setbeamerfont{page number in head/foot}{size=\large}
+%\setbeamercolor{footline}{fg=blue}
+\setbeamercolor{footline}{fg=gray}
+\setbeamerfont{footline}{size=\large}
+% \setbeamertemplate{footline}[frame number]
+\def\insertpresentationendframe{\inserttotalframenumber}
+\makeatletter
+\g@addto@macro{\appendix}{\immediate\write\@auxout{\string\@writefile{nav}{\noexpand\headcommand{\noexpand\def\noexpand\insertpresentationendframe{\the\c@framenumber}}}}}
+\makeatother
+% \setbeamertemplate{footline}{\hfill\insertframenumber/\insertpresentationendframe}
+\setbeamertemplate{footline}{\hfill\insertframenumber{} / \insertpresentationendframe\rule{1em}{0ex}}
+%=============================================================
+
+\commentout{
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+%=====================================================================
+% 情報管理区分
+\newcommand*{\mylang}{jp} %jp or not.
+\newcommand*{\myconflevel}{D} %A, B, or C. 
+% 情報セキュリティ推進責任者（総責任者） = 格総研の所長
+\newcommand*{\isofficer}{ＳＶ総研 所長 藤田敏昭}
+% 文書作成日
+\newcommand*{\mydate}{2015/01/20}
+\newcommand*{\copyrightdate}{2015}
+% 利用対象
+\newcommand*{\mytarget}{公開}
+%=====================================================================
+
+\input{files/framed-box} %rounded, framed boxes
+\input{files/beamer} %rd-style
+
+% \setbeamertemplate{footline}[frame number]
+% \setbeamercolor{page number in head/foot}{fg=black}
+% \setbeamerfont{page number in head/foot}{size=\large}
+
+\let\newblock\mybeamernewblock
+}
+
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfdefinestyle{MyFrame}{%
+    linecolor=black,
+    outerlinewidth=0.5pt,
+    roundcorner=3pt,
+%    innertopmargin=\baselineskip,
+%    innerbottommargin=\baselineskip,
+    innertopmargin=0pt,
+    innerbottommargin=0pt,
+    innerrightmargin=0pt,
+    innerleftmargin=0pt,
+    backgroundcolor=gray!10!white}
+\mdfdefinestyle{MyFrame2}{%
+    linecolor=black,
+    outerlinewidth=0.5pt,
+    roundcorner=3pt,
+%    innertopmargin=\baselineskip,
+%    innerbottommargin=\baselineskip,
+    innertopmargin=5pt,
+    innerbottommargin=5pt,
+    innerrightmargin=10pt,
+    innerleftmargin=10pt,
+    backgroundcolor=blue!20!white}

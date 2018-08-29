@@ -1,0 +1,704 @@
+% AHO10 signature scheme Dependency
+% + ZK of correct randomized signature for a clear message
+% message consists of 4 group elements
+
+
+
+
+[Dependencies]
+
+%% ----- q-SFP assumption ----
+% Key part
+ahoqsG; %$qSFP.G$
+ahoqsA; %$qSFP.A$
+ahoqsAt; %$qSFP.\tilde{A}$
+ahoqsB; %$qSFP.B$
+ahoqsBt; %$qSFP.\tilde{B}$
+ahoqsGz; %$qSFP.G_z$
+ahoqsHz; %$qSFP.H_z$
+ahoqsHu; %$qSFP.H_u$
+
+ahoqsG->ahoqsA;
+ahoqsG->ahoqsAt;
+ahoqsG->ahoqsB;
+ahoqsG->ahoqsBt;
+ahoqsG->ahoqsGz;
+ahoqsG->ahoqsHz;
+ahoqsG->ahoqsHu;
+
+% Instance
+ahoqsZj; %$qsFP.Z_j$
+ahoqsRj; %$qSFP.R_j$
+ahoqsUj; %$qSFP.U_j$
+ahoqsSj; %$qSFP.S_j$
+ahoqsTj; %$qSFP.T_j$
+ahoqsVj; %$qSFP.V_j$
+ahoqsWj; %$qSFP.W_j$
+
+ahoqsG->ahoqsZj;
+ahoqsG->ahoqsRj;
+ahoqsG->ahoqsUj;
+ahoqsG->ahoqsSj;
+ahoqsG->ahoqsTj;
+ahoqsG->ahoqsVj;
+ahoqsG->ahoqsWj;
+
+%% ----- AHO Key Generation ----
+ahoG; %$AHO.G$
+ahoHu; %$AHO.H_u$
+ahoG1; %$AHO.G_1$
+ahoH1; %$AHO.H_1$
+ahoG2; %$AHO.G_2$
+ahoH2; %$AHO.H_2$
+ahoG3; %$AHO.G_3$
+ahoH3; %$AHO.H_3$
+ahoG4; %$AHO.G_4$
+ahoH4; %$AHO.H_4$
+ahoGz; %$AHO.G_z$
+ahoHz; %$AHO.H_z$
+ahoA0; %$AHO.A_0$
+ahoA0t; %$AHO.\tilde{A}_0$
+ahoA1; %$AHO.A_1$
+ahoA1t; %$AHO.\tilde{A}_1$
+ahoB0; %$AHO.B_0$
+ahoB0t; %$AHO.\tilde{B}_0$
+ahoB1; %$AHO.B_1$
+ahoB1t; %$AHO.\tilde{B}_1$
+
+ahoG->ahoHu;
+ahoG->ahoG1;
+ahoG->ahoH1;
+ahoG->ahoG2;
+ahoG->ahoH2;
+ahoG->ahoG3;
+ahoG->ahoH3;
+ahoG->ahoG4;
+ahoG->ahoH4;
+ahoG->ahoGz;
+ahoHu->ahoHz;
+ahoG->ahoA0;
+ahoG->ahoA0t;
+ahoG->ahoA1;
+ahoG->ahoA1t;
+ahoG->ahoB0;
+ahoG->ahoB0t;
+ahoG->ahoB1;
+ahoG->ahoB1t;
+
+%% ----- AHO Signing ----
+ahoZ; %$AHO.Z$
+ahoR; %$AHO.R$
+ahoS; %$AHO.S$
+ahoT; %$AHO.T$
+ahoU; %$AHO.U$
+ahoV; %$AHO.V$
+ahoW; %$AHO.W$
+ahoM1; %$AHO.M1$
+ahoM2; %$AHO.M2$
+ahoM3; %$AHO.M3$
+ahoM4; %$AHO.M4$
+
+ahoG->ahoZ;
+ahoG->ahoR;
+ahoM1,ahoM2,ahoM3,ahoM4->ahoR;
+ahoG->ahoS;
+ahoG->ahoT;
+ahoG->ahoU;
+ahoM1,ahoM2,ahoM3,ahoM4->ahoU;
+ahoHu->ahoV;
+ahoG->ahoW;
+
+%% ----- Reduction AHO->q-SFP ----
+%% -- simulating key generation --
+ahoqsG->ahoG;
+ahoqsGz->ahoGz;
+ahoqsHz->ahoHz;
+ahoqsHu->ahoHu;
+ahoGz->ahoG1;
+ahoG->ahoG1;
+ahoHz->ahoH1;
+ahoHu->ahoH1;
+
+ahoGz->ahoG2;
+ahoG->ahoG2;
+ahoHz->ahoH2;
+ahoHu->ahoH2;
+
+ahoGz->ahoG3;
+ahoG->ahoG3;
+ahoHz->ahoH3;
+ahoHu->ahoH3;
+
+ahoGz->ahoG4;
+ahoG->ahoG4;
+ahoHz->ahoH4;
+ahoHu->ahoH4;
+
+
+%%- RandSeq subroutine #1
+%% e(X1,Y1) e(X2,Y2)
+
+ahors1G; %$rs1G$
+ahors1X1; %$rs1.X_1$
+ahors1Y1; %$rs1.Y_1$
+ahors1X2; %$rs1.X_2$
+ahors1Y2; %$rs1.Y_2$
+ahors1X1dash; %$rs1.X'_1$
+ahors1Y1dash; %$rs1.Y'_1$
+ahors1X2dash; %$rs1.X'_2$
+ahors1Y2dash; %$rs1.Y'_2$
+
+ahors1G->ahors1Y1dash;
+ahors1G->ahors1X2dash;
+ahors1X1, ahors1X2 -> ahors1X1dash;
+ahors1Y2, ahors1Y1 -> ahors1Y2dash;
+ahors1X2->ahors1X2dash;
+ahors1Y1->ahors1Y1dash;
+
+%% connect the input/output to RandSeq
+%input
+ahoqsG->ahors1G;
+ahoqsGz,ahoqsG->ahors1X1;
+ahoqsG->ahors1Y1;
+ahoqsA->ahors1X2;
+ahoqsAt->ahors1Y2;
+%output
+ahors1X1dash->ahoA0;
+ahors1Y1dash->ahoA0t;
+ahors1X2dash->ahoA1;
+ahors1Y2dash->ahoA1t;
+
+
+%%- RandSeq subroutine #2
+%% e(X1,Y1) e(X2,Y2)
+
+ahors2G; %$ahors2G$
+ahors2X1; %$rs2.X_1$
+ahors2Y1; %$rs2.Y_1$
+ahors2X2; %$rs2.X_2$
+ahors2Y2; %$rs2.Y_2$
+ahors2X1dash; %$rs2.X1d$
+ahors2Y1dash; %$rs2.Y1d$
+ahors2X2dash; %$rs2.X2d$
+ahors2Y2dash; %$rs2.Y2d$
+
+ahors2G->ahors2Y1dash;
+ahors2G->ahors2X2dash;
+ahors2X1, ahors2X2 -> ahors2X1dash;
+ahors2Y2, ahors2Y1 -> ahors2Y2dash;
+ahors2X2->ahors2X2dash;
+ahors2Y1->ahors2Y1dash;
+
+%% connect the input/output to RandSeq
+%input
+ahoqsG->ahors2G;
+ahoqsHz,ahoqsHu->ahors2X1;
+ahoqsG->ahors2Y1;
+ahoqsB->ahors2X2;
+ahoqsBt->ahors2Y2;
+%output
+ahors2X1dash->ahoB0;
+ahors2Y1dash->ahoB0t;
+ahors2X2dash->ahoB1;
+ahors2Y2dash->ahoB1t;
+
+%% -- simulating signature generation --
+ahoqsZj,ahoqsG,ahoM1->ahoZ;ahoM2->ahoZ;ahoM3->ahoZ;ahoM4->ahoZ;
+ahoqsRj,ahoqsG,ahoM1->ahoR;ahoM2->ahoR;ahoM3->ahoR;ahoM4->ahoR;
+ahoqsSj->ahoS;
+ahoqsTj->ahoT;
+ahoqsUj,ahoqsG,ahoM1,ahoM2,ahoM3,ahoM4->ahoU;
+ahoqsVj->ahoV;
+ahoqsWj->ahoW;
+
+%% -- computing answer to q-SFP --
+%% as it is assumed that the adversary outputs a valid AHO signature,
+%% we can re-use variables defined as an AHO signature for the forgery.
+
+ahoZ,ahoG,ahoM1,ahoM2,ahoM3,ahoM4->ahoqsZj;
+ahoR,ahoG,ahoM1,ahoM2,ahoM3,ahoM4->ahoqsRj;
+ahoU,ahoG,ahoM1,ahoM2,ahoM3,ahoM4->ahoqsUj;
+ahoS->ahoqsSj;
+ahoT->ahoqsTj;
+ahoV->ahoqsVj;
+ahoW->ahoqsWj;
+
+
+
+[Pairings]
+% For q-SFP assumption
+ahoqsA,ahoqsAt
+ahoqsGz,ahoqsZj
+ahoqsG,ahoqsRj
+ahoqsSj,ahoqsTj
+ahoqsB,ahoqsBt
+ahoqsHz,ahoqsZj
+ahoqsHu,ahoqsUj
+ahoqsVj,ahoqsWj
+
+
+%% ----- AHO Signature Verificcation ----
+% the constant part, which may be done at key generation
+ahoA0,ahoA0t
+ahoA1,ahoA1t
+ahoB0,ahoB0t
+ahoB1,ahoB1t
+ahoGz,ahoZ
+ahoG,ahoR
+ahoS,ahoT
+ahoG1,ahoM1
+ahoG2,ahoM2
+ahoG3,ahoM3
+ahoG4,ahoM4
+ahoHz,ahoZ
+ahoHu,ahoU
+ahoV,ahoW
+ahoH1,ahoM1
+ahoH2,ahoM2
+ahoH3,ahoM3
+ahoH4,ahoM4
+
+%% ----- ZK for correct randomized signature on a clear message -----
+[Dependencies]
+ahoG -> ahogsu_0
+ahoG -> ahogsv_0
+ahoG -> ahogsw1_0
+ahoG -> ahogsw2_0
+ahoG -> ahogsw3_0
+ahogsdG_0 -> ahoG
+ahogsdG_0 -> ahogsdG1_0
+ahogsdG_0 -> ahogsdG2_0
+ahogsdG_0 -> ahogsdV1_0
+ahogsdG_0 -> ahogsdV2_0
+ahogsdG_0 -> ahogsdV3_0
+ahogsdG1_0 -> ahogsu_0
+ahogsdG2_0 -> ahogsv_0
+ahogsdV1_0 -> ahogsw1_0
+ahogsdV2_0 -> ahogsw2_0
+ahogsdV3_0 -> ahogsw3_0
+ahoS -> ahoSdash
+ahoG -> ahoSdash
+ahoT -> ahoTdash
+ahoV -> ahoVdash
+ahoG -> ahoVdash
+ahoW -> ahoWdash
+(ahoA0,ahoA0t)
+(ahoA1,ahoA1t)
+(ahoG1,ahoM1)
+(ahoG2,ahoM2)
+(ahoG3,ahoM3)
+(ahoG4,ahoM4)
+(ahoB0,ahoB0t)
+(ahoB1,ahoB1t)
+(ahoH1,ahoM1)
+(ahoH2,ahoM2)
+(ahoH3,ahoM3)
+(ahoH4,ahoM4)
+% pattern 4.1.3 [TYPE_eggc,[TYPE_t,[],[],[],(ahoH1,ahoM1),(ahoH2,ahoM2),(ahoH3,ahoM3),(ahoH4,ahoM4),(ahoB0,ahoB0t),(ahoB1,ahoB1t)],[],[],(ahoHz,ahoZ),(ahoHu,ahoU),(ahoVdash,ahoWdash)]
+% pattern 3.3.1 [TYPE_ic,[],[],[],ahogsz_0]
+% commit integer ahogsz_0
+ahogsu_0,ahogsw1_0 -> ahogsd1_0
+ahogsv_0,ahogsw2_0 -> ahogsd2_0
+ahoG,ahogsw3_0 -> ahogsd3_0
+ahogsd1_0,ahogsd2_0,ahogsd3_0 -> ahogsz_1
+% --------------
+(ahogsd1_0,ahogsw1_0)
+(ahogsd1_0,ahogsw2_0)
+(ahogsd1_0,ahogsw3_0)
+(ahogsd1_0,ahoG)
+(ahogsd2_0,ahogsw1_0)
+(ahogsd2_0,ahogsw2_0)
+(ahogsd2_0,ahogsw3_0)
+(ahogsd2_0,ahoG)
+(ahogsd3_0,ahogsw1_0)
+(ahogsd3_0,ahogsw2_0)
+(ahogsd3_0,ahogsw3_0)
+(ahogsd3_0,ahoG)
+(ahogsu_0,ahogsw1_0)
+(ahogsu_0,ahogsw2_0)
+(ahogsu_0,ahogsw3_0)
+(ahogsu_0,ahoG)
+(ahogsv_0,ahogsw1_0)
+(ahogsv_0,ahogsw2_0)
+(ahogsv_0,ahogsw3_0)
+(ahogsv_0,ahoG)
+(ahoG,ahogsw1_0)
+(ahoG,ahogsw2_0)
+(ahoG,ahogsw3_0)
+(ahoG,ahoG)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoM1),(ahoM1,ahogsz_0)]
+ahoG,ahoM1 -> ahogsphi1_0
+ahoG,ahoM1 -> ahogsphi2_0
+ahoG,ahoM1 -> ahogsphi3_0
+% commit group ahoM1
+ahogsu_0,ahogsw1_0 -> ahogsc1_0
+ahogsv_0,ahogsw2_0 -> ahogsc2_0
+ahoM1,ahoG,ahogsw3_0 -> ahogsc3_0
+ahogsc1_0,ahogsc2_0,ahogsc3_0 -> ahoM1
+% --------------
+(ahoG,ahogsc1_0)
+(ahoG,ahogsc2_0)
+(ahoG,ahogsc3_0)
+(ahoM1,ahogsd1_0)
+(ahoM1,ahogsd2_0)
+(ahoM1,ahogsd3_0)
+(ahogsphi1_0,ahogsu_0)
+(ahogsphi1_0,ahoG)
+(ahogsphi2_0,ahogsv_0)
+(ahogsphi2_0,ahoG)
+(ahogsphi3_0,ahogsw1_0)
+(ahogsphi3_0,ahogsw2_0)
+(ahogsphi3_0,ahogsw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoM2),(ahoM2,ahogsz_0)]
+ahoG,ahoM2 -> ahogsphi1_1
+ahoG,ahoM2 -> ahogsphi2_1
+ahoG,ahoM2 -> ahogsphi3_1
+% commit group ahoM2
+ahogsu_0,ahogsw1_0 -> ahogsc1_1
+ahogsv_0,ahogsw2_0 -> ahogsc2_1
+ahoM2,ahoG,ahogsw3_0 -> ahogsc3_1
+ahogsc1_1,ahogsc2_1,ahogsc3_1 -> ahoM2
+% --------------
+(ahoG,ahogsc1_1)
+(ahoG,ahogsc2_1)
+(ahoG,ahogsc3_1)
+(ahoM2,ahogsd1_0)
+(ahoM2,ahogsd2_0)
+(ahoM2,ahogsd3_0)
+(ahogsphi1_1,ahogsu_0)
+(ahogsphi1_1,ahoG)
+(ahogsphi2_1,ahogsv_0)
+(ahogsphi2_1,ahoG)
+(ahogsphi3_1,ahogsw1_0)
+(ahogsphi3_1,ahogsw2_0)
+(ahogsphi3_1,ahogsw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoM3),(ahoM3,ahogsz_0)]
+ahoG,ahoM3 -> ahogsphi1_2
+ahoG,ahoM3 -> ahogsphi2_2
+ahoG,ahoM3 -> ahogsphi3_2
+% commit group ahoM3
+ahogsu_0,ahogsw1_0 -> ahogsc1_2
+ahogsv_0,ahogsw2_0 -> ahogsc2_2
+ahoM3,ahoG,ahogsw3_0 -> ahogsc3_2
+ahogsc1_2,ahogsc2_2,ahogsc3_2 -> ahoM3
+% --------------
+(ahoG,ahogsc1_2)
+(ahoG,ahogsc2_2)
+(ahoG,ahogsc3_2)
+(ahoM3,ahogsd1_0)
+(ahoM3,ahogsd2_0)
+(ahoM3,ahogsd3_0)
+(ahogsphi1_2,ahogsu_0)
+(ahogsphi1_2,ahoG)
+(ahogsphi2_2,ahogsv_0)
+(ahogsphi2_2,ahoG)
+(ahogsphi3_2,ahogsw1_0)
+(ahogsphi3_2,ahogsw2_0)
+(ahogsphi3_2,ahogsw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoM4),(ahoM4,ahogsz_0)]
+ahoG,ahoM4 -> ahogsphi1_3
+ahoG,ahoM4 -> ahogsphi2_3
+ahoG,ahoM4 -> ahogsphi3_3
+% commit group ahoM4
+ahogsu_0,ahogsw1_0 -> ahogsc1_3
+ahogsv_0,ahogsw2_0 -> ahogsc2_3
+ahoM4,ahoG,ahogsw3_0 -> ahogsc3_3
+ahogsc1_3,ahogsc2_3,ahogsc3_3 -> ahoM4
+% --------------
+(ahoG,ahogsc1_3)
+(ahoG,ahogsc2_3)
+(ahoG,ahogsc3_3)
+(ahoM4,ahogsd1_0)
+(ahoM4,ahogsd2_0)
+(ahoM4,ahogsd3_0)
+(ahogsphi1_3,ahogsu_0)
+(ahogsphi1_3,ahoG)
+(ahogsphi2_3,ahogsv_0)
+(ahogsphi2_3,ahoG)
+(ahogsphi3_3,ahogsw1_0)
+(ahogsphi3_3,ahogsw2_0)
+(ahogsphi3_3,ahogsw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoB0t),(ahoB0t,ahogsz_0)]
+ahoG,ahoB0t -> ahogsphi1_4
+ahoG,ahoB0t -> ahogsphi2_4
+ahoG,ahoB0t -> ahogsphi3_4
+% commit group ahoB0t
+ahogsu_0,ahogsw1_0 -> ahogsc1_4
+ahogsv_0,ahogsw2_0 -> ahogsc2_4
+ahoB0t,ahoG,ahogsw3_0 -> ahogsc3_4
+ahogsc1_4,ahogsc2_4,ahogsc3_4 -> ahoB0t
+% --------------
+(ahoG,ahogsc1_4)
+(ahoG,ahogsc2_4)
+(ahoG,ahogsc3_4)
+(ahoB0t,ahogsd1_0)
+(ahoB0t,ahogsd2_0)
+(ahoB0t,ahogsd3_0)
+(ahogsphi1_4,ahogsu_0)
+(ahogsphi1_4,ahoG)
+(ahogsphi2_4,ahogsv_0)
+(ahogsphi2_4,ahoG)
+(ahogsphi3_4,ahogsw1_0)
+(ahogsphi3_4,ahogsw2_0)
+(ahogsphi3_4,ahogsw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoB1t),(ahoB1t,ahogsz_0)]
+ahoG,ahoB1t -> ahogsphi1_5
+ahoG,ahoB1t -> ahogsphi2_5
+ahoG,ahoB1t -> ahogsphi3_5
+% commit group ahoB1t
+ahogsu_0,ahogsw1_0 -> ahogsc1_5
+ahogsv_0,ahogsw2_0 -> ahogsc2_5
+ahoB1t,ahoG,ahogsw3_0 -> ahogsc3_5
+ahogsc1_5,ahogsc2_5,ahogsc3_5 -> ahoB1t
+% --------------
+(ahoG,ahogsc1_5)
+(ahoG,ahogsc2_5)
+(ahoG,ahogsc3_5)
+(ahoB1t,ahogsd1_0)
+(ahoB1t,ahogsd2_0)
+(ahoB1t,ahogsd3_0)
+(ahogsphi1_5,ahogsu_0)
+(ahogsphi1_5,ahoG)
+(ahogsphi2_5,ahogsv_0)
+(ahogsphi2_5,ahoG)
+(ahogsphi3_5,ahogsw1_0)
+(ahogsphi3_5,ahogsw2_0)
+(ahogsphi3_5,ahogsw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoHz,ahoZ),(ahoHu,ahoU),(ahoVdash,ahoWdash),(ahoH1,ahoM1),(ahoH2,ahoM2),(ahoH3,ahoM3),(ahoH4,ahoM4),(ahoB0,ahoB0t),(ahoB1,ahoB1t)]
+ahoHz,ahoHu,ahoVdash,ahoH1,ahoH2,ahoH3,ahoH4,ahoB0,ahoB1 -> ahogsphi1_6
+ahoHz,ahoHu,ahoVdash,ahoH1,ahoH2,ahoH3,ahoH4,ahoB0,ahoB1 -> ahogsphi2_6
+ahoHz,ahoHu,ahoVdash,ahoH1,ahoH2,ahoH3,ahoH4,ahoB0,ahoB1 -> ahogsphi3_6
+% commit group ahoZ
+ahogsu_0,ahogsw1_0 -> ahogsc1_6
+ahogsv_0,ahogsw2_0 -> ahogsc2_6
+ahoZ,ahoG,ahogsw3_0 -> ahogsc3_6
+ahogsc1_6,ahogsc2_6,ahogsc3_6 -> ahoZ
+% --------------
+(ahoHz,ahogsc1_6)
+(ahoHz,ahogsc2_6)
+(ahoHz,ahogsc3_6)
+% commit group ahoU
+ahogsu_0,ahogsw1_0 -> ahogsc1_7
+ahogsv_0,ahogsw2_0 -> ahogsc2_7
+ahoU,ahoG,ahogsw3_0 -> ahogsc3_7
+ahogsc1_7,ahogsc2_7,ahogsc3_7 -> ahoU
+% --------------
+(ahoHu,ahogsc1_7)
+(ahoHu,ahogsc2_7)
+(ahoHu,ahogsc3_7)
+% commit group ahoWdash
+ahogsu_0,ahogsw1_0 -> ahogsc1_8
+ahogsv_0,ahogsw2_0 -> ahogsc2_8
+ahoWdash,ahoG,ahogsw3_0 -> ahogsc3_8
+ahogsc1_8,ahogsc2_8,ahogsc3_8 -> ahoWdash
+% --------------
+(ahoVdash,ahogsc1_8)
+(ahoVdash,ahogsc2_8)
+(ahoVdash,ahogsc3_8)
+(ahoH1,ahogsc1_0)
+(ahoH1,ahogsc2_0)
+(ahoH1,ahogsc3_0)
+(ahoH2,ahogsc1_1)
+(ahoH2,ahogsc2_1)
+(ahoH2,ahogsc3_1)
+(ahoH3,ahogsc1_2)
+(ahoH3,ahogsc2_2)
+(ahoH3,ahogsc3_2)
+(ahoH4,ahogsc1_3)
+(ahoH4,ahogsc2_3)
+(ahoH4,ahogsc3_3)
+(ahoB0,ahogsc1_4)
+(ahoB0,ahogsc2_4)
+(ahoB0,ahogsc3_4)
+(ahoB1,ahogsc1_5)
+(ahoB1,ahogsc2_5)
+(ahoB1,ahogsc3_5)
+(ahogsphi1_6,ahogsu_0)
+(ahogsphi1_6,ahoG)
+(ahogsphi2_6,ahogsv_0)
+(ahogsphi2_6,ahoG)
+(ahogsphi3_6,ahogsw1_0)
+(ahogsphi3_6,ahogsw2_0)
+(ahogsphi3_6,ahogsw3_0)
+% pattern 4.1.3 [TYPE_eggc,[TYPE_t,[],[],[],(ahoG1,ahoM1),(ahoG2,ahoM2),(ahoG3,ahoM3),(ahoG4,ahoM4),(ahoA0,ahoA0t),(ahoA1,ahoA1t)],[],[],(ahoGz,ahoZ),(ahoGr,ahoR),(ahoSdash,ahoTdash)]
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoA0t),(ahoA0t,ahogsz_0)]
+ahoG,ahoA0t -> ahogsphi1_7
+ahoG,ahoA0t -> ahogsphi2_7
+ahoG,ahoA0t -> ahogsphi3_7
+% commit group ahoA0t
+ahogsu_0,ahogsw1_0 -> ahogsc1_9
+ahogsv_0,ahogsw2_0 -> ahogsc2_9
+ahoA0t,ahoG,ahogsw3_0 -> ahogsc3_9
+ahogsc1_9,ahogsc2_9,ahogsc3_9 -> ahoA0t
+% --------------
+(ahoG,ahogsc1_9)
+(ahoG,ahogsc2_9)
+(ahoG,ahogsc3_9)
+(ahoA0t,ahogsd1_0)
+(ahoA0t,ahogsd2_0)
+(ahoA0t,ahogsd3_0)
+(ahogsphi1_7,ahogsu_0)
+(ahogsphi1_7,ahoG)
+(ahogsphi2_7,ahogsv_0)
+(ahogsphi2_7,ahoG)
+(ahogsphi3_7,ahogsw1_0)
+(ahogsphi3_7,ahogsw2_0)
+(ahogsphi3_7,ahogsw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoG,ahoA1t),(ahoA1t,ahogsz_0)]
+ahoG,ahoA1t -> ahogsphi1_8
+ahoG,ahoA1t -> ahogsphi2_8
+ahoG,ahoA1t -> ahogsphi3_8
+% commit group ahoA1t
+ahogsu_0,ahogsw1_0 -> ahogsc1_10
+ahogsv_0,ahogsw2_0 -> ahogsc2_10
+ahoA1t,ahoG,ahogsw3_0 -> ahogsc3_10
+ahogsc1_10,ahogsc2_10,ahogsc3_10 -> ahoA1t
+% --------------
+(ahoG,ahogsc1_10)
+(ahoG,ahogsc2_10)
+(ahoG,ahogsc3_10)
+(ahoA1t,ahogsd1_0)
+(ahoA1t,ahogsd2_0)
+(ahoA1t,ahogsd3_0)
+(ahogsphi1_8,ahogsu_0)
+(ahogsphi1_8,ahoG)
+(ahogsphi2_8,ahogsv_0)
+(ahogsphi2_8,ahoG)
+(ahogsphi3_8,ahogsw1_0)
+(ahogsphi3_8,ahogsw2_0)
+(ahogsphi3_8,ahogsw3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(ahoGz,ahoZ),(ahoGr,ahoR),(ahoSdash,ahoTdash),(ahoG1,ahoM1),(ahoG2,ahoM2),(ahoG3,ahoM3),(ahoG4,ahoM4),(ahoA0,ahoA0t),(ahoA1,ahoA1t)]
+ahoGz,ahoGr,ahoSdash,ahoG1,ahoG2,ahoG3,ahoG4,ahoA0,ahoA1 -> ahogsphi1_9
+ahoGz,ahoGr,ahoSdash,ahoG1,ahoG2,ahoG3,ahoG4,ahoA0,ahoA1 -> ahogsphi2_9
+ahoGz,ahoGr,ahoSdash,ahoG1,ahoG2,ahoG3,ahoG4,ahoA0,ahoA1 -> ahogsphi3_9
+(ahoGz,ahogsc1_6)
+(ahoGz,ahogsc2_6)
+(ahoGz,ahogsc3_6)
+% commit group ahoR
+ahogsu_0,ahogsw1_0 -> ahogsc1_11
+ahogsv_0,ahogsw2_0 -> ahogsc2_11
+ahoR,ahoG,ahogsw3_0 -> ahogsc3_11
+ahogsc1_11,ahogsc2_11,ahogsc3_11 -> ahoR
+% --------------
+(ahoGr,ahogsc1_11)
+(ahoGr,ahogsc2_11)
+(ahoGr,ahogsc3_11)
+% commit group ahoTdash
+ahogsu_0,ahogsw1_0 -> ahogsc1_12
+ahogsv_0,ahogsw2_0 -> ahogsc2_12
+ahoTdash,ahoG,ahogsw3_0 -> ahogsc3_12
+ahogsc1_12,ahogsc2_12,ahogsc3_12 -> ahoTdash
+% --------------
+(ahoSdash,ahogsc1_12)
+(ahoSdash,ahogsc2_12)
+(ahoSdash,ahogsc3_12)
+(ahoG1,ahogsc1_0)
+(ahoG1,ahogsc2_0)
+(ahoG1,ahogsc3_0)
+(ahoG2,ahogsc1_1)
+(ahoG2,ahogsc2_1)
+(ahoG2,ahogsc3_1)
+(ahoG3,ahogsc1_2)
+(ahoG3,ahogsc2_2)
+(ahoG3,ahogsc3_2)
+(ahoG4,ahogsc1_3)
+(ahoG4,ahogsc2_3)
+(ahoG4,ahogsc3_3)
+(ahoA0,ahogsc1_9)
+(ahoA0,ahogsc2_9)
+(ahoA0,ahogsc3_9)
+(ahoA1,ahogsc1_10)
+(ahoA1,ahogsc2_10)
+(ahoA1,ahogsc3_10)
+(ahogsphi1_9,ahogsu_0)
+(ahogsphi1_9,ahoG)
+(ahogsphi2_9,ahogsv_0)
+(ahogsphi2_9,ahoG)
+(ahogsphi3_9,ahogsw1_0)
+(ahogsphi3_9,ahogsw2_0)
+(ahogsphi3_9,ahogsw3_0)
+
+
+[Priority]
+%% list nodes that are better to be small. Nodes placed in upper side has more priority.
+%%
+%% Example:
+%% Minimize the signature size (top priority)
+ahoZ, ahoR, ahoS, ahoT, ahoU, ahoV, ahoW
+%% Then better have smaller assumption (scond priority)
+ahoqsA,ahoqsAt,ahoqsB,ahoqsBt,ahoqsGz,ahoqsHz,ahoqsHu,ahoqsZj,ahoqsRj,ahoqsUj,ahoqsSj,ahoqsTj,ahoqsVj,ahoqsWj
+%% Then try to minimize the public-key
+ahoHu,ahoGz,ahoHz,ahoA0,ahoA0t,ahoA1,ahoA1t,ahoB0,ahoB0t,ahoB1,ahoB1t,ahoG1,ahoH1,ahoG2,ahoH2,ahoG3,ahoH3,ahoG4,ahoH4
+%%% It is also nice to avoid duplicated commitments and proofs.
+%%% for proof
+%%% Zp commitment for the switcher
+%ahogsd1_0, ahogsd2_0, ahogsd3_0
+%%% committing M1 and proof of its correctness
+%ahogsc1_0, ahogsc2_0, ahogsc3_0, ahogsphi1_0, ahogsphi2_0, ahogsphi3_0
+%%% committing M2 and proof of its correctness
+%ahogsc1_1, ahogsc2_1, ahogsc3_1, ahogsphi1_1, ahogsphi2_1, ahogsphi3_1
+%%% committing M3 and proof of its correctness
+%ahogsc1_2, ahogsc2_2, ahogsc3_2, ahogsphi1_2, ahogsphi2_2, ahogsphi3_2
+%%% committing M4 and proof of its correctness
+%ahogsc1_3, ahogsc2_3, ahogsc3_3, ahogsphi1_3, ahogsphi2_3, ahogsphi3_3
+%%% committing B0t and proof of its correctness
+%ahogsc1_4, ahogsc2_4, ahogsc3_4, ahogsphi1_4, ahogsphi2_4, ahogsphi3_4
+%% committing B1t and proof of its correctness
+%ahogsc1_5, ahogsc2_5, ahogsc3_5, ahogsphi1_5, ahogsphi2_5, ahogsphi3_5
+%%% Proof for the second PPE
+%ahogsphi1_6, ahogsphi2_6, ahogsphi3_6
+%%% committing Z
+%ahogsc1_6, ahogsc2_6, ahogsc3_6
+%%% committing U
+%ahogsc1_7, ahogsc2_7, ahogsc3_7
+%%% committing W'
+%ahogsc1_8, ahogsc2_8, ahogsc3_8
+%%% committing A0t
+%ahogsc1_9, ahogsc2_9, ahogsc3_9, ahogsphi1_7, ahogsphi2_7, ahogsphi3_7
+%%% committing A1_t and proof of its correctness
+%ahogsc1_10, ahogsc2_10, ahogsc3_10, ahogsphi1_8, ahogsphi2_8, ahogsphi3_8
+%%% Proof for the first PPE
+%ahogsphi1_9, ahogsphi2_9, ahogsphi3_9
+%%% committing R
+%ahogsc1_11, ahogsc2_11, ahogsc3_11
+%%% committing T'
+%ahogsc1_12, ahogsc2_12, ahogsc3_12
+
+
+
+[Constraints]
+%% To force allocating A,B,C to the same group, write:
+%% A,B,C
+%
+%% To force allocating A,B to G0, write:
+%% A=B=0
+
+
+[Prohibits]
+%% List nodes that must not be duplicated
+ahoM1,ahoM2,ahoM3,ahoM4
+
+
+
+[Weight]
+%% Give a weight to the indexed nodes
+%% For instance, if ahoMi actually means four nodes ahoM1,...,ahoM4, write:
+%% ahoMi:4
+%% ahoGi:4
+%% ahoHi:4
+
+%% q-type assumption should have a big weight
+%ahoqsZj:500
+%ahoqsRj:500
+%ahoqsUj:500
+%ahoqsSj:500
+%ahoqsTj:500
+%ahoqsVj:500
+%ahoqsWj:500
+
+%% an outdated syntax for specifying G1/G0 ratio. Use -ratio=1.0 for findsplit.
+%[Ratio]
+%2.0
+
+
+

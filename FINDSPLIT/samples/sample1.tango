@@ -1,0 +1,6 @@
+[Dependencies]
+A,B -> C
+D -> E
+D -> C
+D -> E
+(C,E)

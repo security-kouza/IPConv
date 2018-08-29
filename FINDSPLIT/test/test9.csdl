@@ -1,0 +1,14 @@
+Sample(){
+	integer x ;
+	group C,D,E ;
+	group0 A,B ;
+
+	if(x == 0){
+		C = A * B ;
+		E = D ;
+	}else{
+		C = D^x ;
+		E = D^3 ;
+	}
+	return e(C,E) ;
+}

@@ -1,0 +1,39 @@
+// GS- NIZK proof for proving correct Kiltz's enc, \pi_{eq-keyi
+
+// -------------------------------------------------------------------
+target  e(group pairing_g1, group pairing_g2) ;
+crs     GS_setup(group GS_setup_g) ;
+integer GS_proofwi(crs GS_proofwi_crs, integer GS_proofwi_predicate) ;
+inline "[Dependencies]" ;
+// -------------------------------------------------------------------
+
+setup() {
+
+  group   kilG,kilV01,kilV11,kilV21,kilV31,kilV41,kilV02,kilV12,kilV22,kilV32,kilV42;
+  group   DOLcertc1_4,DOLcertc2_4,DOLcertc3_4,DOLcertc1_5,DOLcertc2_5,DOLcertc3_5;
+  group   kilY1,kilY2,lyjpg,lyjpg1,lyjpg2,lyjpg_1,lyjpg1_1,lyjpg2_1;
+  group   DOLw1_0,DOLw2_0,DOLw3_0;
+  group   DOLw1_0_1,DOLw2_0_1,DOLw3_0_1;
+  integer deltarho;
+  integer  eqkeyz11,eqkeyz21,eqkeyrho11,eqkeyrho21,eqkeyrho31;
+  integer  eqkeyz12,eqkeyz22,eqkeyrho12,eqkeyrho22,eqkeyrho32;
+  integer  eqkeytau;
+  crs crs1 = GS_setup(kilG) ;
+
+
+// generation of Upsi
+  Upsi = kilG^deltarho ;
+
+
+// proving possession of a correct relation between tag and user's pk
+  GS_proofwi( crs1,
+    kilV11^[eqkeytau]==DOLcertc1_4^[eqkeytau] * kilY1^[eqkeyz11] * lyjpg1_1^[eqkeyrho11] * DOLw1_0_1^[eqkeyrho31] &&
+    kilV21^[eqkeytau]==DOLcertc2_4^[eqkeytau] * kilY2^[eqkeyz21] * lyjpg2_1^[eqkeyrho21] * DOLw2_0_1^[eqkeyrho31] &&
+    kilV01^[eqkeytau]==DOLcertc3_4^[eqkeytau] * lyjpg^[eqkeyz11]  * lyjpg^[eqkeyz21] * lyjpg_1^[eqkeyrho11]   * lyjpg_1^[eqkeyrho21] * DOLw3_0_1^[eqkeyrho31] &&
+    kilV12^[eqkeytau]==DOLcertc1_5^[eqkeytau] * kilY1^[eqkeyz12] * lyjpg1_1^[eqkeyrho12] * DOLw1_0_1^[eqkeyrho32] &&
+    kilV22^[eqkeytau]==DOLcertc2_5^[eqkeytau] * kilY2^[eqkeyz22] * lyjpg2_1^[eqkeyrho22]  * DOLw2_0_1^[eqkeyrho32] &&
+    kilV02^[eqkeytau]==DOLcertc3_5^[eqkeytau] * lyjpg^[eqkeyz12]  * lyjpg^[eqkeyz22] * lyjpg_1^[eqkeyrho12]   * lyjpg_1^[eqkeyrho22] * DOLw3_0_1^[eqkeyrho32] &&
+    1 * [eqkeytau] == 1
+  ) ;
+
+}

@@ -1,0 +1,34 @@
+{
+  integer a, b, c , d;
+  group G , Y ;
+  group g ;
+  target T ;
+  b = a / (c+d) ;
+  c = a ^ b ;
+  a == b ;
+
+  integer z = a == b ;
+
+//  list zzzz = ( G == 1 && T == 1 ) ;
+//  zzzz = ( a==b ) ;
+//  zzzz = ( G == Y ) ;
+
+  if( G == 1 ){
+    c = a ;
+  };
+  if( T == 1 ){
+    c = a ;
+  };
+  Y = G^0 ;
+  Y = G^100 ;
+  list crs = GS_setupB(g) ;
+  statistics(crs) ;
+  setweight(10, (G,Y) ) ;
+  setpriority(1, (G,Y) ) ;
+  setpriority(-1, g ) ;
+  setpriority(10, Y ) ;
+  if( G != 1 ){
+  }
+  if( G == 1 ){
+  }
+}

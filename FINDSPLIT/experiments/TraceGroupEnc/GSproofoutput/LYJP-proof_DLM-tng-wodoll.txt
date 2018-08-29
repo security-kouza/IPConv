@@ -1,0 +1,118 @@
+[Dependencies]
+kilG -> DOLu_0
+kilG -> DOLv_0
+kilG -> DOLw1_0
+kilG -> DOLw2_0
+kilG -> DOLw3_0
+DOLdG_0 -> kilG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLdV1_0
+DOLdG_0 -> DOLdV2_0
+DOLdG_0 -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+% pattern 3.2.3 [TYPE_gcic,[TYPE_gc,[],[],[],lyjpA],[TYPE_gic,[],[],[],(lyjpA,lytau)],[]]
+DOLu_0,DOLw1_0 -> DOLdlmphi11_0
+DOLu_0,DOLw1_0 -> DOLdlmphi21_0
+DOLu_0,DOLw1_0 -> DOLdlmphi31_0
+DOLv_0,DOLw2_0 -> DOLdlmphi12_0
+DOLv_0,DOLw2_0 -> DOLdlmphi22_0
+DOLv_0,DOLw2_0 -> DOLdlmphi32_0
+kilG,DOLw3_0,lyjpA -> DOLdlmphi13_0
+kilG,DOLw3_0,lyjpA -> DOLdlmphi23_0
+kilG,DOLw3_0,lyjpA -> DOLdlmphi33_0
+(DOLu_0,DOLdlmphi11_0)
+(DOLu_0,DOLdlmphi12_0)
+(DOLu_0,DOLdlmphi13_0)
+(kilG,DOLdlmphi11_0)
+(kilG,DOLdlmphi12_0)
+(kilG,DOLdlmphi13_0)
+(DOLv_0,DOLdlmphi21_0)
+(DOLv_0,DOLdlmphi22_0)
+(DOLv_0,DOLdlmphi23_0)
+(kilG,DOLdlmphi21_0)
+(kilG,DOLdlmphi22_0)
+(kilG,DOLdlmphi23_0)
+(DOLw1_0,DOLdlmphi31_0)
+(DOLw2_0,DOLdlmphi31_0)
+(DOLw3_0,DOLdlmphi31_0)
+(DOLw1_0,DOLdlmphi32_0)
+(DOLw2_0,DOLdlmphi32_0)
+(DOLw3_0,DOLdlmphi32_0)
+(DOLw1_0,DOLdlmphi33_0)
+(DOLw2_0,DOLdlmphi33_0)
+(DOLw3_0,DOLdlmphi33_0)
+% commit integer lytau
+DOLu_0,DOLw1_0 -> DOLdlmd1_0
+DOLv_0,DOLw2_0 -> DOLdlmd2_0
+kilG,DOLw3_0 -> DOLdlmd3_0
+% --------------
+(DOLw1_0,DOLdlmd1_0)
+(DOLw1_0,DOLdlmd2_0)
+(DOLw1_0,DOLdlmd3_0)
+(DOLw2_0,DOLdlmd1_0)
+(DOLw2_0,DOLdlmd2_0)
+(DOLw2_0,DOLdlmd3_0)
+(DOLw3_0,DOLdlmd1_0)
+(DOLw3_0,DOLdlmd2_0)
+(DOLw3_0,DOLdlmd3_0)
+(kilG,DOLdlmd1_0)
+(DOLdlmd1_0,lyjpA)
+(DOLdlmd2_0,lyjpA)
+(DOLdlmd3_0,lyjpA)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(lyjpg,lyjpM),(lyjpB,lyjpA)]
+lyjpg,lyjpB -> DOLdlmphi1_0
+lyjpg,lyjpB -> DOLdlmphi2_0
+lyjpg,lyjpB -> DOLdlmphi3_0
+% commit group lyjpM
+DOLu_0,DOLw1_0 -> DOLdlmc1_0
+DOLv_0,DOLw2_0 -> DOLdlmc2_0
+lyjpM,kilG,DOLw3_0 -> DOLdlmc3_0
+% --------------
+(lyjpg,DOLdlmc1_0)
+(lyjpg,DOLdlmc2_0)
+(lyjpg,DOLdlmc3_0)
+% commit group lyjpA
+DOLu_0,DOLw1_0 -> DOLdlmc1_1
+DOLv_0,DOLw2_0 -> DOLdlmc2_1
+lyjpA,kilG,DOLw3_0 -> DOLdlmc3_1
+% --------------
+(lyjpB,DOLdlmc1_1)
+(lyjpB,DOLdlmc2_1)
+(lyjpB,DOLdlmc3_1)
+(DOLdlmphi1_0,DOLu_0)
+(DOLdlmphi1_0,kilG)
+(DOLdlmphi2_0,DOLv_0)
+(DOLdlmphi2_0,kilG)
+(DOLdlmphi3_0,DOLw1_0)
+(DOLdlmphi3_0,DOLw2_0)
+(DOLdlmphi3_0,DOLw3_0)
+% pattern 3.3.1 [TYPE_ic,[TYPE_i,[],[],[]],[],[],lytau]
+(DOLdlmd1_0,DOLw1_0)
+(DOLdlmd1_0,DOLw2_0)
+(DOLdlmd1_0,DOLw3_0)
+(DOLdlmd1_0,kilG)
+(DOLdlmd2_0,DOLw1_0)
+(DOLdlmd2_0,DOLw2_0)
+(DOLdlmd2_0,DOLw3_0)
+(DOLdlmd2_0,kilG)
+(DOLdlmd3_0,DOLw1_0)
+(DOLdlmd3_0,DOLw2_0)
+(DOLdlmd3_0,DOLw3_0)
+(DOLdlmd3_0,kilG)
+(DOLu_0,DOLw1_0)
+(DOLu_0,DOLw2_0)
+(DOLu_0,DOLw3_0)
+(DOLu_0,kilG)
+(DOLv_0,DOLw1_0)
+(DOLv_0,DOLw2_0)
+(DOLv_0,DOLw3_0)
+(DOLv_0,kilG)
+(kilG,DOLw1_0)
+(kilG,DOLw2_0)
+(kilG,DOLw3_0)
+(kilG,kilG)

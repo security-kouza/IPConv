@@ -1,0 +1,29 @@
+// GS- NIZK proof for proving correct relation between tag and user's pk \Gamma
+
+// -------------------------------------------------------------------
+target  e(group pairing_g1, group pairing_g2) ;
+crs     GS_setup(group GS_setup_g) ;
+integer GS_proofwi(crs GS_proofwi_crs, integer GS_proofwi_predicate) ;
+inline "[Dependencies]" ;
+// -------------------------------------------------------------------
+
+setup() {
+
+  group   kilG,tagT1,tagT2,tagT3,Upsi;
+  group   LYGam1,LYGam2;
+  integer deltarho;
+  crs crs1 = GS_setup(kilG) ;
+
+
+// generation of Upsi
+  Upsi = kilG^deltarho ;
+
+
+// proving possession of a correct relation between tag and user's pk
+  GS_proofwi( crs1,
+    e([Upsi], tagT3)== e(tagT1,[LYGam2]) &&
+    e(tagT2, [kilG])== e([LYGam1], Upsi) &&
+    [kilG] == kilG
+  ) ;
+
+}

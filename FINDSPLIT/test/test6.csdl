@@ -1,0 +1,59 @@
+prohibited hash(list id) ;
+
+setup(){
+  group   g   ;
+  integer msk ;
+  group   y   = g^msk ;
+  list    pp  = (g,y) ;
+  return  (pp,msk) ;
+}
+
+keygen(list id, integer msk){
+  group ID   = hash(id) ;
+  group  d_ID = ID^msk ;
+  return d_ID ;
+}
+
+enc(target m, list id, list pp){
+  group ID  = hash(id) ;
+  group g, y ;
+  (g,y) = pp ;
+  integer r ;
+  group   c1 = g^r ;
+  target  c2 = m*e(ID,y^r)^2 ;
+  return (c1,c2) ;
+}
+
+dec(list c, group d_ID){
+  group c1; target c2 ;
+  (c1,c2) = c ;
+  target m = c2/e(c1,d_ID)^2 ;
+  return m ;
+}
+
+{
+correctness:
+  list  id ;
+  group ID  = hash(id) ;
+  target m ;
+
+  list pp ; integer msk ;
+  (pp,msk) = setup() ;
+  group c1; target c2 ;
+  (c1,c2) = enc(m,id,pp) ;
+
+  m == dec((c1,c2), keygen(id, msk)) ;
+
+proof: ;
+  
+  integer a, b, c ;
+  group g, y ;
+  (g,y) = pp ;
+  group A = g^a ;
+  group B = g^b ;
+  group C = g^c ;
+
+  y  = A ;
+  ID = B ;
+  c1 = C ;
+}

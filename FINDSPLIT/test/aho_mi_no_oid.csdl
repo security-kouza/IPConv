@@ -1,0 +1,390 @@
+// AHO Object Identifiers
+
+// dummy functions
+rnd_gen(){}
+
+
+// scheme body
+
+/*
+Function aho_setup returns 'pp' that describes the underlying bilinear groups commonly used in other functions of AHO signature scheme. It is important that the default generator 'G' is included in 'pp' but everything else are left as flexible.
+*/
+aho_setup(){
+	group G_su;
+	list pp_su;
+
+
+	pp_su=(G_su);
+	return (pp_su);
+}
+
+
+aho_keygen(list pp_ak){
+	// purse args	
+	group G_ak;
+	(G_ak) = pp_ak;
+
+	// declare variables and their structure 
+	group Gz_ak, Gr_ak, Gi_ak, Hz_ak, Hu_ak, Hi_ak;
+	group A1_ak, A2_ak, A3_ak, A4_ak, B1_ak, B2_ak, B3_ak, B4_ak;
+	integer gz, gr, gi, hz, hu, hi;
+	integer a1, a2, a3, a4, b1, b2, b3, b4;
+
+	// secret-key generation
+	a1 = rnd_gen();
+	a2 = rnd_gen();
+	a3 = rnd_gen();
+	a4 = rnd_gen();
+	b1 = rnd_gen();
+	b2 = rnd_gen();
+	b3 = rnd_gen();
+	b4 = rnd_gen();
+	gz = rnd_gen();
+	gr = rnd_gen();
+	gi = rnd_gen();
+	hz = rnd_gen();
+	hu = rnd_gen();
+	hi = rnd_gen();
+
+	// public-key generation
+	A1_ak = G_ak^a1;
+	A2_ak = G_ak^a2;
+	A3_ak = G_ak^a3;
+	A4_ak = G_ak^a4;
+	B1_ak = G_ak^b1;
+	B2_ak = G_ak^b2;
+	B3_ak = G_ak^b3;
+	B4_ak = G_ak^b4;
+
+	Gz_ak = G_ak^gz;
+	Gr_ak = G_ak^gr;
+	Gi_ak = G_ak^gi;
+	Hz_ak = G_ak^hz;
+	Hu_ak = G_ak^hu;
+	Hi_ak = G_ak^hi;
+
+	// define pk and sk 
+	list pk_ak=(A1_ak,A2_ak,A3_ak,A4_ak,B1_ak,B2_ak,B3_ak,B4_ak,Gz_ak,Gr_ak,Gi_ak,Hz_ak,Hu_ak,Hi_ak);
+	list ski_ak=(a1,a2,a3,a4,b1,b2,b3,b4,gz,gr,gi,hz,hu,hi);
+	list sk_ak=(pk_ak, ski_ak);
+
+
+	// ending
+	return (pk_ak, sk_ak);
+}
+
+
+aho_sign(list pp_as, list sk_as, list msg_as){
+	// purse pp
+	group G_as;
+	(G_as) = pp_as;
+	
+	// purse sk
+	group Gz_as, Gr_as, Gi_as, Hz_as, Hu_as, Hi_as;
+	group A1_as, A2_as, A3_as, A4_as, B1_as, B2_as, B3_as, B4_as;
+	integer a1, a2, a3, a4, b1, b2, b3, b4;
+	integer gz,gr,gi,hz,hu,hi;
+	list pk_as, ski_as;
+	(pk_as, ski_as)=sk_as;
+	(a1, a2, a3, a4, b1, b2, b3, b4, gz,gr,gi,hz,hu,hi)=ski_as;
+	(A1_as,A2_as,A3_as,A4_as,B1_as,B2_as,B3_as,B4_as,Gz_as,Gr_as,Gi_as,Hz_as,Hu_as,Hi_as)=pk_as;
+
+	// purse msg
+	// this example includes a group element as a message
+	group Mi_as;
+	(Mi_as) = msg_as;
+
+	// declare variables and their structure 
+	group Z_as, R_as, U_as, S_as, T_as, V_as, W_as;
+	list  sig_as;
+	integer z,s,t,v,w;
+	
+
+	// signature computation
+	z = rnd_gen();
+	s = rnd_gen();
+	t = rnd_gen();
+	v = rnd_gen();
+	w = rnd_gen();
+	Z_as = G_as^z;
+	S_as = G_as^s;
+	T_as = G_as^t;
+	V_as = G_as^v;
+	W_as = G_as^w;
+	R_as = G_as^(-gz*z -s*t+a1*a2+a3*a4) *Mi_as^(-gi);
+	U_as = G_as^(-hz*z -v*w+b1*b2+b3*b4) *Mi_as^(-hi);
+
+	sig_as = (Z_as, R_as, S_as, T_as, U_as, V_as, W_as);
+
+	// ending
+        return( sig_as );
+}
+
+
+aho_verify(list pp_av, list pk_av, list sig_av, list msg_av){
+	// purse pp
+	group G_av;
+	(G_av) = pp_av;
+	
+	// purse pk
+	group Gz_av, Gr_av, Gi_av, Hz_av, Hu_av, Hi_av;
+	group A1_av, A2_av, A3_av, A4_av, B1_av, B2_av, B3_av, B4_av;
+	(A1_av,A2_av,A3_av,A4_av,B1_av,B2_av,B3_av,B4_av,Gz_av,Gr_av,Gi_av,Hz_av,Hu_av,Hi_av)=pk_av;
+
+	// purse msg
+	// this example includes a group element as a message
+	group Mi_av;
+	(Mi_av) = msg_av;
+
+	// purse sig
+	group Z_av, R_av, U_av, S_av, T_av, V_av, W_av;
+	(Z_av, R_av, S_av, T_av, U_av, V_av, W_av)=sig_av;
+
+	// declare variables and their structure 
+
+	// verification
+	if( e(A1_av, A2_av) * e(A3_av, A4_av) == e(Gz_av, Z_av) * e(Gr_av, R_av) * e(S_av, T_av) * e(Gi_av, Mi_av) && e(B1_av, B2_av) * e(B3_av, B4_av) == e(Hz_av, Z_av) * e(Hu_av, U_av) * e(V_av, W_av) * e(Hi_av, Mi_av) ){
+	    return (1);
+	}else{
+	    return (0);
+	}
+}
+
+
+aho_correctness(){
+	list pp_c;
+	list pk_c;
+	list sk_c;
+	list msg_c;
+	list sig_c;
+	group G_c, Mi_c;
+	list vrf;
+
+	pp_c = aho_setup();
+	(pk_c, sk_c) = aho_keygen(pp_c);
+
+	// message can be any group element
+	(G_c) = pp_c;
+	Mi_c = G_c;
+	msg_c = (Mi_c);
+
+	sig_c = aho_sign(pp_c, sk_c, msg_c);
+	vrf = aho_verify(pp_c, pk_c, sig_c, msg_c);
+	return vrf;
+
+	// manual settings for viewing and handling dep-tree
+	statistics(pk_c);
+	statistics(sig_c);
+	setweight(10,msg_c);
+	setweight(1,sig_c);
+	setpriority(2, (sig_c[1],sig_c[2],sig_c[3],sig_c[4],sig_c[5],sig_c[6]));
+	setpriority(1, sig_c[0]);
+}
+
+
+/*
+Main part of the QSFP assumption with respect to 'pp' given from outside.
+*/
+qsfp_inst_gen(list pp_qg){
+	// parse the public parameter
+	group G_qg;
+	(G_qg) = pp_qg;
+
+	// declare variables and their structure 
+	group Gz_qg, Gr_qg, Gi_qg, Hz_qg, Hu_qg, Hi_qg;
+	group A1_qg, A2_qg, B1_qg, B2_qg;
+	integer gz, gr, hz, hu;
+	integer a1, a2, b1, b2;
+
+	// secret-key generation
+	a1 = rnd_gen();
+	a2 = rnd_gen();
+	b1 = rnd_gen();
+	b2 = rnd_gen();
+	gz = rnd_gen();
+	gr = rnd_gen();
+	hz = rnd_gen();
+	hu = rnd_gen();
+
+	// public-key generation
+	A1_qg = G_qg^a1;
+	A2_qg = G_qg^a2;
+	B1_qg = G_qg^b1;
+	B2_qg = G_qg^b2;
+
+	Gz_qg = G_qg^gz;
+	Gr_qg = G_qg^gr;
+	Hz_qg = G_qg^hz;
+	Hu_qg = G_qg^hu;
+
+	list qsfp_inst_base_qg=(pp_qg,A1_qg,A2_qg,B1_qg,B2_qg,Gz_qg,Gr_qg,Hz_qg,Hu_qg);
+
+	// varialbes for reference inputs
+	// representing q references by a single reference
+	// it will never be a problem for the purpose of finding optimal split
+	// but may need manual treatment when one wants to retreive an executable
+	// code from the result of splitting
+
+	group Zi_qg, Ri_qg, Si_qg, Ti_qg, Ui_qg, Vi_qg, Wi_qg;
+	integer zi,si,ti,vi,wi;
+
+	zi = rnd_gen();
+	si = rnd_gen();
+	ti = rnd_gen();
+	vi = rnd_gen();
+	wi = rnd_gen();
+	Zi_qg = G_qg^zi;
+	Si_qg = G_qg^si;
+	Ti_qg = G_qg^ti;
+	Vi_qg = G_qg^vi;
+	Wi_qg = G_qg^wi;
+	Ri_qg = G_qg^(-gz*zi -si*ti+a1*a2);
+	Ui_qg = G_qg^(-hz*zi -vi*wi+b1*b2);
+
+	list qsfp_inst_reference_qg = (Zi_qg, Ri_qg, Si_qg, Ti_qg, Ui_qg, Vi_qg, Wi_qg);
+	return (qsfp_inst_base_qg, qsfp_inst_reference_qg);
+}
+
+
+qsfp_verify(list qsfp_instance_qv, list qsfp_answer_qv){
+	//parse input args
+	list pp_qv;
+	group G_qv;
+	group Gz_qv, Gr_qv, Hz_qv, Hu_qv;
+	group A1_qv, A2_qv, B1_qv, B2_qv;
+	group Zi_qv, Ri_qv, Ui_qv, Si_qv, Ti_qv, Vi_qv, Wi_qv;
+	list qsfp_inst_base_qv, qsfp_inst_reference_qv;	
+	group Z_qv, R_qv, S_qv, T_qv, U_qv, V_qv, W_qv;
+
+	(qsfp_inst_base_qv, qsfp_inst_reference_qv)=qsfp_instance_qv;
+	(pp_qv,A1_qv,A2_qv,B1_qv,B2_qv,Gz_qv,Gr_qv,Hz_qv,Hu_qv) = qsfp_inst_base_qv;
+	(G_qv) = pp_qv;
+	(Zi_qv, Ri_qv, Si_qv, Ti_qv, Ui_qv, Vi_qv, Wi_qv) = qsfp_inst_reference_qv;
+	(Z_qv, R_qv, S_qv, T_qv, U_qv, V_qv, W_qv) = qsfp_answer_qv;
+
+	if(
+	       Z_qv != G_qv^0 &&
+	       Z_qv != Zi_qv  &&  // actually Z \not\in {Zi}
+	       e(A1_qv,A2_qv) == e(Gz_qv, Z_qv) * e(Gr_qv, R_qv) * e(S_qv, T_qv) &&
+	       e(B1_qv,B2_qv) == e(Hz_qv, Z_qv) * e(Hu_qv, U_qv) * e(V_qv, W_qv) 
+	){
+	     return (G_qv^0);
+	}else{
+	     return (G_qv^1);
+	}
+}
+
+
+//Reduction algorithm from EUF-CMA to QSFP.
+// First define a dummy adversary to specify its interface
+aho_Adversary(list pp_aa, list pk_aa, list sig_aa, list msg_aa)
+{
+	list sigf_aa, msgf_aa;
+
+	return (sigf_aa, msgf_aa);
+}
+
+
+
+// a reduction
+aho_qsfp_Reduction(list qsfp_instance_rd){
+	list pp_rd;
+	group G_rd;
+	group Gz_rd, Gr_rd, Hz_rd, Hu_rd;
+	group A1_rd, A2_rd, B1_rd, B2_rd;
+	group Zi_rd, Ri_rd, Ui_rd, Si_rd, Ti_rd, Vi_rd, Wi_rd;
+	list qsfp_inst_base_rd, qsfp_inst_reference_rd;	
+
+	(qsfp_inst_base_rd, qsfp_inst_reference_rd)=qsfp_instance_rd;
+	(pp_rd,A1_rd,A2_rd,B1_rd,B2_rd,Gz_rd,Gr_rd,Hz_rd,Hu_rd) = qsfp_inst_base_rd;
+	(G_rd) = pp_rd;
+	(Zi_rd, Ri_rd, Si_rd, Ti_rd, Ui_rd, Vi_rd, Wi_rd) = qsfp_inst_reference_rd;
+
+	group Zs_rd, Rs_rd, Us_rd, Ss_rd, Ts_rd, Vs_rd, Ws_rd;
+
+	// check if the given references are valid.
+	if (!(
+	       Zi_rd != G_rd^0 &&
+	       e(A1_rd,A2_rd) == e(Gz_rd, Zi_rd) * e(Gr_rd, Ri_rd) * e(Si_rd, Ti_rd) &&
+	       e(B1_rd,B2_rd) == e(Hz_rd, Zi_rd) * e(Hu_rd, Ui_rd) * e(Vi_rd, Wi_rd)
+	       // it should also check that all Z_i are different each other
+	)){
+	       // return bot
+	       Zs_rd = G_rd^0;
+	       return (Zs_rd, Rs_rd, Ss_rd, Ts_rd, Us_rd, Vs_rd, Ws_rd);
+        }
+
+	// simulate aho_keygen
+	integer a3, a4, b3, b4, gi, hi;
+	group A3_rd, A4_rd, B3_rd, B4_rd;
+	integer alphai, gammai, xii;
+	a3 = rnd_gen();
+	a4 = rnd_gen();
+	b3 = rnd_gen();
+	b4 = rnd_gen();
+	alphai = rnd_gen();
+	gammai = rnd_gen();
+	xii = rnd_gen();
+	A3_rd = G_rd^a3;
+	A4_rd = G_rd^a4;
+	B3_rd = G_rd^b3;
+	B4_rd = G_rd^b4;
+	Gi_rd = Gz_rd^alphai * Gr_rd^gammai;
+	Hi_rd = Hz_rd^alphai * Hu_rd^xii;
+
+	list pk_rd=(A1_rd,A2_rd,A3_rd,A4_rd,B1_rd,B2_rd,B3_rd,B4_rd,Gz_rd,Gr_rd,Gi_rd,Hz_rd,Hu_rd,Hi_rd);
+
+	// setup a signature for a random message
+	group Mi_rd;
+	group Zr_rd, Rr_rd, Sr_rd, Tr_rd, Ur_rd, Vr_rd, Wr_rd;
+	Sr_rd = Si_rd;
+	Tr_rd = Ti_rd;
+	Vr_rd = Vi_rd;
+	Wr_rd = Wi_rd;
+	Zr_rd = Zi_rd * G_rd^(a3 * a4) * Mi_rd^(-alphai);
+	Rr_rd = Ri_rd * Mi_rd^(-gammai);
+	Ur_rd = Ui_rd * Mi_rd^(-xii);
+	list sig_rd = (Zr_rd, Rr_rd, Sr_rd, Tr_rd, Ur_rd, Vr_rd, Wr_rd);
+	list msg_rd = (Mi_rd);
+
+	// give the public-key and obtain a chosen message
+	list msgf_rd;
+	list sigf_rd;
+	group Mif_rd;
+	group Zf_rd, Rf_rd, Sf_rd, Tf_rd, Uf_rd, Vf_rd, Wf_rd;
+	(sigf_rd, msgf) = aho_Adversary(pp_rd, pk_rd, sig_rd, msg_rd);
+
+	// verify the forged signature
+	list vrf;
+	vrf = aho_verify(pp_rd, pk_rd, sigf_rd, msgf_rd);
+	if(vrf==(0)){
+	   Zs_rd = G_rd^0;
+	}else{
+	// retrieve the answer to qsfp
+	   (Mif_rd) = msgf_rd;
+	   (Zf_rd, Rf_rd, Uf_rd, Sf_rd, Tf_rd, Vf_rd, Wf_rd) = sigf_rd;
+           Ss_rd = Sf_rd;
+	   Ts_rd = Tf_rd;
+	   Vs_rd = Vf_rd;
+	   Ws_rd = Wf_rd;
+	   Zs_rd = Zf_rd * G_rd^(-a3 * a4) * Mif_rd^(alphai);
+	   Rs_rd = Rf_rd * Mif_rd^(gammai);
+	   Us_rd = Uf_rd * Mif_rd^(xii);
+	}	
+	return (Zs_rd, Rs_rd, Ss_rd, Ts_rd, Us_rd, Vs_rd, Ws_rd);
+}
+
+
+qsfp_hardness_game(list pp_qh){
+	list qsfp_inst_base_qh, qsfp_inst_reference_qh, qsfp_answer_qh;
+	group G_qh;
+	list Ret;
+	list  pp_qh=(G_qh);
+
+	qsfp_instance_qh = qsfp_inst_gen(pp_qh);
+	qsfp_answer_qh = aho_qsfp_Reduction(qsfp_instance_qh);
+
+	Ret = qsfp_verify(qsfp_instance_qh, qsfp_answer_qh);
+}
+
+

@@ -1,0 +1,122 @@
+[Dependencies]
+kilG -> DOLu_0
+kilG -> DOLv_0
+kilG -> DOLw1_0
+kilG -> DOLw2_0
+kilG -> DOLw3_0
+DOLdG_0 -> kilG
+DOLdG_0 -> DOLdG1_0
+DOLdG_0 -> DOLdG2_0
+DOLdG_0 -> DOLdV1_0
+DOLdG_0 -> DOLdV2_0
+DOLdG_0 -> DOLdV3_0
+DOLdG1_0 -> DOLu_0
+DOLdG2_0 -> DOLv_0
+DOLdV1_0 -> DOLw1_0
+DOLdV2_0 -> DOLw2_0
+DOLdV3_0 -> DOLw3_0
+ahoR,ahoS -> ahoRdash
+ahoS -> ahoSdash
+ahoT,ahoGr -> ahoTdash
+ahoU,ahoV -> ahoUdash
+ahoV -> ahoVdash
+ahoW,ahoHu -> ahoWdash
+(ahoB1,ahoB1t)
+(ahoB0,ahoB0t)
+(ahoVdash,ahoWdash)
+(ahoA1,ahoA1t)
+(ahoA0,ahoA0t)
+(ahoSdash,ahoTdash)
+% pattern 3.1.1 [TYPE_eggc,[TYPE_t,[],[],[],(ahoVdash,ahoWdash),(ahoB0,ahoB0t),(ahoB1,ahoB1t)],[],[],(ahoHz,ahoZ),(ahoHu,ahoUdash),(ahoH1,ahoM1),(ahoH2,ahoM2),(ahoH3,ahoM3),(ahoH4,ahoM4)]
+ahoHz,ahoHu,ahoH1,ahoH2,ahoH3,ahoH4 -> DOLcertph1_0
+ahoHz,ahoHu,ahoH1,ahoH2,ahoH3,ahoH4 -> DOLcertph2_0
+ahoHz,ahoHu,ahoH1,ahoH2,ahoH3,ahoH4 -> DOLcertph3_0
+% commit group ahoZ
+DOLu_0,DOLw1_0 -> DOLcertc1_0
+DOLv_0,DOLw2_0 -> DOLcertc2_0
+ahoZ,kilG,DOLw3_0 -> DOLcertc3_0
+% --------------
+(ahoHz,DOLcertc1_0)
+(ahoHz,DOLcertc2_0)
+(ahoHz,DOLcertc3_0)
+% commit group ahoUdash
+DOLu_0,DOLw1_0 -> DOLcertc1_1
+DOLv_0,DOLw2_0 -> DOLcertc2_1
+ahoUdash,kilG,DOLw3_0 -> DOLcertc3_1
+% --------------
+(ahoHu,DOLcertc1_1)
+(ahoHu,DOLcertc2_1)
+(ahoHu,DOLcertc3_1)
+% commit group ahoM1
+DOLu_0,DOLw1_0 -> DOLcertc1_2
+DOLv_0,DOLw2_0 -> DOLcertc2_2
+ahoM1,kilG,DOLw3_0 -> DOLcertc3_2
+% --------------
+(ahoH1,DOLcertc1_2)
+(ahoH1,DOLcertc2_2)
+(ahoH1,DOLcertc3_2)
+% commit group ahoM2
+DOLu_0,DOLw1_0 -> DOLcertc1_3
+DOLv_0,DOLw2_0 -> DOLcertc2_3
+ahoM2,kilG,DOLw3_0 -> DOLcertc3_3
+% --------------
+(ahoH2,DOLcertc1_3)
+(ahoH2,DOLcertc2_3)
+(ahoH2,DOLcertc3_3)
+% commit group ahoM3
+DOLu_0,DOLw1_0 -> DOLcertc1_4
+DOLv_0,DOLw2_0 -> DOLcertc2_4
+ahoM3,kilG,DOLw3_0 -> DOLcertc3_4
+% --------------
+(ahoH3,DOLcertc1_4)
+(ahoH3,DOLcertc2_4)
+(ahoH3,DOLcertc3_4)
+% commit group ahoM4
+DOLu_0,DOLw1_0 -> DOLcertc1_5
+DOLv_0,DOLw2_0 -> DOLcertc2_5
+ahoM4,kilG,DOLw3_0 -> DOLcertc3_5
+% --------------
+(ahoH4,DOLcertc1_5)
+(ahoH4,DOLcertc2_5)
+(ahoH4,DOLcertc3_5)
+(DOLcertph1_0,DOLu_0)
+(DOLcertph1_0,kilG)
+(DOLcertph2_0,DOLv_0)
+(DOLcertph2_0,kilG)
+(DOLcertph3_0,DOLw1_0)
+(DOLcertph3_0,DOLw2_0)
+(DOLcertph3_0,DOLw3_0)
+% pattern 3.1.1 [TYPE_eggc,[TYPE_t,[],[],[],(ahoSdash,ahoTdash),(ahoA0,ahoA0t),(ahoA1,ahoA1t)],[],[],(ahoGz,ahoZ),(ahoGr,ahoRdash),(ahoG1,ahoM1),(ahoG2,ahoM2),(ahoG3,ahoM3),(ahoG4,ahoM4)]
+ahoGz,ahoGr,ahoG1,ahoG2,ahoG3,ahoG4 -> DOLcertph1_1
+ahoGz,ahoGr,ahoG1,ahoG2,ahoG3,ahoG4 -> DOLcertph2_1
+ahoGz,ahoGr,ahoG1,ahoG2,ahoG3,ahoG4 -> DOLcertph3_1
+(ahoGz,DOLcertc1_0)
+(ahoGz,DOLcertc2_0)
+(ahoGz,DOLcertc3_0)
+% commit group ahoRdash
+DOLu_0,DOLw1_0 -> DOLcertc1_6
+DOLv_0,DOLw2_0 -> DOLcertc2_6
+ahoRdash,kilG,DOLw3_0 -> DOLcertc3_6
+% --------------
+(ahoGr,DOLcertc1_6)
+(ahoGr,DOLcertc2_6)
+(ahoGr,DOLcertc3_6)
+(ahoG1,DOLcertc1_2)
+(ahoG1,DOLcertc2_2)
+(ahoG1,DOLcertc3_2)
+(ahoG2,DOLcertc1_3)
+(ahoG2,DOLcertc2_3)
+(ahoG2,DOLcertc3_3)
+(ahoG3,DOLcertc1_4)
+(ahoG3,DOLcertc2_4)
+(ahoG3,DOLcertc3_4)
+(ahoG4,DOLcertc1_5)
+(ahoG4,DOLcertc2_5)
+(ahoG4,DOLcertc3_5)
+(DOLcertph1_1,DOLu_0)
+(DOLcertph1_1,kilG)
+(DOLcertph2_1,DOLv_0)
+(DOLcertph2_1,kilG)
+(DOLcertph3_1,DOLw1_0)
+(DOLcertph3_1,DOLw2_0)
+(DOLcertph3_1,DOLw3_0)

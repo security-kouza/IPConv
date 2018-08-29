@@ -1,0 +1,340 @@
+% Waters' Dual System Encryption 2009
+% DLIN assumptions in Lemma 2 and 3 are considered as separate instances.
+
+% Syntax valid in 2014.12 at
+% http://153.121.37.178/PairingsConversion/index.html
+ 
+
+[Dependencies]
+C1; %$C_1$
+C2; %$C_2$
+C3; %$C_3$
+C4; %$C_4$
+C5; %$C_5$
+C6; %$C_6$
+C7; %$C_7$
+D1; %$D_1$
+D2; %$D_2$
+D3; %$D_3$
+D4; %$D_4$
+D5; %$D_5$
+D6; %$D_6$
+D7; %$D_7$
+E1; %$E_1$
+E2;  % $E_2$
+K; % $K$
+Cd1; % $C'_1$
+Cd2; % $C'_2$
+Cd3; % $C'_3$
+Cd4; % $C'_4$
+Cd5; % $C'_5$
+Cd6; %$C'_6$
+Cd7; %$C'_7$
+Dd1; %$D'_1$
+Dd2; %$D'_2$
+Dd3; %$D'_3$
+Dd4; %$D'_4$
+Dd5; %$D'_5$
+Dd6; %$D'_6$
+Dd7; %$D'_7$
+Ed1; %$E'_1$
+Ed2; %$E'_2$
+Kd; %$K'$
+
+
+Ta1; % $\tau_1$
+Ta1b; % $\tau_1^b$
+Ta2; % $\tau_2$
+Ta2b; % $\tau_2^b$
+w; % $w$
+u; % $u$
+h; % $h$
+v; % $v$
+v1; % $v_1$
+v2; % $v_2$
+%v2a2; % $v_2^{a_2}$
+%v1a1; % $v_1^{a_1}$
+%v2a2b; % $v_2^{a_2 b}$
+
+g; %$g$
+ga1; %$g^{a_1}$
+ga2; %$g^{a_2}$
+gal; %$g^{\alpha}$
+gala1; %$g^{\alpha a_1}$
+gb; % $g^b$
+gba1; %$g^{b a_1}$
+gba2; %$g^{b a_2}$
+ga1a2; %$g^{a_1 a_2}$
+
+
+gg; %$g^*$
+f; %$f^*$
+nu; %$\nu^*$
+gc1; %$(g^*)^{c_1}$
+fc2; %$(f^*)^{c_2}$
+T; %$T^*$
+
+
+ggg; %$g^{**}$
+fff; %$f^{**}$
+nunu; %$\nu^{**}$
+gcc1; %$(g^{**})^{c_1}$
+fcc2; %$(f^{**})^{c_2}$
+TT; %$T^{**}$
+
+gggg; %$g^{***}$
+gccc1; %$(g^{***})^{c_1}$
+gccc2; %$(g^{***})^{c_2}$
+gccc3; %$(g^{***})^{c_3}$
+
+
+
+%% generating secret parameters
+g -> gal;
+g -> gala1;
+g -> v;
+g -> v1;
+g -> v2;
+
+%% generating public parameters
+g -> gb;
+g -> ga1;
+g -> ga2;
+g -> gba1;
+g -> gba2;
+v -> Ta1;
+v1 -> Ta1;
+v -> Ta2; 
+v2 -> Ta2;
+Ta1 -> Ta1b;
+Ta2 -> Ta2b;
+g -> w;
+g -> u;
+g -> h;
+
+%% encryption
+gb -> C1;
+gba1 -> C2;
+ga1 -> C3;
+gba2 -> C4;
+ga2 -> C5;
+Ta1 -> C6; 
+Ta2 -> C6;
+Ta1b -> C7; 
+Ta2b -> C7; 
+w -> C7;
+u -> E1; 
+w -> E1; 
+h -> E1;
+g -> E2;
+
+
+%% key generation
+gala1 -> D1; v -> D1;
+gal -> D2; g -> D2; v1 -> D2;
+gb -> D3;
+v2 -> D4; g -> D4;
+gb -> D5;
+gb -> D6;
+g -> D7;
+u -> K; w -> K; h -> K;
+
+%% decryption
+%% e(C_1,D_1) e(C_2,D_2) e(C_3,D_3) e(C_4,D_4) e(C_5,D_5)
+%% e(C_6,D_6) e(C_7,D_7)
+%% e(E_1,D_7) e(E_2,K)
+
+%% Semi-functional ciphertext
+gb -> Cd1;
+gba1 -> Cd2;
+ga1 -> Cd3;
+gba2 -> Cd4;
+ga2 -> Cd5;
+Ta1 -> Cd6; 
+Ta2 -> Cd6;
+Ta1b -> Cd7; 
+Ta2b -> Cd7; 
+w -> Cd7;
+u -> Ed1; 
+w -> Ed1; 
+h -> Ed1;
+g -> Ed2;
+Cd1 -> C1; 
+Cd2 -> C2;
+Cd3 -> C3;
+Ed1 -> E1;
+Ed2 -> E1;
+Cd4 -> C4; 
+gba2 -> C4;
+Cd5 -> C5; 
+ga2 -> C5;
+Cd6 -> C6; 
+v2 -> C6;
+Cd7 -> C7; 
+v2 -> C7;
+
+%% Semi-functional secret keys
+gala1 -> Dd1; 
+v -> Dd1;
+gal -> Dd2; 
+g -> Dd2; 
+v1 -> Dd2;
+gb -> Dd3;
+v2 -> Dd4; 
+g -> Dd4;
+gb -> Dd5;
+gb -> Dd6;
+g -> Dd7;
+u -> Kd; 
+w -> Kd; 
+h -> Kd;
+Dd3 -> D3;
+Dd5 -> D5;
+Dd6 -> D6;
+Dd7 -> D7;
+Kd -> K;
+Dd1 -> D1; 
+g -> ga1a2; 
+ga1a2 -> D1;
+Dd2 -> D2; 
+ga2 -> D2;
+Dd4 -> D4; 
+ga1 -> D4;
+
+%% Lemma 1
+%% DLIN assumption generator 1
+gg -> f;
+gg -> nu;
+gg -> gc1;
+f -> fc2;
+gg -> T;
+%% Setup
+gg -> g;
+f -> ga1;
+nu -> ga2;
+f -> gba1;
+nu -> gba2;
+
+%% challenge ciphertext (non-redundant dependencies only)
+gc1 -> C1;
+fc2 -> C2;
+fc2 -> C3;
+T -> C4;
+T -> C5;
+gc1 -> C6; 
+fc2 -> C6; 
+T -> C6;
+gc1 -> C7; 
+fc2 -> C7; 
+T -> C7;
+
+
+%% Lemma 2
+%% DLIN assumption generator 2
+ggg -> fff;
+ggg -> nunu;
+ggg -> gcc1;
+fff -> fcc2;
+ggg -> TT;
+%%setup
+ggg -> g;
+fff -> gb;
+fff-> gba1;
+fff-> gba2;
+nunu -> v;
+nunu -> v1; 
+g -> v1;
+nunu -> v2; 
+g -> v2;
+fff -> w;
+fff -> u;
+fff -> h;
+%% Case 3
+TT -> D1;
+TT -> D2;
+fcc2 -> D3;
+TT -> D4; 
+gcc1 -> D4;
+fcc2 -> D5;
+fcc2 -> D6;
+gcc1 -> D7;
+gcc1 -> K;
+%% challenge ciphertext (non-redundant part only)
+fff -> C4;
+v2 -> C6;
+fff -> C7;
+nunu -> C7;
+nunu -> E1;
+nunu -> E2;
+
+%% Lemma 3
+%% BDH generator
+gggg -> gccc1;
+gggg -> gccc2;
+gggg -> gccc3;
+
+gggg -> g;
+gccc2 -> ga2;
+gccc2 -> gba2;
+gccc2 -> Ta2;
+
+gccc2 -> D1;
+v1 -> D2;
+gggg  -> D2;
+gccc2 -> D2;
+gggg  -> D3;
+gccc1 -> D4;
+gggg  -> D4;
+v2 -> D4;
+gggg -> D5;
+gggg -> D6;
+gggg -> D7;
+
+gccc3 -> C1;
+gggg -> C1;
+gggg -> C2;
+gggg -> C3;
+gccc2 -> C4;
+gccc2 -> C5;
+Ta1 -> C6;
+gccc2 -> C6;
+gccc3 -> C6;
+Ta1 -> C7;
+gccc2 -> C7;
+gccc3 -> C7;
+
+[Pairings]
+g,g
+%% decryption
+%% e(C_1,D_1) e(C_2,D_2) e(C_3,D_3) e(C_4,D_4) e(C_5,D_5)
+%% e(C_6,D_6) e(C_7,D_7)
+%% e(E_1,D_7) e(E_2,K)
+C1,D1
+C2,D2
+C3,D3
+C4,D4
+C5,D5
+C6,D6
+C7,D7
+E1,D7
+E2,K
+%% Lemma 1
+%% e(g,f)^{alpha b}
+f,g
+%% Lemma 2
+%% e(f,g)^{\alpha a_1}
+fff,g
+%% Lemma 3
+%% e(g^{c_1}, g^{c_2})
+gccc1,gccc2
+
+
+[Prohibits]
+
+
+[Priority]
+% Minimize the size of assumptions in DLIN (at lemma 1), DLIN (at lemma 2), 
+% and BDH in order appeared in the paper.
+gg, f, nu, gc1, fc2, T, ggg, fff, nunu, gcc1, fcc2, TT, gggg, gccc1, gccc2, gccc3
+
+[Weight]

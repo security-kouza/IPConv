@@ -1,0 +1,11 @@
+// 0. POW で is_COMMITTED_VARIABLE() の処理
+// 0. 循環参照の抑止
+// 0. commit の通常変数への代入を抑止する ?
+
+1. 文字列 \n 等の処理.
+2. asm 文.
+3. declaration.cpp: declaration_stack_push():
+   同じ関数の宣言はフレーム内で何回行なっても良い. ?
+7. process_X() の出力を全て char * true_name に置き換える.
+8. *x で object_id → 変数名, &x で 変数名 → object_id ？
+9. 代入グラフを導入して代入解析を行う

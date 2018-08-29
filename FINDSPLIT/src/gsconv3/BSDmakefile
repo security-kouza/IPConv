@@ -1,0 +1,9 @@
+ADDITIONAL_CFLAGS=
+CTAGS=exctags
+YACC=bison -y
+LEX=lex
+CC=cc
+CXX=c++
+LD=c++
+
+.include "Makefile"

@@ -1,0 +1,504 @@
+% Automorphic Blind Signature Scheme from AFGHO15
+
+[Dependencies]
+
+%---------------------------------------------------------------------
+%[[Setup for init]]
+%---------------------------------------------------------------------
+
+%----------------------------------------------------------------------
+%AWF-CDH
+%----------------------------------------------------------------------
+_awfg;%$g_{awf}$
+
+_awfA;%$A_{awf}$
+_awfR;%$R_{awf}$
+_awfM;%$M_{awf}$
+_awfS;%$S_{awf}$
+_awfN;%$N_{awf}$
+_awfg -> _awfA
+
+_awfN -> _awfM
+_awfS -> _awfR
+%==pairing
+(_awfA,_awfS)
+(_awfM,_awfg)
+(_awfg, _awfN)
+(_awfR,_awfg)
+(_awfg,_awfS)
+
+%--------reduction to DDH---------
+_ddhg;%$g_{ddh}$
+_ddhga;%$g^a_{ddh}$
+_ddhgb;%$g^b_{ddh}$
+_ddhgc;%$g^c_{ddh}$
+
+_ddhg -> _ddhga
+_ddhg -> _ddhgb
+_ddhg -> _ddhgc
+
+ddhgr;%$g^r_{ddh}$
+ddhgra;%$g^{ra}_{ddh}$
+
+_ddhg -> _awfg
+_ddhga -> _awfA
+%_awfR -> ddhgr
+%_awfM -> ddhgra
+_awfS -> ddhgr
+_awfN -> ddhgra
+
+(_ddhgc, ddhgr)
+(_ddhgb, ddhgra)
+
+
+
+%------------------------------------------------------------------
+%q-ADH-SDH assumption
+%------------------------------------------------------------------
+_adhg;%$g_{adh}$
+_adhF;%$F_{adh}$
+_adhK;%$K_{adh}$
+_adhX;%$X_{adh}$
+_adhY;%$\tilde{Y}_{adh}$
+
+_adhg -> _adhY
+
+_adhg -> _adhF
+_adhg -> _adhK
+_adhY -> _adhX
+
+_adhAi;%$A_{i,adh}$
+_adhBi;%$B_{i,adh}$
+_adhDi;%$\tilde{D}_{i,adh}$
+_adhVi;%$V_{i,adh}$
+_adhWi;%$\tilde{W}_{i,adh}$
+
+_adhWi -> _adhVi
+
+(_adhAi, _adhY)
+(_adhAi, _adhDi)
+(_adhK, _adhg)
+(_adhVi, _adhg)
+(_adhBi, _adhg)
+(_adhF, _adhDi)
+(_adhVi, _adhg)
+(_adhg, _adhWi)
+
+%---proof in generic model
+
+_adhK -> _adhAi
+_adhg -> _adhAi
+_adhF -> _adhBi
+_adhg -> _adhDi
+_adhg -> _adhWi
+_adhWi -> _adhVi
+
+
+%-----------------------------------------------------------------------
+%Blind Signature
+%-----------------------------------------------------------------------
+%--Setup
+G;%$G$
+F;%$F$
+K;%$K$
+T;%$T$
+
+G->F
+G->K
+G->T
+
+
+%----KeyGen
+X;%$X$
+Y;%$\tilde{Y}$
+
+G->Y
+Y->X
+
+%----
+%GS proof setup incl. security for indistinguishability of CRS
+%----
+G -> $u_0
+G -> $v_0
+G -> $w1_0
+G -> $w2_0
+G -> $w3_0
+$dG_0 -> G
+$dG_0 -> $dG1_0
+$dG_0 -> $dG2_0
+$dG_0 -> $dV1_0
+$dG_0 -> $dV2_0
+$dG_0 -> $dV3_0
+$dG1_0 -> $u_0
+$dG2_0 -> $v_0
+$dV1_0 -> $w1_0
+$dV2_0 -> $w2_0
+$dV3_0 -> $w3_0
+(U,G)
+
+
+%----From User to Signer---------------------------
+P;%P%
+Q;%$\tilde{Q}$
+U;%$U$
+
+M;%$M$
+N;%$\tilde{N}$
+
+G->N
+N->M
+
+G->Q
+Q->P
+
+M->U
+T->U
+
+
+
+
+%----
+%GS proof for well formness of the blinded message
+%----
+
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(G,P),(G,Q)]
+G,G -> $phi1_0
+G,G -> $phi2_0
+G,G -> $phi3_0
+% commit group P
+$u_0,$w1_0 -> $c1_0
+$v_0,$w2_0 -> $c2_0
+P,G,$w3_0 -> $c3_0
+$c1_0,$c2_0,$c3_0 -> P
+% --------------
+(G,$c1_0)
+(G,$c2_0)
+(G,$c3_0)
+% commit group Q
+$u_0,$w1_0 -> $c1_1
+$v_0,$w2_0 -> $c2_1
+Q,G,$w3_0 -> $c3_1
+$c1_1,$c2_1,$c3_1 -> Q
+% --------------
+(G,$c1_1)
+(G,$c2_1)
+(G,$c3_1)
+($phi1_0,$u_0)
+($phi1_0,G)
+($phi2_0,$v_0)
+($phi2_0,G)
+($phi3_0,$w1_0)
+($phi3_0,$w2_0)
+($phi3_0,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(G,M),(G,N)]
+G,G -> $phi1_1
+G,G -> $phi2_1
+G,G -> $phi3_1
+% commit group M
+$u_0,$w1_0 -> $c1_2
+$v_0,$w2_0 -> $c2_2
+M,G,$w3_0 -> $c3_2
+$c1_2,$c2_2,$c3_2 -> M
+% --------------
+(G,$c1_2)
+(G,$c2_2)
+(G,$c3_2)
+% commit group N
+$u_0,$w1_0 -> $c1_3
+$v_0,$w2_0 -> $c2_3
+N,G,$w3_0 -> $c3_3
+$c1_3,$c2_3,$c3_3 -> N
+% --------------
+(G,$c1_3)
+(G,$c2_3)
+(G,$c3_3)
+($phi1_1,$u_0)
+($phi1_1,G)
+($phi2_1,$v_0)
+($phi2_1,G)
+($phi3_1,$w1_0)
+($phi3_1,$w2_0)
+($phi3_1,$w3_0)
+% pattern 3.1.1 [TYPE_eggc,[TYPE_t,[],[],[],(G,U)],[],[],(T,Q),(G,M)]
+T,G -> $phi1_2
+T,G -> $phi2_2
+T,G -> $phi3_2
+(T,$c1_1)
+(T,$c2_1)
+(T,$c3_1)
+(G,$c1_2)
+(G,$c2_2)
+(G,$c3_2)
+($phi1_2,$u_0)
+($phi1_2,G)
+($phi2_2,$v_0)
+($phi2_2,G)
+($phi3_2,$w1_0)
+($phi3_2,$w2_0)
+($phi3_2,$w3_0)
+(K,G)
+(M,G)
+
+
+
+
+%----From Signer to User ---------------------------
+sA;%$A_s$
+sB;%$B_s$
+sD;%$\tilde{D}_s$
+sR;%$R_s$
+sS;%$\tilde{S}_s$
+
+K->sA
+T->sA
+U->sA
+F->sB
+G->sD
+G->sS
+sS->sR
+
+%---------User's unblind---------------------
+A;%$A$
+B;%$B$
+D;%$\tilde{D}$
+R;%$R$
+S;%$\tilde{S}$
+
+sA->A
+sB->B
+sD->D
+sR->R
+P->R
+sS->S
+Q->S
+
+%---Verify
+(A,Y)
+(A,D)
+(K,G)
+(M,G)
+(T,S)
+(B,G)
+(F,D)
+(R,G)
+(G,S)
+
+%-----------------------------------------------------------
+%proof
+%-----------------------------------------------------------
+%-------------Unforgeability of plain signature ------------
+%adv A
+_adhg;%$g_{adh}$
+_adhF;%$F_{adh}$
+_adhK;%$K_{adh}$
+
+_adhX;%$X_{adh}$
+_adhY;%$\tilde{Y}_{adh}$
+
+_adhY -> _adhX
+
+_adhAi;%$A_{i,adh}$
+_adhBi;%$B_{i,adh}$
+_adhDi;%$\tilde{D}_{i,adh}$
+_adhVi;%$V_{i,adh}$
+_adhWi;%$\tilde{W}_{i,adh}$
+
+_adhWi -> _adhVi
+
+(_adhAi, _adhY)
+(_adhAi, _adhDi)
+(_adhK, _adhg)
+(_adhBi,_adhg)
+(_adhF, _adhDi)
+(_adhVi,_adhg)
+(_adhg, _adhWi)
+
+_adhg -> G
+G -> Y
+Y -> X
+
+G -> N
+N -> M
+
+_adhAi -> A
+_adhBi -> B
+_adhDi -> D
+_adhVi -> R
+M -> R
+_adhWi -> S
+N -> S
+
+(A,D)
+(A,Y)
+(K,G)
+(M,G)
+(T,S)
+(B,G)
+(F,D)
+(R,G)
+(G,S)
+
+
+%-----
+%adv B
+_awfg;%$g_{awf}$
+
+_awfg -> G
+
+_awfA;%$A_{awf}$
+
+_awfg -> _awfA
+
+_awfA -> T
+
+G -> Y
+Y -> X
+G -> F
+G -> K
+
+%R -> _awfR
+%M -> _awfM
+S -> _awfS
+N -> _awfN
+
+%-----------------------------------------------------------------------
+% elements from User to Signer
+%-----------------------------------------------------------------------
+
+
+
+
+%-----------------------------------------------------------------------
+% WI part as Blind Signature
+%-----------------------------------------------------------------------
+
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(G,B),(F,D)]
+G,F -> $phi1_3
+G,F -> $phi2_3
+G,F -> $phi3_3
+% commit group B
+$u_0,$w1_0 -> $c1_4
+$v_0,$w2_0 -> $c2_4
+B,G,$w3_0 -> $c3_4
+$c1_4,$c2_4,$c3_4 -> B
+% --------------
+(G,$c1_4)
+(G,$c2_4)
+(G,$c3_4)
+% commit group D
+$u_0,$w1_0 -> $c1_5
+$v_0,$w2_0 -> $c2_5
+D,G,$w3_0 -> $c3_5
+$c1_5,$c2_5,$c3_5 -> D
+% --------------
+(F,$c1_5)
+(F,$c2_5)
+(F,$c3_5)
+($phi1_3,$u_0)
+($phi1_3,G)
+($phi2_3,$v_0)
+($phi2_3,G)
+($phi3_3,$w1_0)
+($phi3_3,$w2_0)
+($phi3_3,$w3_0)
+% pattern 3.1.2 [TYPE_egc2,[TYPE_eggc,[],[],[],(Y,A),(T,S)],[TYPE_t,[],[],[],(G,K),(G,M)],[],(A,D)]
+Y,T -> $phi13_0
+Y,T -> $phi23_0
+Y,T -> $phi33_0
+A,D -> $phi13_0
+A,D -> $phi23_0
+A,D -> $phi33_0
+$u_0,$w1_0 -> $phi11_0
+$u_0,$w1_0 -> $phi21_0
+$u_0,$w1_0 -> $phi31_0
+$v_0,$w2_0 -> $phi12_0
+$v_0,$w2_0 -> $phi22_0
+$v_0,$w2_0 -> $phi32_0
+G,$w3_0 -> $phi13_0
+G,$w3_0 -> $phi23_0
+G,$w3_0 -> $phi33_0
+% commit group A
+$u_0,$w1_0 -> $c1_6
+$v_0,$w2_0 -> $c2_6
+A,G,$w3_0 -> $c3_6
+$c1_6,$c2_6,$c3_6 -> A
+% --------------
+(Y,$c1_6)
+(Y,$c2_6)
+(Y,$c3_6)
+% commit group S
+$u_0,$w1_0 -> $c1_7
+$v_0,$w2_0 -> $c2_7
+S,G,$w3_0 -> $c3_7
+$c1_7,$c2_7,$c3_7 -> S
+% --------------
+(T,$c1_7)
+(T,$c2_7)
+(T,$c3_7)
+($c1_6,$c1_5)
+($c1_6,$c2_5)
+($c1_6,$c3_5)
+($u_0,$phi11_0)
+($u_0,$phi12_0)
+($u_0,$phi13_0)
+(G,$phi11_0)
+(G,$phi12_0)
+(G,$phi13_0)
+($v_0,$phi21_0)
+($v_0,$phi22_0)
+($v_0,$phi23_0)
+(G,$phi21_0)
+(G,$phi22_0)
+(G,$phi23_0)
+($w1_0,$phi11_0)
+($w1_0,$phi12_0)
+($w1_0,$phi13_0)
+($w2_0,$phi21_0)
+($w2_0,$phi22_0)
+($w2_0,$phi23_0)
+($w3_0,$phi31_0)
+($w3_0,$phi32_0)
+($w3_0,$phi33_0)
+% pattern 3.1.1 [TYPE_eggc,[],[],[],(G,R),(G,S)]
+G,G -> $phi1_4
+G,G -> $phi2_4
+G,G -> $phi3_4
+% commit group R
+$u_0,$w1_0 -> $c1_8
+$v_0,$w2_0 -> $c2_8
+R,G,$w3_0 -> $c3_8
+$c1_8,$c2_8,$c3_8 -> R
+% --------------
+(G,$c1_8)
+(G,$c2_8)
+(G,$c3_8)
+(G,$c1_7)
+(G,$c2_7)
+(G,$c3_7)
+($phi1_4,$u_0)
+($phi1_4,G)
+($phi2_4,$v_0)
+($phi2_4,G)
+($phi3_4,$w1_0)
+($phi3_4,$w2_0)
+($phi3_4,$w3_0)
+
+
+
+
+[Prohibits]
+A,T
+_ddhga, _ddhgb, _ddhgc
+X, M, P, R
+_adhVi, _adhX
+ 
+[Constraints]
+A,T
+_ddhg, _ddhga, _ddhgb, _ddhgc
+
+[Weight]
+
+[Priority]
+A, B, D, R, S, M, N
+
+

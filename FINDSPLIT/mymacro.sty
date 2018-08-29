@@ -1,0 +1,79 @@
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphics}
+
+% ====================================================
+% \ttdef, \bbdef, ...
+% ====================================================
+
+\def\ttdef#1{\expandafter\def\csname #1\endcsname{\texttt{{#1}}}}
+\def\itdef#1{\expandafter\def\csname #1\endcsname{\textit{{#1}}}}
+% \def\rmdef#1{\expandafter\def\csname #1\endcsname{\textrm{{#1}}}}
+\def\rmdef#1{\expandafter\def\csname #1\endcsname{\mathrm{{#1}}}}
+\def\bbdef#1{\expandafter\def\csname #1\endcsname{\mathbb{#1}}}
+\def\sfdef#1{\expandafter\def\csname #1\endcsname{\mathsf{#1}}}
+\def\bfdef#1{\expandafter\def\csname #1\endcsname{\boldsymbol{#1}}}
+% \def\caldef#1{\expandafter\def\csname #1\endcsname{{\cal{#1}}}}
+\def\caldef#1{\expandafter\def\csname cal#1\endcsname{{\cal{#1}}}}
+%\def\csdef#1#2{\expandafter\def\csname #1#2\endcsname{{\cal{#1}}_{\mathtt{#2}}}}
+
+\bbdef{N}
+\bbdef{Z}
+\bbdef{Q}
+\bbdef{R}
+\bbdef{C}
+\bbdef{F}
+\rmdef{GF}
+
+\bbdef{G}
+\bbdef{L}
+
+\caldef{A}
+\caldef{B}
+\caldef{C}
+\caldef{D}
+\caldef{E}
+\caldef{F}
+\caldef{G}
+\caldef{H}
+\caldef{I}
+\caldef{J}
+\caldef{K}
+\caldef{L}
+\caldef{M}
+\caldef{N}
+\caldef{O}
+\caldef{P}
+\caldef{Q}
+\caldef{R}
+\caldef{S}
+\caldef{T}
+\caldef{U}
+\caldef{V}
+\caldef{W}
+\caldef{X}
+\caldef{Y}
+\caldef{Z}
+
+% =========================================================================
+
+\def\leftarrowcoin{\stackrel{\$}{\leftarrow}}
+\def\leftarrowcup{\stackrel{\cup}{\leftarrow}}
+\def\rightarrowcoin{\stackrel{\$}{\rightarrow}}
+\def\mapstocoin{\stackrel{\$}{\mapsto}}
+
+\def\eqq{\stackrel{?}{=}}
+\def\leftarrowplus{\stackrel{\texttt{+}}{\leftarrow}}
+\def\leftarrowminus{\stackrel{\texttt{-}}{\leftarrow}}
+\def\leftarrowtimes{\stackrel{\times}{\leftarrow}}
+\def\leftarrowdiv{\stackrel{\div}{\leftarrow}}
+
+\def\leftarrowR{\stackrel{\mathsf R}{\leftarrow}}
+\def\leftarrowU{\stackrel{\mathsf U}{\leftarrow}}
+
+\def\nrightleftarrows{\mathrel{\rlap{\raisebox{0.35ex}{\leftharpoonup}}\raisebox{-0.35ex}{\nrightharpoondown}}}
+\providecommand\impliedby{\DOTSB\;\Longleftarrow\;}
+\newcommand{\ArrowV}{\mathbin{\rotatebox[origin=c]{90}{$\Leftarrow$}}}
+
+% =========================================================================

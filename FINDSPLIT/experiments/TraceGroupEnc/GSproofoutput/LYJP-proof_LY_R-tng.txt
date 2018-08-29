@@ -1,0 +1,170 @@
+[Dependencies]
+kilG -> $u_0
+kilG -> $v_0
+kilG -> $w1_0
+kilG -> $w2_0
+kilG -> $w3_0
+$dG_0 -> kilG
+$dG_0 -> $dG1_0
+$dG_0 -> $dG2_0
+$dG_0 -> $dV1_0
+$dG_0 -> $dV2_0
+$dG_0 -> $dV3_0
+$dG1_0 -> $u_0
+$dG2_0 -> $v_0
+$dV1_0 -> $w1_0
+$dV2_0 -> $w2_0
+$dV3_0 -> $w3_0
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC2,lyreltau),(lyjpg2,lyreltheta2)]
+LYC2,lyjpg2 -> $phi1_0
+LYC2,lyjpg2 -> $phi2_0
+% commit integer lyreltau
+$u_0,$w1_0 -> $d1_0
+$v_0,$w2_0 -> $d2_0
+kilG,$w3_0 -> $d3_0
+% --------------
+($d1_0,LYC2)
+($d2_0,LYC2)
+($d3_0,LYC2)
+% commit integer lyreltheta2
+$u_0,$w1_0 -> $d1_1
+$v_0,$w2_0 -> $d2_1
+kilG,$w3_0 -> $d3_1
+% --------------
+($d1_1,lyjpg2)
+($d2_1,lyjpg2)
+($d3_1,lyjpg2)
+($u_0,$phi1_0)
+(kilG,$phi1_0)
+($v_0,$phi2_0)
+(kilG,$phi2_0)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC1,lyreltau),(lyjpg1,lyreltheta1)]
+LYC1,lyjpg1 -> $phi1_1
+LYC1,lyjpg1 -> $phi2_1
+($d1_0,LYC1)
+($d2_0,LYC1)
+($d3_0,LYC1)
+% commit integer lyreltheta1
+$u_0,$w1_0 -> $d1_2
+$v_0,$w2_0 -> $d2_2
+kilG,$w3_0 -> $d3_2
+% --------------
+($d1_2,lyjpg1)
+($d2_2,lyjpg1)
+($d3_2,lyjpg1)
+($u_0,$phi1_1)
+(kilG,$phi1_1)
+($v_0,$phi2_1)
+(kilG,$phi2_1)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC1,lyreltau),(DOLdlmc1_0_1,lyreltau),(lyjpg1,lyreltheta1),(lyjpg1_1,lyrelrho1),(DOLw1_0_1,lyrelrho3)]
+LYC1,DOLdlmc1_0_1,lyjpg1,lyjpg1_1,DOLw1_0_1 -> $phi1_2
+LYC1,DOLdlmc1_0_1,lyjpg1,lyjpg1_1,DOLw1_0_1 -> $phi2_2
+($d1_0,LYC1)
+($d2_0,LYC1)
+($d3_0,LYC1)
+($d1_0,DOLdlmc1_0_1)
+($d2_0,DOLdlmc1_0_1)
+($d3_0,DOLdlmc1_0_1)
+($d1_2,lyjpg1)
+($d2_2,lyjpg1)
+($d3_2,lyjpg1)
+% commit integer lyrelrho1
+$u_0,$w1_0 -> $d1_3
+$v_0,$w2_0 -> $d2_3
+kilG,$w3_0 -> $d3_3
+% --------------
+($d1_3,lyjpg1_1)
+($d2_3,lyjpg1_1)
+($d3_3,lyjpg1_1)
+% commit integer lyrelrho3
+$u_0,$w1_0 -> $d1_4
+$v_0,$w2_0 -> $d2_4
+kilG,$w3_0 -> $d3_4
+% --------------
+($d1_4,DOLw1_0_1)
+($d2_4,DOLw1_0_1)
+($d3_4,DOLw1_0_1)
+($u_0,$phi1_2)
+(kilG,$phi1_2)
+($v_0,$phi2_2)
+(kilG,$phi2_2)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC2,lyreltau),(DOLdlmc2_0_1,lyreltau),(lyjpg2,lyreltheta2),(lyjpg2_1,lyrelrho2),(DOLw2_0_1,lyrelrho3)]
+LYC2,DOLdlmc2_0_1,lyjpg2,lyjpg2_1,DOLw2_0_1 -> $phi1_3
+LYC2,DOLdlmc2_0_1,lyjpg2,lyjpg2_1,DOLw2_0_1 -> $phi2_3
+($d1_0,LYC2)
+($d2_0,LYC2)
+($d3_0,LYC2)
+($d1_0,DOLdlmc2_0_1)
+($d2_0,DOLdlmc2_0_1)
+($d3_0,DOLdlmc2_0_1)
+($d1_1,lyjpg2)
+($d2_1,lyjpg2)
+($d3_1,lyjpg2)
+% commit integer lyrelrho2
+$u_0,$w1_0 -> $d1_5
+$v_0,$w2_0 -> $d2_5
+kilG,$w3_0 -> $d3_5
+% --------------
+($d1_5,lyjpg2_1)
+($d2_5,lyjpg2_1)
+($d3_5,lyjpg2_1)
+($d1_4,DOLw2_0_1)
+($d2_4,DOLw2_0_1)
+($d3_4,DOLw2_0_1)
+($u_0,$phi1_3)
+(kilG,$phi1_3)
+($v_0,$phi2_3)
+(kilG,$phi2_3)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC0,lyreltau),(DOLdlmc3_0_1,lyreltau),(lyjpg_1,lyrelrho1),(lyjpg_1,lyrelrho2),(DOLw3_0_1,lyrelrho3),(LYX1,lyreltheta1),(LYX2,lyreltheta2)]
+LYC0,DOLdlmc3_0_1,lyjpg_1,lyjpg_1,DOLw3_0_1,LYX1,LYX2 -> $phi1_4
+LYC0,DOLdlmc3_0_1,lyjpg_1,lyjpg_1,DOLw3_0_1,LYX1,LYX2 -> $phi2_4
+($d1_0,LYC0)
+($d2_0,LYC0)
+($d3_0,LYC0)
+($d1_0,DOLdlmc3_0_1)
+($d2_0,DOLdlmc3_0_1)
+($d3_0,DOLdlmc3_0_1)
+($d1_3,lyjpg_1)
+($d2_3,lyjpg_1)
+($d3_3,lyjpg_1)
+($d1_5,lyjpg_1)
+($d2_5,lyjpg_1)
+($d3_5,lyjpg_1)
+($d1_4,DOLw3_0_1)
+($d2_4,DOLw3_0_1)
+($d3_4,DOLw3_0_1)
+($d1_2,LYX1)
+($d2_2,LYX1)
+($d3_2,LYX1)
+($d1_1,LYX2)
+($d2_1,LYX2)
+($d3_1,LYX2)
+($u_0,$phi1_4)
+(kilG,$phi1_4)
+($v_0,$phi2_4)
+(kilG,$phi2_4)
+% pattern 3.3.1 [TYPE_ic,[TYPE_i,[],[],[]],[],[],lyreltau]
+($d1_0,$w1_0)
+($d1_0,$w2_0)
+($d1_0,$w3_0)
+($d1_0,kilG)
+($d2_0,$w1_0)
+($d2_0,$w2_0)
+($d2_0,$w3_0)
+($d2_0,kilG)
+($d3_0,$w1_0)
+($d3_0,$w2_0)
+($d3_0,$w3_0)
+($d3_0,kilG)
+($u_0,$w1_0)
+($u_0,$w2_0)
+($u_0,$w3_0)
+($u_0,kilG)
+($v_0,$w1_0)
+($v_0,$w2_0)
+($v_0,$w3_0)
+($v_0,kilG)
+(kilG,$w1_0)
+(kilG,$w2_0)
+(kilG,$w3_0)
+(kilG,kilG)

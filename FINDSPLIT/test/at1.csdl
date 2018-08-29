@@ -1,0 +1,46 @@
+
+keygen(group G_k){
+    list pk_kl = (G_k);
+    list sk_kl = (G_k);
+
+    return (pk_kl,sk_kl);
+}
+
+
+sign(group G_s, list sk_s, list M_s){
+  group M_sl;
+  list  sig_sl;
+
+  (M_sl) = M_s;
+  sig_sl = (G_s * M_sl);
+
+  return sig_sl;
+}
+
+
+verify(group G_v, list pk_v, list sig_v, list M_v){
+  group M_vl, sig_vl, pk_vl;
+
+  (pk_vl) = pk_v;
+  (sig_vl) = sig_v;
+  (M_vl) = M_v;
+
+  return (e(pk_vl,sig_vl)==e(M_vl, G_v));
+}
+
+
+correctness(){
+  group G_c;
+  list  M_c, sig_c;
+  list  pk_c, sk_c;
+  integer Gt;
+
+  (pk_c,sk_c) = keygen(G_c);
+
+  M_c = (G_c);
+  sig_c = sign(G_c, sk_c, M_c);
+
+  return(verify(G_c, pk_c, sig_c, M_c));
+    
+}
+  

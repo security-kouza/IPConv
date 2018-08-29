@@ -1,0 +1,41 @@
+// GS- NIZK proof for proving correct AHO signature with randomization
+
+// -------------------------------------------------------------------
+target  e(group pairing_g1, group pairing_g2) ;
+crs     GS_setup(group GS_setup_g) ;
+integer GS_proofwi(crs GS_proofwi_crs, integer GS_proofwi_predicate) ;
+inline "[Dependencies]" ;
+// -------------------------------------------------------------------
+
+setup() {
+
+  group   kilG,ahoA0,ahoA0t,ahoA1,ahoA1t,ahoB0,ahoB0t,ahoB1,ahoB1t,ahoGz,ahoGr;
+  group   ahoHz,ahoHu,ahoZ,ahoR,ahoS,ahoT,ahoU,ahoV,ahoW;
+  group   ahoG1,ahoH1,ahoM1,ahoG2,ahoH2,ahoM2,ahoG3,ahoH3,ahoM3,ahoG4,ahoH4,ahoM4;
+  group   ahoRdash,ahoSdash,ahoTdash,ahoUdash,ahoVdash,ahoWdash;              
+  integer  ahotaua0,ahotaua1, ahotaub0, ahotaub1,ahotaus,ahotauv;
+  crs crs1 = GS_setup(kilG) ;
+
+
+// dependencies in signature randomization 
+  ahoRdash = ahoR * ahoS ;
+  ahoSdash = ahoS ;
+  ahoTdash = ahoT * ahoGr ;
+  ahoUdash = ahoU * ahoV ;
+  ahoVdash = ahoV;
+  ahoWdash = ahoW * ahoHu;
+
+// proving possession of a correct signature
+  GS_proofwi( crs1,
+    e(ahoA0,ahoA0t) * e(ahoA1,ahoA1t)== e(ahoGz,[ahoZ]) * e(ahoGr,[ahoRdash]) * e(ahoSdash, ahoTdash) * e(ahoG1,[ahoM1])* e(ahoG2,[ahoM2])* e(ahoG3,[ahoM3])* e(ahoG4,[ahoM4]) &&
+    e(ahoB0,ahoB0t) * e(ahoB1,ahoB1t)== e(ahoHz,[ahoZ]) * e(ahoHu,[ahoUdash]) * e(ahoVdash, ahoWdash)  * e(ahoH1,[ahoM1])* e(ahoH2,[ahoM2])* e(ahoH3,[ahoM3])* e(ahoH4,[ahoM4]) &&
+ahoA0^[ahotaua0] = [ahoA0]^1&&
+ahoA1^[ahotaua1] = [ahoA1]^1&&
+ahoB0^[ahotaub0] = [ahoB0]^1&&
+ahoB1^[ahotaub1] = [ahoB1]^1&&
+ahoSdash^[ahotaus] = [ahoSdash]^1&&
+ahoVdash^[ahotauv] = [ahoVdash]^1&&
+1*[ahotaua0] + 1*[ahotaua1] + 1*[ahotaub0] + 1*[ahotaub1] + 1*[ahotaus] + 1*[ahotauv]==1
+  ) ;
+
+}

@@ -1,0 +1,54 @@
+// Object identifiers
+
+group o_G;
+group o_A, o_B, o_X, o_Y;
+list  o_crs, o_exk;
+
+
+
+Setup(){
+    group G = o_G;
+    list pair=(o_crs, o_exk);
+
+    pair=GS_setupB(G);
+
+    return pair.crs;
+}
+
+
+Proof(list crs, group A, group B, group X, group Y){
+     A = o_A;
+     B = o_B;
+     X = o_X;
+     Y = o_Y;
+     crs = o_crs;
+
+     return GS_proofzk(crs, e(A, [X]) * e(B, [Y]) == 1);
+
+}
+
+Verify(list crs, group A, group B, list proof){
+     group X, Y;
+     A = o_A;
+     B = o_B;
+     X = o_X;
+     Y = o_Y;
+     crs = o_crs;
+
+     return GS_verifyzk(crs, e(A, [X]) * e(B, [Y]) == 1, proof);
+}
+
+/*
+correctness(){
+	list crs = Setup();
+	prohibited A, B, X, Y;
+	list proof;
+
+	proof = Proof(crs, A, B, X, Y);
+	return Verify(crs, A, B, proof);
+
+
+	statistics(crs);
+	statistics(proof);
+}
+*/

@@ -1,0 +1,87 @@
+[Dependencies]
+lyjpgv -> DOLlinu_0
+lyjpgv -> DOLlinv_0
+lyjpgv -> DOLlinw1_0
+lyjpgv -> DOLlinw2_0
+lyjpgv -> DOLlinw3_0
+DOLlindG_0 -> lyjpgv
+DOLlindG_0 -> DOLlindG1_0
+DOLlindG_0 -> DOLlindG2_0
+DOLlindG_0 -> DOLlindV1_0
+DOLlindG_0 -> DOLlindV2_0
+DOLlindG_0 -> DOLlindV3_0
+DOLlindG1_0 -> DOLlinu_0
+DOLlindG2_0 -> DOLlinv_0
+DOLlindV1_0 -> DOLlinw1_0
+DOLlindV2_0 -> DOLlinw2_0
+DOLlindV3_0 -> DOLlinw3_0
+lyjpg1 -> LYC1
+lyjpg2 -> LYC2
+lyjpg -> LYC3
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC2,LYtau),(lyjpg2,theta2)]
+LYC2,lyjpg2 -> DOLlinphi1_0
+LYC2,lyjpg2 -> DOLlinphi2_0
+% commit integer LYtau
+DOLlinu_0,DOLlinw1_0 -> DOLlind1_0
+DOLlinv_0,DOLlinw2_0 -> DOLlind2_0
+lyjpgv,DOLlinw3_0 -> DOLlind3_0
+% --------------
+(DOLlind1_0,LYC2)
+(DOLlind2_0,LYC2)
+(DOLlind3_0,LYC2)
+% commit integer theta2
+DOLlinu_0,DOLlinw1_0 -> DOLlind1_1
+DOLlinv_0,DOLlinw2_0 -> DOLlind2_1
+lyjpgv,DOLlinw3_0 -> DOLlind3_1
+% --------------
+(DOLlind1_1,lyjpg2)
+(DOLlind2_1,lyjpg2)
+(DOLlind3_1,lyjpg2)
+(DOLlinu_0,DOLlinphi1_0)
+(lyjpgv,DOLlinphi1_0)
+(DOLlinv_0,DOLlinphi2_0)
+(lyjpgv,DOLlinphi2_0)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC1,LYtau),(lyjpg1,theta1)]
+LYC1,lyjpg1 -> DOLlinphi1_1
+LYC1,lyjpg1 -> DOLlinphi2_1
+(DOLlind1_0,LYC1)
+(DOLlind2_0,LYC1)
+(DOLlind3_0,LYC1)
+% commit integer theta1
+DOLlinu_0,DOLlinw1_0 -> DOLlind1_2
+DOLlinv_0,DOLlinw2_0 -> DOLlind2_2
+lyjpgv,DOLlinw3_0 -> DOLlind3_2
+% --------------
+(DOLlind1_2,lyjpg1)
+(DOLlind2_2,lyjpg1)
+(DOLlind3_2,lyjpg1)
+(DOLlinu_0,DOLlinphi1_1)
+(lyjpgv,DOLlinphi1_1)
+(DOLlinv_0,DOLlinphi2_1)
+(lyjpgv,DOLlinphi2_1)
+% pattern 3.2.2 [TYPE_gic,[],[],[],(LYC3,LYtau),(lyjpg,theta1),(lyjpg,theta2)]
+LYC3,lyjpg,lyjpg -> DOLlinphi1_2
+LYC3,lyjpg,lyjpg -> DOLlinphi2_2
+(DOLlind1_0,LYC3)
+(DOLlind2_0,LYC3)
+(DOLlind3_0,LYC3)
+(DOLlind1_2,lyjpg)
+(DOLlind2_2,lyjpg)
+(DOLlind3_2,lyjpg)
+(DOLlind1_1,lyjpg)
+(DOLlind2_1,lyjpg)
+(DOLlind3_1,lyjpg)
+(DOLlinu_0,DOLlinphi1_2)
+(lyjpgv,DOLlinphi1_2)
+(DOLlinv_0,DOLlinphi2_2)
+(lyjpgv,DOLlinphi2_2)
+% pattern 3.2.2 [TYPE_gic,[TYPE_g,[],[],[],lyjpg],[],[],(lyjpg,LYtau)]
+lyjpg -> DOLlinphi1_3
+lyjpg -> DOLlinphi2_3
+(DOLlind1_0,lyjpg)
+(DOLlind2_0,lyjpg)
+(DOLlind3_0,lyjpg)
+(DOLlinu_0,DOLlinphi1_3)
+(lyjpgv,DOLlinphi1_3)
+(DOLlinv_0,DOLlinphi2_3)
+(lyjpgv,DOLlinphi2_3)
